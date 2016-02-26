@@ -1,0 +1,802 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.7"/>
+<title>Trac Document by Dongwoon: sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell 클래스 참조</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Trac Document by Dongwoon
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 다음에 의해 생성됨 :  Doxygen 1.8.7 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "../../search",false,'검색');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="../../index.html"><span>메인&#160;페이지</span></a></li>
+      <li><a href="../../namespaces.html"><span>네임스페이스</span></a></li>
+      <li class="current"><a href="../../annotated.html"><span>클래스</span></a></li>
+      <li><a href="../../files.html"><span>파일들</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="검색" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="../../annotated.html"><span>클래스&#160;목록</span></a></li>
+      <li><a href="../../classes.html"><span>클래스&#160;색인</span></a></li>
+      <li><a href="../../inherits.html"><span>클래스&#160;계통도</span></a></li>
+      <li><a href="../../functions.html"><span>클래스&#160;멤버</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html','../../');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>모두</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>클래스</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>네임스페이스들</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>파일들</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>함수</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>변수</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 멤버 함수</a> &#124;
+<a href="#pub-attribs">Public 속성</a> &#124;
+<a href="#pub-static-attribs">정적 Public 속성</a> &#124;
+<a href="../../d2/d95/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell-members.html">모든 멤버 목록</a>  </div>
+  <div class="headertitle">
+<div class="title">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell 클래스 참조</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell에 대한 상속 다이어그램 : </div>
+<div class="dyncontent">
+<div class="center"><img src="../../de/dfe/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell__inherit__graph.png" border="0" usemap="#suker_r_d_a_8rda_pkg_8suker_r_d_a_main_8_abstractor_shell_inherit__map" alt="Inheritance graph"/></div>
+<map name="suker_r_d_a_8rda_pkg_8suker_r_d_a_main_8_abstractor_shell_inherit__map" id="suker_r_d_a_8rda_pkg_8suker_r_d_a_main_8_abstractor_shell_inherit__map">
+</map>
+<center><span class="legend">[<a target="top" href="../../graph_legend.html">범례</a>]</span></center></div>
+<div class="dynheader">
+sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell에 대한 협력 다이어그램:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/d6e/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell__coll__graph.png" border="0" usemap="#suker_r_d_a_8rda_pkg_8suker_r_d_a_main_8_abstractor_shell_coll__map" alt="Collaboration graph"/></div>
+<map name="suker_r_d_a_8rda_pkg_8suker_r_d_a_main_8_abstractor_shell_coll__map" id="suker_r_d_a_8rda_pkg_8suker_r_d_a_main_8_abstractor_shell_coll__map">
+</map>
+<center><span class="legend">[<a target="top" href="../../graph_legend.html">범례</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public 멤버 함수</h2></td></tr>
+<tr class="memitem:aeb1fd1221bd818d3814d8598c44a4dc8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#aeb1fd1221bd818d3814d8598c44a4dc8">__init__</a></td></tr>
+<tr class="separator:aeb1fd1221bd818d3814d8598c44a4dc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a659a644e742788468d6f0b60f035f2e2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a659a644e742788468d6f0b60f035f2e2">OnMenuFileExit</a></td></tr>
+<tr class="separator:a659a644e742788468d6f0b60f035f2e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46fb525b28eb6afb6ef21d2c5626cea9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a46fb525b28eb6afb6ef21d2c5626cea9">OnMenuHelpAbout</a></td></tr>
+<tr class="separator:a46fb525b28eb6afb6ef21d2c5626cea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b7fe3b401b06d57b638a9efb25a7fdb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a0b7fe3b401b06d57b638a9efb25a7fdb">OnSetPath</a></td></tr>
+<tr class="separator:a0b7fe3b401b06d57b638a9efb25a7fdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a6c9f91515251d8d27fd6e9c64ab924"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a9a6c9f91515251d8d27fd6e9c64ab924">OnRadioSelect</a></td></tr>
+<tr class="separator:a9a6c9f91515251d8d27fd6e9c64ab924"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ad2057a7f5856cabf0719e3c6824097"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a8ad2057a7f5856cabf0719e3c6824097">OnParsing</a></td></tr>
+<tr class="separator:a8ad2057a7f5856cabf0719e3c6824097"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9243ebc32b05f96d209ff780b523b57"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#ad9243ebc32b05f96d209ff780b523b57">OnOpenFolder</a></td></tr>
+<tr class="separator:ad9243ebc32b05f96d209ff780b523b57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public 속성</h2></td></tr>
+<tr class="memitem:a8b32b6706dcccb849956f08a2a8e0790"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a8b32b6706dcccb849956f08a2a8e0790">abstractorBodyCls</a></td></tr>
+<tr class="separator:a8b32b6706dcccb849956f08a2a8e0790"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5060058ec2b699f7ff7dbb54717a9a3e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a5060058ec2b699f7ff7dbb54717a9a3e">logoutCls</a></td></tr>
+<tr class="separator:a5060058ec2b699f7ff7dbb54717a9a3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0da2823c93dd471e32512533630a09bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a0da2823c93dd471e32512533630a09bb">frame_menubar</a></td></tr>
+<tr class="separator:a0da2823c93dd471e32512533630a09bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a195bc43b4c3bcc348a0a0b290be86619"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a195bc43b4c3bcc348a0a0b290be86619">wxglade_tmp_menu</a></td></tr>
+<tr class="separator:a195bc43b4c3bcc348a0a0b290be86619"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6882ea6068474a42025bbf46e5713c1a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a6882ea6068474a42025bbf46e5713c1a">menu_file_exit</a></td></tr>
+<tr class="separator:a6882ea6068474a42025bbf46e5713c1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2521e9b28dbce7ed1478db12f0c6b7e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#ac2521e9b28dbce7ed1478db12f0c6b7e">menu_help_about</a></td></tr>
+<tr class="separator:ac2521e9b28dbce7ed1478db12f0c6b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8eee6f526be88dfc4eb553f23d32d59c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a8eee6f526be88dfc4eb553f23d32d59c">frame_statusbar</a></td></tr>
+<tr class="separator:a8eee6f526be88dfc4eb553f23d32d59c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e6b618e9daaf5c103f6139d1737bd7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a9e6b618e9daaf5c103f6139d1737bd7d">label_RamDumpPath</a></td></tr>
+<tr class="separator:a9e6b618e9daaf5c103f6139d1737bd7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1235d864c80709c8924337b6b0d1155"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#ae1235d864c80709c8924337b6b0d1155">text_ctrl_RamDumpPath</a></td></tr>
+<tr class="separator:ae1235d864c80709c8924337b6b0d1155"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5f8a647bdaa6673ec71304a53164dea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#af5f8a647bdaa6673ec71304a53164dea">label_upper_right_empty</a></td></tr>
+<tr class="separator:af5f8a647bdaa6673ec71304a53164dea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51f1dca4ba7551b6bcc8f331bf8ed721"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a51f1dca4ba7551b6bcc8f331bf8ed721">button_RamDumpPath</a></td></tr>
+<tr class="separator:a51f1dca4ba7551b6bcc8f331bf8ed721"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48c863957ac6b767da4fb2ba12a271a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a48c863957ac6b767da4fb2ba12a271a4">text_ctrl_logs</a></td></tr>
+<tr class="separator:a48c863957ac6b767da4fb2ba12a271a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7debc309fe0fc25e35c3f00c3d0e77a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a7debc309fe0fc25e35c3f00c3d0e77a9">radio_box_crashType</a></td></tr>
+<tr class="separator:a7debc309fe0fc25e35c3f00c3d0e77a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9a3750c3c57a9d4e80a8ba0cdcecb85"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#ac9a3750c3c57a9d4e80a8ba0cdcecb85">text_ctrl_log_status</a></td></tr>
+<tr class="separator:ac9a3750c3c57a9d4e80a8ba0cdcecb85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee009ba8fbf4b97c24df9d5016d49dc5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#aee009ba8fbf4b97c24df9d5016d49dc5">label_1</a></td></tr>
+<tr class="separator:aee009ba8fbf4b97c24df9d5016d49dc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b56219846b415ba92516b291e57ce3c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a4b56219846b415ba92516b291e57ce3c">text_ctrl_logSize</a></td></tr>
+<tr class="separator:a4b56219846b415ba92516b291e57ce3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a4dad51648de69198b77ef6a06ab8c5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a1a4dad51648de69198b77ef6a06ab8c5">button_Run</a></td></tr>
+<tr class="separator:a1a4dad51648de69198b77ef6a06ab8c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a718a9f8cefa5dbad1fabea2cea3a3040"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a718a9f8cefa5dbad1fabea2cea3a3040">button_OpenDir</a></td></tr>
+<tr class="separator:a718a9f8cefa5dbad1fabea2cea3a3040"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06dabc97dc95731a79ac4300aac60995"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a06dabc97dc95731a79ac4300aac60995">label_lower_empty1</a></td></tr>
+<tr class="separator:a06dabc97dc95731a79ac4300aac60995"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f194c2a5557993f68f7ed4124f4a78f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a2f194c2a5557993f68f7ed4124f4a78f">label_lower_sukerMark</a></td></tr>
+<tr class="separator:a2f194c2a5557993f68f7ed4124f4a78f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dea7ab58910f24610c20fd714047b21"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a3dea7ab58910f24610c20fd714047b21">dirPath</a></td></tr>
+<tr class="separator:a3dea7ab58910f24610c20fd714047b21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+정적 Public 속성</h2></td></tr>
+<tr class="memitem:a7ec1a696336313b5b3234ff0d481af8d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#a7ec1a696336313b5b3234ff0d481af8d">abstractorBodyCls</a> = 0</td></tr>
+<tr class="separator:a7ec1a696336313b5b3234ff0d481af8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8e935bd498b6656b2c8b75e2bc6c0ee"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#ac8e935bd498b6656b2c8b75e2bc6c0ee">logoutCls</a> = 0</td></tr>
+<tr class="separator:ac8e935bd498b6656b2c8b75e2bc6c0ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd01df8fa12904ff3dfa81c88df602ad"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html#acd01df8fa12904ff3dfa81c88df602ad">dirPath</a> = &quot;&quot;</td></tr>
+<tr class="separator:acd01df8fa12904ff3dfa81c88df602ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">상세한 설명</h2>
+<div class="textblock">
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00030">30</a> 번째 라인에서 정의되었습니다.</p>
+</div><h2 class="groupheader">생성자 &amp; 소멸자 문서화</h2>
+<a class="anchor" id="aeb1fd1221bd818d3814d8598c44a4dc8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>args</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>kwds</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00036">36</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<h2 class="groupheader">멤버 함수 문서화</h2>
+<a class="anchor" id="a659a644e742788468d6f0b60f035f2e2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.OnMenuFileExit </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00158">158</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a46fb525b28eb6afb6ef21d2c5626cea9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.OnMenuHelpAbout </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00161">161</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad9243ebc32b05f96d209ff780b523b57"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.OnOpenFolder </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00311">311</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8ad2057a7f5856cabf0719e3c6824097"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.OnParsing </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00190">190</a> 번째 라인에서 정의되었습니다.</p>
+
+<p><div class="dynheader">
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell_a8ad2057a7f5856cabf0719e3c6824097_cgraph.png" border="0" usemap="#d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell_a8ad2057a7f5856cabf0719e3c6824097_cgraph" alt=""/></div>
+<map name="d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell_a8ad2057a7f5856cabf0719e3c6824097_cgraph" id="d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell_a8ad2057a7f5856cabf0719e3c6824097_cgraph">
+<area shape="rect" id="node2" href="../../d4/de8/namespacesuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_h_h.html#a0618daa57bc92c119000e1f36600327f" title="sukerRDA.rdaPkg.sukerRDAHH.get\lDirMark" alt="" coords="279,5,509,47"/><area shape="rect" id="node3" href="../../d9/d30/namespacesuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main.html#abb197de2f855c4a7a48fa8705966bf39" title="sukerRDA.rdaPkg.sukerRDAMain.get\lCurrentLocalTime" alt="" coords="275,71,513,112"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a9a6c9f91515251d8d27fd6e9c64ab924"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.OnRadioSelect </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00179">179</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0b7fe3b401b06d57b638a9efb25a7fdb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.OnSetPath </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00167">167</a> 번째 라인에서 정의되었습니다.</p>
+
+<p><div class="dynheader">
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell_a0b7fe3b401b06d57b638a9efb25a7fdb_cgraph.png" border="0" usemap="#d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell_a0b7fe3b401b06d57b638a9efb25a7fdb_cgraph" alt=""/></div>
+<map name="d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell_a0b7fe3b401b06d57b638a9efb25a7fdb_cgraph" id="d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell_a0b7fe3b401b06d57b638a9efb25a7fdb_cgraph">
+<area shape="rect" id="node2" href="../../d4/de8/namespacesuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_h_h.html#a0618daa57bc92c119000e1f36600327f" title="sukerRDA.rdaPkg.sukerRDAHH.get\lDirMark" alt="" coords="275,5,504,47"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<h2 class="groupheader">멤버 데이타 문서화</h2>
+<a class="anchor" id="a7ec1a696336313b5b3234ff0d481af8d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.abstractorBodyCls = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00032">32</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8b32b6706dcccb849956f08a2a8e0790"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.abstractorBodyCls</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00042">42</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a718a9f8cefa5dbad1fabea2cea3a3040"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.button_OpenDir</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00069">69</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a51f1dca4ba7551b6bcc8f331bf8ed721"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.button_RamDumpPath</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00061">61</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1a4dad51648de69198b77ef6a06ab8c5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.button_Run</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00068">68</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="acd01df8fa12904ff3dfa81c88df602ad"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.dirPath = &quot;&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00034">34</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3dea7ab58910f24610c20fd714047b21"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.dirPath</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00089">89</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0da2823c93dd471e32512533630a09bb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.frame_menubar</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00046">46</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8eee6f526be88dfc4eb553f23d32d59c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.frame_statusbar</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00057">57</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="aee009ba8fbf4b97c24df9d5016d49dc5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.label_1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00066">66</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a06dabc97dc95731a79ac4300aac60995"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.label_lower_empty1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00070">70</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2f194c2a5557993f68f7ed4124f4a78f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.label_lower_sukerMark</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00071">71</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9e6b618e9daaf5c103f6139d1737bd7d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.label_RamDumpPath</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00058">58</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="af5f8a647bdaa6673ec71304a53164dea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.label_upper_right_empty</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00060">60</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac8e935bd498b6656b2c8b75e2bc6c0ee"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.logoutCls = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00033">33</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5060058ec2b699f7ff7dbb54717a9a3e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.logoutCls</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00043">43</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6882ea6068474a42025bbf46e5713c1a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.menu_file_exit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00048">48</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac2521e9b28dbce7ed1478db12f0c6b7e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.menu_help_about</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00052">52</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7debc309fe0fc25e35c3f00c3d0e77a9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.radio_box_crashType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00064">64</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac9a3750c3c57a9d4e80a8ba0cdcecb85"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.text_ctrl_log_status</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00065">65</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a48c863957ac6b767da4fb2ba12a271a4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.text_ctrl_logs</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00062">62</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4b56219846b415ba92516b291e57ce3c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.text_ctrl_logSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00067">67</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae1235d864c80709c8924337b6b0d1155"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.text_ctrl_RamDumpPath</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00059">59</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<a class="anchor" id="a195bc43b4c3bcc348a0a0b290be86619"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sukerRDA.rdaPkg.sukerRDAMain.AbstractorShell.wxglade_tmp_menu</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a> 파일의 <a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html#l00047">47</a> 번째 라인에서 정의되었습니다.</p>
+
+</div>
+</div>
+<hr/>이 클래스에 대한 문서화 페이지는 다음의 파일로부터 생성되었습니다.:<ul>
+<li><a class="el" href="../../d1/d80/suker_r_d_a_main_8py_source.html">sukerRDAMain.py</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../de/de7/namespacesuker_r_d_a.html">sukerRDA</a></li><li class="navelem"><a class="el" href="../../db/d5a/namespacesuker_r_d_a_1_1rda_pkg.html">rdaPkg</a></li><li class="navelem"><a class="el" href="../../d9/d30/namespacesuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main.html">sukerRDAMain</a></li><li class="navelem"><a class="el" href="../../d4/d5d/classsuker_r_d_a_1_1rda_pkg_1_1suker_r_d_a_main_1_1_abstractor_shell.html">AbstractorShell</a></li>
+    <li class="footer">생성시간 : 화 8월 19 2014 15:24:52, 프로젝트명 : Trac Document by Dongwoon, 생성자 : 
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.7 </li>
+  </ul>
+</div>
+</body>
+</html>
