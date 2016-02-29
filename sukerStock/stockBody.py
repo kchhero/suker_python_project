@@ -1,0 +1,90 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Feb 29 17:02:45 2016
+
+@author: choonghyun.jeon
+"""
+
+from bs4 import BeautifulSoup
+import urllib
+import os
+import sys
+
+class stockBodyCls :
+    refreshTime = ""
+    names = []
+    codes = []
+    prices = []
+    index = 0
+    current_prices = []
+    returnRate = []
+    
+    def stockInfoMaking(self) :
+        print "stockInfoMaking"
+        #elf.debugging_()        
+        self.current_prices = []
+        for i in range(0,self.index) :            
+            self.current_prices.append(self.stockInfoParse(self.codes[i]).replace(',',''))
+            returnR = (float(self.current_prices[i])-float(self.prices[i]))*100 / float(self.prices[i])
+            self.returnRate.append("%0.2f"%returnR)
+            
+    def stockInfoParse(self,code) :
+        FromRaw = lambda r: r if isinstance(r, unicode) else r.decode('utf-8', 'ignore')
+        html = urllib.urlopen("http://hyper.moneta.co.kr/fcgi-bin/DelayedCurrPrice10.fcgi?code="+code+"&isReal=true").read()
+        html = FromRaw(html)
+        soup = BeautifulSoup(html)
+        data = soup.find("div", { "class" : "item_info_lt" })
+        stockValue = ""
+        
+        for rr in data.findAll("div"):
+            stockValue = rr.findAll("strong")[0].text
+            
+            #cells2 = rr.findAll("em")[0].text
+            diffValues = []
+            
+            for ss in rr.findAll("em") :
+                diffValues.append(ss.text)
+                
+#            if len(stockValue) > 0 :
+#                print unicode(stockValue)
+#                print diffValues
+#                break
+            return stockValue
+        
+    def loadIni(self) :
+        iniFilePath = os.getcwd() + self.getDirMark() + "setup.ini"
+        if os.path.isfile(iniFilePath) :
+            try :
+                with open(iniFilePath) as data :
+                    for line in data :
+                        if len(line) <= 1 :
+                            continue
+
+                        tempLine1 = (line.split('>'))[1].strip()
+                        if "<*" in line :
+                            self.refreshTime = int(tempLine1)
+                        else :
+                            tempB = tempLine1.split(',')
+                            self.names.append(tempB[0])
+                            self.codes.append(tempB[1])
+                            self.prices.append(tempB[2])
+                            self.index += 1
+    
+            except IOError :
+                print "File open error"
+            
+    def getDirMark(self) :
+        linuxMark = '/'
+        winMark = '\\'
+        if sys.platform=='linux2' :
+            return linuxMark
+        else :
+            return winMark
+            
+    def debugging_(self) :
+                    #for debugging
+        print self.names
+        print self.codes
+        print self.prices
+        print self.index
+            
