@@ -29,6 +29,8 @@ class stockBodyCls :
         self.current_prices = []
         self.returnRate = []
         self.profit = []
+        self.totalProfit = 0
+        self.totalPurchase = 0
         for i in range(0,self.index) :            
             self.current_prices.append(self.stockInfoParse(self.codes[i]).replace(',',''))
             self.profit.append((int(self.current_prices[i])-int(self.buyprices[i]))*int(self.numberOfShares[i]))
