@@ -14,19 +14,28 @@ class stockBodyCls :
     refreshTime = ""
     names = []
     codes = []
-    prices = []
+    buyprices = []
     index = 0
     current_prices = []
     returnRate = []
-    
+    totalPurchase = 0
+    totalProfit = 0
+    numberOfShares = []
+    profit = []
+
     def stockInfoMaking(self) :
-        print "stockInfoMaking"
         #elf.debugging_()        
         self.current_prices = []
+        self.returnRate = []
+        self.profit = []
         for i in range(0,self.index) :            
             self.current_prices.append(self.stockInfoParse(self.codes[i]).replace(',',''))
-            returnR = (float(self.current_prices[i])-float(self.prices[i]))*100 / float(self.prices[i])
+            self.profit.append((int(self.current_prices[i])-int(self.buyprices[i]))*int(self.numberOfShares[i]))
+            returnR = float(self.profit[i]*100) / float(self.buyprices[i])
             self.returnRate.append("%0.2f"%returnR)
+            self.totalProfit += int(self.current_prices[i])*int(self.numberOfShares[i])
+            self.totalPurchase += int(self.buyprices[i])*int(self.numberOfShares[i])
+            
             
     def stockInfoParse(self,code) :
         FromRaw = lambda r: r if isinstance(r, unicode) else r.decode('utf-8', 'ignore')
@@ -64,10 +73,11 @@ class stockBodyCls :
                         if "<*" in line :
                             self.refreshTime = int(tempLine1)
                         else :
-                            tempB = tempLine1.split(',')
-                            self.names.append(tempB[0])
-                            self.codes.append(tempB[1])
-                            self.prices.append(tempB[2])
+                            tempL = tempLine1.split(',')
+                            self.names.append(tempL[0])
+                            self.codes.append(tempL[1])
+                            self.buyprices.append(tempL[2])
+                            self.numberOfShares.append(tempL[3])
                             self.index += 1
     
             except IOError :
@@ -85,6 +95,6 @@ class stockBodyCls :
                     #for debugging
         print self.names
         print self.codes
-        print self.prices
+        print self.buyprices
         print self.index
             
