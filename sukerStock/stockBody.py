@@ -3,6 +3,7 @@
 Created on Mon Feb 29 17:02:45 2016
 
 @author: choonghyun.jeon
+suker stock ver 0.1
 """
 
 from bs4 import BeautifulSoup
@@ -31,7 +32,7 @@ class stockBodyCls :
         for i in range(0,self.index) :            
             self.current_prices.append(self.stockInfoParse(self.codes[i]).replace(',',''))
             self.profit.append((int(self.current_prices[i])-int(self.buyprices[i]))*int(self.numberOfShares[i]))
-            returnR = float(self.profit[i]*100) / float(self.buyprices[i])
+            returnR = float((int(self.current_prices[i])-int(self.buyprices[i]))*100) / float(self.buyprices[i])
             self.returnRate.append("%0.2f"%returnR)
             self.totalProfit += int(self.current_prices[i])*int(self.numberOfShares[i])
             self.totalPurchase += int(self.buyprices[i])*int(self.numberOfShares[i])
@@ -41,7 +42,7 @@ class stockBodyCls :
         FromRaw = lambda r: r if isinstance(r, unicode) else r.decode('utf-8', 'ignore')
         html = urllib.urlopen("http://hyper.moneta.co.kr/fcgi-bin/DelayedCurrPrice10.fcgi?code="+code+"&isReal=true").read()
         html = FromRaw(html)
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup(html,"html.parser")
         data = soup.find("div", { "class" : "item_info_lt" })
         stockValue = ""
         

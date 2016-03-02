@@ -4,6 +4,7 @@
 Created on Mon Feb 29 17:02:28 2016
 
 @author: choonghyun.jeon
+suker stock info ver 0.1
 """
 import wx
 import gettext
