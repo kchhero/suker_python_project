@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#define TRUE 1
+#define FALSE 0
+
+void main(void)
+{	
+	unsigned int i,j;	
+	unsigned long long sum = 0;
+
+	for (i = 1; i < 1000; i++)
+	{
+		if (i%3 == 0 || i%5 ==0)	{
+			sum += i;
+		}		
+	}
+
+	printf("sum = %llu", sum);
+	system("pause");
+}

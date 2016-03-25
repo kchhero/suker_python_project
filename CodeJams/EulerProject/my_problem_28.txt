@@ -1,0 +1,87 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#define INC 1
+#define DEC 0
+
+static int matrix[1001][1001];
+static int matrixNum = 1001;
+
+void main(void)
+{	
+	unsigned int i,j, progress = 1;
+	unsigned int currentRow,currentCol;	
+	unsigned int count =1;
+	unsigned int maxLimit = matrixNum*matrixNum;
+	unsigned long long sum = 0;
+	int way = INC;
+	
+	currentRow = currentCol =matrixNum/2;
+
+	matrix[currentRow][currentCol] = count++;
+
+	do {
+		if (way == INC)	{
+			for (i = 1; i <= progress; i++)	{
+				matrix[currentRow][currentCol+i] = count++;
+				if (count > maxLimit)
+					goto PRINT;
+			}
+			currentCol += (i-1);
+			for (i = 1; i <= progress; i++)	{
+				matrix[currentRow+i][currentCol] = count++;
+				if (count > maxLimit)
+					goto PRINT;
+			}
+			currentRow += (i-1);
+
+			progress++;
+			way = !way;
+		}
+		else { //if (way == DEC)	{
+			for (i = 1; i <= progress; i++)	{
+				matrix[currentRow][currentCol-i] = count++;
+				if (count > maxLimit)
+					goto PRINT;
+			}
+			currentCol = currentCol- i + 1;
+			for (i = 1; i <= progress; i++)	{
+				matrix[currentRow-i][currentCol] = count++;
+				if (count > maxLimit)
+					goto PRINT;
+			}
+			currentRow = currentRow - i + 1;
+
+			progress++;
+			way = !way;
+		}		
+	} while (count != maxLimit);
+
+PRINT:
+	for (i = 0; i < matrixNum; i++)	{
+		sum += matrix[i][i];
+	}
+	for (i = 0; i < matrixNum; i++)	{
+		sum += matrix[i][matrixNum-1-i];
+	}
+	sum -= 1;
+
+	printf("sum = %llu ", sum);
+	printf("\n");
+	
+/*
+	for (i = 0; i < matrixNum; i++)	{
+		for (j = 0; j < matrixNum; j++)	{
+			printf("%4d ", matrix[i][j]);
+		}
+		printf("\n");
+	}
+*/
+	printf("\n----------end--------\n");
+	system("pause");
+}

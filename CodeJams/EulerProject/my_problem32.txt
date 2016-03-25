@@ -1,0 +1,116 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#define TRUE 1
+#define FALSE 0
+
+#define SQ(x) ((x)*(x))
+
+static int switchDig[10]={0,};
+
+int jari(unsigned int n)
+{
+	if (n > 9999)
+		return 5;
+	else if (n > 999)
+		return 4;
+	else if (n > 99)
+		return 3;
+	else if (n > 9)
+		return 2;
+	else
+		return 1;
+}
+
+int extractDigit(unsigned int n)
+{
+	unsigned int temp = n;
+	int extract[5] = {0,};
+	int i;
+	int loopCnt = 0;
+
+	if (n > 9999)	{
+		extract[0] = temp/10000;
+		temp = temp%10000;
+		extract[1] = temp/1000;
+		temp = temp%1000;
+		extract[2] = temp/100;
+		temp = temp%100;
+		extract[3] = temp/10;
+		temp = temp%10;
+		extract[4] = temp;
+		loopCnt = 5;
+	}	
+	else if (n > 999)	{
+		extract[0] = temp/1000;
+		temp = temp%1000;
+		extract[1] = temp/100;
+		temp = temp%100;
+		extract[2] = temp/10;
+		temp = temp%10;
+		extract[3] = temp;		
+		loopCnt = 4;
+	}
+	else if (n > 99)	{	
+		extract[0] = temp/100;
+		temp = temp%100;
+		extract[1] = temp/10;
+		temp = temp%10;
+		extract[2] = temp;
+		loopCnt = 3;
+	}
+	else if (n > 9)	{	
+		extract[0] = temp/10;
+		temp = temp%10;
+		extract[1] = temp;
+		loopCnt = 2;
+	}	
+	else	{
+		extract[0] = temp;
+		loopCnt = 1;
+	}
+	
+	for (i = 0; i < loopCnt; i++)	{
+		if (extract[i] == 0)	{
+			memset(switchDig, 0, 10*sizeof(int));
+			return FALSE;
+		}
+		if (switchDig[extract[i]] == 0)
+			switchDig[extract[i]] = 1;
+		else	{
+			memset(switchDig, 0, 10*sizeof(int));
+			return FALSE;
+		}
+	}	
+	return TRUE;
+}
+
+void main(void)
+{	
+	int i,j;
+	unsigned int product = 0;
+	unsigned int sum = 0;
+
+	for (i = 2; i < 7000; i++)	{
+		for (j = 2; j < 7000; j++)	{
+			product = i*j;
+			if ((jari(i) + jari(j) + jari(product)) == 9)
+			{
+				if (extractDigit(i) == TRUE && extractDigit(j) == TRUE && extractDigit(product) == TRUE)	{
+					sum += product;
+					printf("%d x %d = %d \n", i,j,product);
+				}
+				memset(switchDig, 0, 10*sizeof(int));
+			}
+		}
+	}
+	
+	printf("%d", sum);
+	system("pause");
+}
+//45228

@@ -1,0 +1,23 @@
+cnt = 1
+
+def isPrimeNum(num) :
+    if num%2==0 or num<=1:
+        return 0
+
+    for i in range(3,num/3+1,2) :
+        if num%i==0 :
+            return 0
+        else :
+            pass
+
+    return 1
+            
+for i in range(3,10000000,2) :
+    isP = isPrimeNum(i)
+    if isP==1 :
+        cnt = cnt+1
+
+    if cnt==10001 :
+        print("prime number : ",i)
+        break
+    

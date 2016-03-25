@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#define TRUE 1
+#define FALSE 0
+
+#define SIZE 1000
+
+static char textChar[SIZE+1];
+static int textInt[SIZE+1];
+
+void readTextAndSet(void)
+{
+	FILE *fp;
+	int i;
+
+	fp = fopen("my_problem08_text.txt","r");
+	if(fp != NULL)
+	{
+		fread(textChar, sizeof(char), SIZE, fp);
+
+		fclose(fp);
+	}
+	else {
+		printf("file open failed!\n");
+	}
+}
+
+void convertInt(void)
+{
+	int i;
+
+	for (i = 0; i < SIZE; i++)
+	{
+		textInt[i] = (int)((int)textChar[i] - 48);
+	}
+}
+
+void main(void)
+{	
+	unsigned int i,j;	
+	unsigned int temp = 0;
+	unsigned int bigNum = 0;
+
+	readTextAndSet();
+	convertInt();
+
+	for (i = 0; i < 996; i++)
+	{
+		temp = 	textInt[i]*textInt[i+1]*textInt[i+2]*textInt[i+3]*textInt[i+4];
+		if (temp > bigNum)	{
+			bigNum = temp;
+		}
+	}
+
+	printf("big Num is = %d", bigNum);
+	system("pause");
+}

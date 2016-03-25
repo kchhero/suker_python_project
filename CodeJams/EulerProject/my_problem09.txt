@@ -1,0 +1,9 @@
+for i in range(30,500) :
+    for j in range(30,500) :
+        for k in range(30,500) :
+            if pow(i,2)+pow(j,2)==pow(k,2) and (i+j+k)==1000 :
+                print("a = ",i,", b = ",j, ", c = ",k)
+                print("answer = ",i*j*k)
+                break
+
+

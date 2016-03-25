@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#define TRUE 1
+#define FALSE 0
+
+#define SQ(x) ((x)*(x))
+
+//static int isPrimeNum(int n);
+#define SIZE 201
+
+static int fibo(int n);
+
+static unsigned int fiboN[SIZE] = {0,};
+static unsigned int fiboN_1[SIZE] = {0,};
+static unsigned int fiboN_2[SIZE] = {0,};
+static unsigned int carry[SIZE] = {0,};
+
+void main(void)
+{	
+	int i,j;
+	unsigned int count = 11;
+
+	fiboN_1[0] = 89;
+	fiboN_2[0] = 55;
+	carry[0]=0;
+	
+	do {
+		for (i = 0; i < SIZE; i++)	{
+			if (fiboN_2[i] == 0 && fiboN_1[i] == 0)
+			{
+				for (j = 0; j < SIZE; j++)	{
+					fiboN[j] += carry[j];
+					carry[j] = 0;
+				}
+				break;
+			}
+			fiboN[i] = fiboN_2[i] + fiboN_1[i];
+			
+			if (fiboN[i] > 99999)
+			{
+				carry[i+1] = fiboN[i]/100000;
+				fiboN[i] = fiboN[i]%100000;
+			}
+		}
+		count++;
+		memcpy(fiboN_2, fiboN_1, SIZE*sizeof(unsigned int));
+		memcpy(fiboN_1, fiboN, SIZE*sizeof(unsigned int));
+		
+		if (fiboN[SIZE-2] >= 10000)	{			
+			printf("%d \n", count);
+			break;
+		}
+		/*
+		}
+		printf("\n", fiboN[i]);*/
+
+		memset(fiboN, 0, SIZE*sizeof(unsigned int));
+		printf(".");
+	}while(1);
+
+	printf("%d \n", count);
+
+	//printf("%d", fibo(21));
+	system("pause");
+}
+	/*
+static int fibo(int n)
+{
+	int sum = 0;
+	int i;
+
+	if (n == 1 || n == 2)
+		return 1;
+
+	return fibo(n-1) + fibo(n-2);
+}*/
+
+/*
+static int isPrimeNum(int n)
+{
+	int i;
+	
+	if (n == 2)
+		return TRUE;
+
+	if (n%2 == 0)
+		return FALSE;
+
+	for (i = 3; i <= n/3; i+=2)	{
+		if (n%i == 0)
+			return FALSE;
+	}
+	return TRUE;
+}*/

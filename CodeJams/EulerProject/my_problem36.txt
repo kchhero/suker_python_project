@@ -1,0 +1,157 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#define TRUE 1
+#define FALSE 0
+
+static void dec_to_bin(unsigned int n, char binArr[]);
+static int isPalindrome_bin(char binArr[], int* len);
+static int isPalindrome_dec(unsigned int n);
+static int index = 0;
+
+void main(void)
+{	
+	unsigned int i,j;	
+	unsigned int len = 0;
+	unsigned int count = 0;
+	unsigned long long sum = 0;
+
+	char binArr[20];
+	
+	memset(binArr, -1, 20*sizeof(char));
+	
+	//1포함임..
+	for (i = 1; i < 1000000; i++)
+	{
+		if (isPalindrome_dec(i))	{			
+			dec_to_bin(i, binArr);
+			if (isPalindrome_bin(binArr, &len))	{
+				printf("%d ==> ", i);
+				for(j = 0; j < len; j++)	{
+					printf("%d", binArr[j]);
+				}
+				count++;
+				sum += i;
+				printf("\n");
+			}
+			memset(binArr, -1, 20*sizeof(char));
+			index = 0;
+		}
+	}
+
+	printf("Total count = %d, sum = %llu", count, sum);
+	system("pause");
+}
+
+static int isPalindrome_dec(unsigned int n)
+{
+	int length = 0;
+	int i;
+	char decArr[6];
+	unsigned int temp;
+
+	memset(decArr, -1, 6*sizeof(char));
+
+	temp = n;
+
+	if (n < 10)	{
+		length = 1;
+		decArr[0] = (char)temp;
+	}
+	else if (n < 100)	{
+		length = 2;		
+		decArr[0] = (char)(temp/10);
+		temp %= 10;
+		decArr[1] = (char)(temp);
+	}
+	else if (n < 1000)	{
+		length = 3;
+		decArr[0] = (char)(temp/100);
+		temp %= 100;
+		decArr[1] = (char)(temp/10);
+		temp %= 10;
+		decArr[2] = (char)(temp);
+	}
+	else if (n < 10000)	{
+		length = 4;
+		decArr[0] = (char)(temp/1000);
+		temp %= 1000;
+		decArr[1] = (char)(temp/100);
+		temp %= 100;
+		decArr[2] = (char)(temp/10);
+		temp %= 10;
+		decArr[3] = (char)(temp);
+	}
+	else if (n < 100000)	{
+		length = 5;
+		decArr[0] = (char)(temp/10000);
+		temp %= 10000;
+		decArr[1] = (char)(temp/1000);
+		temp %= 1000;
+		decArr[2] = (char)(temp/100);
+		temp %= 100;
+		decArr[3] = (char)(temp/10);
+		temp %= 10;
+		decArr[4] = (char)(temp);
+	}
+	else	{//n < 1000000
+		length = 6;
+		decArr[0] = (char)(temp/100000);
+		temp %= 100000;
+		decArr[1] = (char)(temp/10000);
+		temp %= 10000;
+		decArr[2] = (char)(temp/1000);
+		temp %= 1000;
+		decArr[3] = (char)(temp/100);
+		temp %= 100;
+		decArr[4] = (char)(temp/10);
+		temp %= 10;
+		decArr[5] = (char)(temp);
+	}
+	
+	for (i = 0; i < length; i++)
+	{		
+		if (decArr[i] != decArr[length-(i+1)])
+			return FALSE;
+	}
+	return TRUE;
+}
+
+static void dec_to_bin(unsigned int n, char binArr[])
+{
+	if (n > 1)
+		dec_to_bin(n/2, binArr);
+
+	binArr[index] = n%2;
+	index++;
+}
+
+static int isPalindrome_bin(char binArr[], int* len)
+{
+	int length = 0;
+	int i;
+
+	if (binArr[0] == 0)
+		return FALSE;
+
+	for (i = 0; i < 20; i++)
+	{
+		if (binArr[i] != -1)
+			length++;
+		else
+			break;
+	}
+	*len = length;
+
+	for (i = 0; i < length/2; i++)
+	{		
+		if (binArr[i] != binArr[length-(i+1)])
+			return FALSE;
+	}
+	return TRUE;
+}

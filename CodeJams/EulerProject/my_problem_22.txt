@@ -1,0 +1,145 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#define TRUE 1
+#define FALSE 0
+
+typedef struct _nameTable	{
+	char name[32];
+	int index;
+}nameTable;
+
+nameTable*	nT;
+unsigned int fileLen = 0;
+unsigned int wordCnt = 1;
+
+int compareName(const void *a, const void *b);
+int alphabetSum( const void *arg1);
+
+void readTextAndSet(void)
+{
+	FILE *fp;
+	char *names = NULL;
+	
+	char temp[32];	
+	unsigned int wordIndex = 0, tempCnt = 0;
+	unsigned int i;
+
+	fp = fopen("my_problem_22_name.txt","r");
+	
+	if(fp != NULL)
+	{
+		fseek(fp, 0L, SEEK_END);
+		fileLen = ftell(fp);
+
+		fseek(fp, 0L, SEEK_SET);
+		names = malloc((fileLen+1)*sizeof(char));
+		memset(names, 0x00, (fileLen+1)*sizeof(char));
+		fread(names, sizeof(char), fileLen, fp);
+
+		fclose(fp);
+	}
+	else {
+		printf("file open failed!\n");
+	}
+
+	for (i = 0; i < fileLen; i++)	{
+		if (*(names+i) == ',')	{
+			wordCnt++;
+		}
+	}
+
+	nT = (nameTable *)malloc(wordCnt*sizeof(nameTable));
+	memset(nT, 0x00, wordCnt*sizeof(nameTable));
+
+	memset(temp, 0x00, 32*sizeof(char));
+	for (i = 0; i < fileLen; i++)	{
+		if (*(names+i) == ',')	{
+			temp[tempCnt++] = '\0';
+			
+			strncpy((nT+wordIndex)->name, temp, tempCnt);
+			(nT+wordIndex)->index = wordIndex;
+
+			tempCnt = 0;
+			memset(temp, 0x00, 32*sizeof(char));
+			wordIndex++;
+		} else {
+			temp[tempCnt++] = *(names+i);
+		}
+	}
+
+	temp[tempCnt++] = '\0';
+	strncpy((nT+wordIndex)->name, temp, tempCnt);
+	(nT+wordIndex)->index = wordIndex;
+	
+	if (names != NULL)	{
+		free(names);
+		names = NULL;
+	}
+}
+
+void sort()
+{
+	qsort((void *) nT, wordCnt, sizeof(struct _nameTable), compareName);
+}
+
+int compareName( const void *arg1, const void *arg2 )
+{
+   return strcmp( ((struct _nameTable *)arg1)->name, ((struct _nameTable *)arg2)->name);
+}
+
+int alphabetSum( const void *arg1)
+{
+	char temp[32];
+	int len;
+	int i;
+	int sum = 0;
+
+	memset(temp, 0x00, 32*sizeof(char));
+	strcpy(temp, arg1);
+
+	len = strlen(temp);
+	
+	for(i = 0; i < len; i++)	{
+		sum += (temp[i] - 64);
+	}
+
+	return sum;
+}
+
+void main(void)
+{	
+	unsigned int i;	
+	unsigned long long sum = 0;
+	int alphasum;
+
+	readTextAndSet();
+	for (i = 0; i < wordCnt; i++)
+	{		
+		if ((nT+i)->name != NULL)	{
+			printf("%s  ", (nT+i)->name);		
+		}
+	}
+	sort();
+
+	for (i = 0; i < wordCnt; i++)
+	{		
+		(nT+i)->index = i+1;
+		alphasum = alphabetSum((nT+i)->name);
+		sum += alphasum * (i+1);
+	}
+
+	if (nT != NULL)	{
+		free(nT);
+		nT = NULL;
+	}
+
+	printf("\n\n sum = %llu \n\n", sum);
+	printf("\n----------end--------\n");
+	system("pause");
+}

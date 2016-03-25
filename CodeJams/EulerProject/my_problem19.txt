@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#define TRUE 1
+#define FALSE 0
+
+static int isLeap(int year);
+static int daysOfMonth[12]={31,28,31,30,31,30,31,31,30,31,30,31}; //1,2,3,...,12 month
+static char daysWord[7][5]={"mon","tue","wen","thr","fri","sat","sun"}; //mon,tue,...,sat,sun
+
+void main(void)
+{
+	int start = 1900;
+	int end = 2001;
+	int year,j;
+	int countSunday = 0;
+	int FirstDay = 0;//mon
+
+	for (year = start; year < end; year++)
+	{
+		if (isLeap(year))	{
+			daysOfMonth[1] = 29;
+		} else {
+			daysOfMonth[1] = 28;
+		}
+
+		for (j = 0; j < 12; j++)
+		{
+			if (FirstDay==6 && year!=1900)	{
+				printf("year %d, month %d  -- first day %s \n", year, j+1, daysWord[FirstDay]);
+				countSunday++;
+			}
+
+			if (daysOfMonth[j] == 31)
+				FirstDay += 3;
+			else if (daysOfMonth[j] == 30)
+				FirstDay += 2;
+			else if (daysOfMonth[j] == 29)
+				FirstDay += 1;
+			else
+				FirstDay += 0;
+
+			if (FirstDay > 6)
+				FirstDay -= 7;
+		}
+	}
+	
+	printf("1 of month sunday count is %d", countSunday);	
+	system("pause");
+}
+
+static int isLeap(int year)
+{
+	if( year%4==0 && ( year%100!=0 || year%400==0 ) ) {
+		return TRUE;
+	}
+	return FALSE;
+}

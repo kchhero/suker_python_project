@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#define TRUE 1
+#define FALSE 0
+
+static int isPrimeNum(unsigned long long n);
+
+void main(void)
+{	
+	unsigned long long i;
+	unsigned long long sum = 2;
+	unsigned long long count = 0;
+
+	for (i = 3; i < 2000000; i+=2)
+	{
+		if (isPrimeNum(i))	{
+			count++;
+			//printf("+ %llu \n", i);
+			sum += i;
+		}
+	}	
+	
+	printf("%llu, count = %llu\n", sum,count);
+
+	//printf("%d", fibo(21));
+	//system("pause");
+}
+
+static int isPrimeNum(unsigned long long n)
+{
+	unsigned long long i;
+	
+	if (n == 2)
+		return TRUE;
+
+	if (n%2 == 0)
+		return FALSE;
+
+	for (i = 3; i <= n/3; i+=2)	{
+		if (n%i == 0)
+			return FALSE;
+	}
+	return TRUE;
+}
+
+//Answer = 142913828922

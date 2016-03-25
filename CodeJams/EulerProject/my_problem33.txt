@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#define TRUE 1
+#define FALSE 0
+
+void main(void)
+{	
+	unsigned int bunja;
+	unsigned int bunmo;
+	float temp;
+	float temp1;
+	unsigned int totalBunja = 1;
+	unsigned int totalBunmo = 1;
+
+	for (bunja = 10; bunja < 100; bunja++)
+	{
+		for (bunmo = bunja+1; bunmo < 100; bunmo++)
+		{
+			if (bunja%10 == 0 || bunja%10 == 0 || (bunja%11 == 0 && bunmo%11 == 0))
+				continue;
+
+			temp = (float)(bunja/1)/(bunmo/1);
+
+			if (temp >= 1)
+				continue;
+			
+			//phase1
+			temp1 = (float)(bunja/10)/(bunmo%10);
+
+			if (temp == temp1 && bunja%10 == bunmo/10)	{
+				printf("1 : %d / %d = %f\n", bunja, bunmo, temp);
+				totalBunja *= bunja;
+				totalBunmo *= bunmo;
+			}
+
+			//phase2
+			temp1 = (float)(bunja%10)/(bunmo/10);
+
+			if (temp == temp1 && bunja/10 == bunmo%10)	{
+				printf("2 : %d / %d = %f\n", bunja, bunmo, temp);
+				totalBunja *= bunja;
+				totalBunmo *= bunmo;
+			}
+		}
+		
+	}	
+	
+	printf("%d / %d", totalBunja, totalBunmo);
+	system("pause");
+}

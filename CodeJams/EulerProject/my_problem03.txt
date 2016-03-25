@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#define TRUE 1
+#define FALSE 0
+
+#define SQ(x) ((x)*(x))
+
+static int switchDig[10]={0,};
+
+static int isPrimeNum(unsigned long long n)
+{
+	unsigned long long i;
+	
+	if (n == 2)
+		return TRUE;
+
+	if (n%2 == 0)
+		return FALSE;
+
+	for (i = 3; i <= n/3; i+=2)	{
+		if (n%i == 0)
+			return FALSE;
+	}
+	return TRUE;
+}
+
+void main(void)
+{	
+	unsigned long long i,j;	
+	unsigned long long org = 8462696833;//600851475143;
+	unsigned long long temp = 0;
+	unsigned long long bigNum = 0;
+	
+	//6118729
+	//12840307
+
+	//8462696833
+	//716151937
+	//408464633
+	//87625999
+	//10086647
+	//5753023
+	//1234169
+	//486847
+	//104441
+	//59569
+	//6857
+	//1471
+	//839
+	//71
+	/*for (i = 0; i < 14; i++)
+	{
+		if (isPrimeNum(xxx[i]))
+			printf ("%llu \n", xxx[i]);
+	}*/ 
+	for (i = org/2; i > 2;i-=2)	{
+		if (org%i == 0)	{
+			printf ("%llu  %llu \n", i, org/i);
+		
+			if (isPrimeNum(i) && i > bigNum)	{
+				bigNum = i;
+				printf ("Big Num = %llu", i);
+			}
+		}
+	}
+//6857 ==> correct Number
+	printf("final num = %llu", bigNum);
+	system("pause");
+}

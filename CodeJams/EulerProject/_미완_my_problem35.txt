@@ -1,0 +1,153 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#define TRUE 1
+#define FALSE 0
+#define SQUARE(x) ((x)*(x))
+
+static int isPrimeNum(unsigned int n);
+static unsigned int oneShiftNum(unsigned int n, int jj);
+
+void main(void)
+{	
+	unsigned int i,j;	
+	unsigned int count = 1;
+	unsigned temp = 0;
+
+	for (i = 1013; i <= 1000000; i+=2)
+	{
+		if (i < 10)	{
+			if (isPrimeNum(i))	{
+				printf("%d \n", i);
+				count++;
+			}
+		}
+		else if (i < 100)	{
+			temp = i;
+			if (isPrimeNum(temp) && isPrimeNum(temp=oneShiftNum(temp,2)))	{
+				printf("%d \n", i);
+				count++;
+			}
+		}
+		else if (i < 1000)	{
+			temp = i;
+			if (isPrimeNum(temp) && isPrimeNum(temp=oneShiftNum(temp,3)) && isPrimeNum(temp=oneShiftNum(temp,3)))	{
+				printf("%d \n", i);
+				count++;
+			}
+		}
+		else if (i < 10000)	{
+			temp = i;
+			if (isPrimeNum(temp))	{
+				temp=oneShiftNum(temp,4);
+				if (isPrimeNum(temp))	{
+					temp=oneShiftNum(temp,4);
+					if (isPrimeNum(temp)) {
+						temp=oneShiftNum(temp,4);
+						if (isPrimeNum(temp))	{							
+							printf("%d \n", i);
+							count++;
+						}
+					}
+				}			
+			}
+		}
+		else if (i < 100000)	{
+			temp = i;
+			if (isPrimeNum(temp) && isPrimeNum(temp=oneShiftNum(temp,5)) && isPrimeNum(temp=oneShiftNum(temp,5)) && isPrimeNum(temp=oneShiftNum(temp,5)) && isPrimeNum(temp=oneShiftNum(temp,5)))	{
+				printf("%d \n", i);
+				count++;
+			}
+		}
+		else if (i < 1000000)	{
+			temp = i;
+			if (isPrimeNum(temp) && isPrimeNum(temp=oneShiftNum(temp,6)) && isPrimeNum(temp=oneShiftNum(temp,6)) && isPrimeNum(temp=oneShiftNum(temp,6)) && isPrimeNum(temp=oneShiftNum(temp,6)) && isPrimeNum(temp=oneShiftNum(temp,6)))	{
+				printf("%d \n", i);
+				count++;
+			}
+		}
+	}
+	
+	printf("Total count = %d", count);
+	system("pause");
+}
+
+static unsigned int oneShiftNum(unsigned int n, int jj)
+{
+	unsigned int temp = n;
+	unsigned int tempArr[8]= {0,};
+	int count = 0;
+	int j;
+
+	do {		
+		temp = temp/10;
+		count++;
+	} while(temp != 0);
+
+	for (j = 0; j < jj-count; j++)
+		n *= 10;
+
+	temp = n;
+	count = 0;
+
+	do {
+		tempArr[count] = temp%10;
+		temp = temp/10;
+		count++;
+	} while(temp != 0);
+
+	if (n >= 100000)	{		
+		temp = tempArr[4]*100000;
+		temp += tempArr[3]*10000;
+		temp += tempArr[2]*1000;
+		temp += tempArr[1]*100;
+		temp += tempArr[0]*10;
+		temp += tempArr[5];
+	}
+	else if (n >= 10000)	{				
+		temp = tempArr[3]*10000;
+		temp += tempArr[2]*1000;
+		temp += tempArr[1]*100;
+		temp += tempArr[0]*10;
+		temp += tempArr[4];
+	}
+	else if (n >= 1000)	{						
+		temp = tempArr[2]*1000;
+		temp += tempArr[1]*100;
+		temp += tempArr[0]*10;
+		temp += tempArr[3];
+	}
+	else if (n >= 100)	{
+		temp = tempArr[1]*100;
+		temp += tempArr[0]*10;
+		temp += tempArr[2];
+	}
+	else if (n >= 10)	{		
+		temp = tempArr[0]*10;
+		temp += tempArr[1];
+	}
+
+	return temp;
+}
+
+static int isPrimeNum(unsigned int n)
+{
+	unsigned long long i;
+	
+	if (n == 2)
+		return TRUE;
+
+	if (n%2 == 0)
+		return FALSE;
+
+	for (i = 3; i <= n/3; i+=2)	{
+		if (n%i == 0)
+			return FALSE;
+	}
+	return TRUE;
+}\

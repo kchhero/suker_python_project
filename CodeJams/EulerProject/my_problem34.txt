@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#define TRUE 1
+#define FALSE 0
+
+static unsigned long long facto(unsigned long long n);
+static void setfactoto(void);
+static unsigned long long factoto[10] = {0};
+
+void main(void)
+{	
+	unsigned long long i;
+	unsigned long long temp = 0;
+	unsigned long long temp1 = 0;
+
+	setfactoto();
+
+	for (i = 3; i <= 99999999; i++)
+	{
+		temp1 = i;
+		do {			
+			temp += factoto[temp1%10];
+			temp1 = temp1/10;
+		} while(temp1 != 0);
+		
+		if (i == temp)
+			printf("%d \n", temp);
+
+		temp = 0;
+	}	
+	
+	//9! = 362880 ==> 6자리
+	
+	system("pause");
+}
+
+static void setfactoto(void)
+{
+	unsigned long long i;
+
+	factoto[0] = 0;
+	factoto[1] = 1;
+	factoto[2] = 2;
+
+	for(i = 3; i < 10; i++)
+	{
+		factoto[i] = facto(i);
+	}
+}
+
+static unsigned long long facto(unsigned long long n)
+{
+	if (n == 1)
+		return 1;
+
+	return n*facto(n-1);
+}
