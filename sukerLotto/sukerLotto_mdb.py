@@ -10,8 +10,10 @@ import pymongo
 from pymongo import MongoClient
 import sys
 
-mainLottoUrl = "https://www.nlotto.co.kr/lotto645Confirm.do?method=byWin"
-latestLottoUrl = "https://www.nlotto.co.kr/lotto645Confirm.do?method=byWin&drwNo="
+#mainLottoUrl = "https://www.nlotto.co.kr/lotto645Confirm.do?method=byWin"
+mainLottoUrl = "http://www.nlotto.co.kr/gameResult.do?method=byWin"
+#latestLottoUrl = "https://www.nlotto.co.kr/lotto645Confirm.do?method=byWin&drwNo="
+latestLottoUrl = "http://www.nlotto.co.kr/gameResult.do?method=byWin&drwNo="
 DEBUG=False
 
 lottoPosts = []
@@ -124,8 +126,8 @@ class lottoWithMongoDB:
     def insert(self):
         post_id = self.dbCollection.insert(self.lotto_list)
 
-    def showdb(self):
-        cursor = self.dbCollection.find().sort("timeid",pymongo.DESCENDING)
+    def showdb(self,cnt):
+        cursor = self.dbCollection.find().sort("timeid",pymongo.DESCENDING).limit(cnt)
         for document in cursor :
             print document
 
@@ -149,15 +151,18 @@ class lottoWithMongoDB:
             print "당첨번호 : " + cursor[("numbers")]
             print "1등 금액 : " + cursor[("amount")] + "원"
             
-def main(arg1):
+def main(args):
     mdbLottoinst = lottoWithMongoDB()
     mdbLottoinst.connectMDBC()
-    
-    if arg1=="cleardb" :
+
+    if args[0]=="cleardb" :
         mdbLottoinst.removedbAll()
-    elif arg1=="showdb" :
-        mdbLottoinst.showdb()
-    elif arg1=="updatedb" :
+    elif args[0]=="showdb" :
+        if len(args) >= 2:
+            mdbLottoinst.showdb(int(args[1]))
+        else:
+            mdbLottoinst.showdb(1)
+    elif args[0]=="updatedb" :
         latestNum = mdbLottoinst.checkLatestNumber()
         dbNum = mdbLottoinst.checkLatestNumberInMDB(str(latestNum))
 
@@ -173,20 +178,42 @@ def main(arg1):
         else:
             print "Already DB is latest updated"
             mdbLottoinst.showdb()
-    elif arg1=="findnum":
-        numbers = raw_input()
-        mdbLottoinst.findnumbers(numbers)
-    elif arg1=="findtime":
-        numbers = raw_input()
-        mdbLottoinst.findtime(numbers)
+    elif args[0]=="findnum":
+        while True:
+            numbers = raw_input()
+            if numbers=='quit':
+                print 'Good Bye!'
+                break
+            else :
+                mdbLottoinst.findnumbers(numbers)
+    elif args[0]=="findtime":
+        while True:
+            numbers = raw_input()
+            if numbers=='quit':
+                print 'Good Bye!'
+                break
+            else :
+                mdbLottoinst.findtime(numbers)
+    elif args[0]=="help":
+        help()
     else:
-        print "------ Usage check below -------"
-        print "python sukerLotto_mdb.py showdb"
-        print "python sukerLotto_mdb.py cleardb"
-        print "python sukerLotto_mdb.py updatedb"
-        print "python sukerLotto_mdb.py findnum"
-        print "python sukerLotto_mdb.py findtime"
-        print "--------------------------------"
+        help()
+
+def help():
+    print "------ Usage check below -------"
+    print "python sukerLotto_mdb.py showdb"
+    print "python sukerLotto_mdb.py showdb [limit]"
+    print "         ==> If non-input arg2, show will be show latest one"
+    print "         ==> If you are input 4, show will be show latest 4 times results"
+    print "python sukerLotto_mdb.py cleardb"
+    print "python sukerLotto_mdb.py updatedb"
+    print "python sukerLotto_mdb.py findnum"
+    print "         ==> input 'quit' will be exit"
+    print "python sukerLotto_mdb.py findtime"
+    print "         ==> input 'quit' will be exit"    
+    print "python sukerLotto_mdb.py help"
+    print "--------------------------------"
         
 if __name__ == "__main__":
-    main(sys.argv[1])
+    args = sys.argv[1:]
+    main(args)
