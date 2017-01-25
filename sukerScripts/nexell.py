@@ -11,19 +11,41 @@ import subprocess
 import glob
 
 _prompt_ = " >>> "
-commandDict = {'q':'QUIT', 'quit':'QUIT', 'exit':'QUIT', 'b':'BACK', 'back':'BACK', 'h':'HELP', 'help':'HELP',
-                   'sc':'SHOW_COMMAND_LIST', 'show':'SHOW_COMMAND_LIST'}
+commandDict = {'q':'QUIT', 'quit':'QUIT', 'exit':'QUIT', 'b':'BACK', 'back':'BACK', 'h':'HELP', 'help':'HELP'}
 _extExceptFileNames = {'py':'__init__.py','sh':''}
 _extFileNames = ['py','sh']
 selectedWorkingSpace = None
 
 suker_commands = [['ssh',['ssh suker@192.168.1.16',
                           'ssh jenkins@192.168.1.26',
-                          'ssh nexellstorage@192.168.1.25']],
+                          'ssh nexellstorage@192.168.1.25',
+                          'ssh bok@192.168.1.15'
+                         ]
+                  ],
+                  
                   ['git',['git clean -f -d',
-                          'git checkout -f']],
+                          'git checkout -f'
+                         ]
+                  ],
+                  
                   ['repo',['repo init -u ssh://suker@git.nexell.co.kr:29418/nexell/yocto/manifest',
-                           'repo sync',]]
+                           'repo sync'
+                          ]
+                  ],
+                  
+                  ['scp -r',['scp -r <src> <dest>',
+                             ''
+                            ],
+                            ['nexellstorage@192.168.1.25:/home/nexellstorage/snapshot/yocto/',
+                             'nexellstorage@192.168.1.25:/home/nexellstorage/releases/NEXELL-YOCTO-SDKs',
+                             'jenkins@192.168.1.26:/home/jenkins/Jenkins_Storage/jobs',
+                             'jenkins@192.168.1.26:/home/jenkins/Jenkins_Storage/backup_conf',
+                            ],
+                  ],
+                  
+                  ['mount', ['sudo mount -t cifs //SW-01/suker ~/sukerSMB -o user=suker,password=123,workgroup=WORKGROUP,ip=192.168.1.16,iocharset=utf8',
+                             '',]
+                  ],
                  ] 
 
 linuxMark = '/'
@@ -79,6 +101,22 @@ class sukerScript :
         print "    "+pColors["GREEN"]+"'b'"+pColors["ENDC"]+" --> back menu"
         print "    "+pColors["GREEN"]+"'q' or 'exit' or 'quit'"+pColors["ENDC"]+" --> Quit this program"
         print "===============================================================================\n"
+        
+    def printMenuLevel3(self, index) :
+        print pColors["YELLOW"]+_InfoMark_+" working Path "+pColors["ENDC"] +pColors["LIGHT_CYAN"]+self.workingPath+pColors["ENDC"]
+        print "==============================================================================="
+        print pColors["CYAN"]+"Choicet want script "+pColors["ENDC"] + pColors["LIGHT_RED"]+"LEVEL 3"+pColors["ENDC"]
+        print "==============================================================================="
+        print 'select argument : '
+
+        cnt = 0
+        for i in suker_commands[index][2] :
+            print "    "+pColors["LIGHT_RED"] + str(cnt) + ' : ' + i + pColors["ENDC"]+" --> select number..."
+            cnt += 1
+            
+        print "    "+pColors["GREEN"]+"'b'"+pColors["ENDC"]+" --> back menu"
+        print "    "+pColors["GREEN"]+"'q' or 'exit' or 'quit'"+pColors["ENDC"]+" --> Quit this program"
+        print "===============================================================================\n"
     
     def printScrpitsList(self) :
         print "==============================================================================="
@@ -109,9 +147,9 @@ class sukerScript :
                     print "GoodBye!! \n"
                     sys.exit()
                 elif commandDict[wSpace]=='HELP' :
-                    print "Fuck You! \n"
+                    print "Fuck You1 ! \n"
                 else :
-                    print "Fuck You! \n"
+                    print "Fuck You1 ! \n"
             else :
                 tempCheckList = []
                 tempCheckPreFixList = []
@@ -126,7 +164,7 @@ class sukerScript :
                     self.conversationLevel2(tempCheckPreFixList.index(wSpace))
                     break
                 else:
-                    print "Fuck You! \n"
+                    print "Fuck You 1 ! \n"
     
     def conversationLevel2(self, index) :
         self.printMenuLevel2(index)
@@ -142,19 +180,64 @@ class sukerScript :
         else :
             try :
                 if int(wSpace) < 0 or int(wSpace) >= len(suker_commands[index][1]):
-                    print "Fuck You! \n"
+                    print "Fuck You2 ! \n"
                 else :
-                    self.runningScript(index, int(wSpace))
-		    print "\n\n"
+                    if len(suker_commands[index]) > 2 :
+                        self.conversationLevel3(index)
+                    else:
+                        excuteCmd = suker_commands[index][1][int(wSpace)]
+                        self.runningScript(excuteCmd)
+
+                    print "\n\n"
                     self.conversationLevel1()
             except ValueError :
-                 print "Fuck You! \n"
-            
-    
-    def runningScript(self, dirIndex, runIndex) :
-        excuteCmd = suker_commands[dirIndex][1][runIndex]
+                 print "Fuck You 2! \n"
 
-        print excuteCmd
+
+    def conversationLevel3(self, index) :
+        self.printMenuLevel3(index)
+        wSpace = None
+    
+        wArg1 = raw_input(_prompt_+"arg1: ").lower()
+        wArg2 = raw_input(_prompt_+"arg2: ").lower()
+      
+        if len(wArg1)==0 or len(wArg2)==0:
+            print "Fuck you 3"
+            return
+
+        if self.isNumber(wArg1):
+            arg1_str = suker_commands[index][2][int(wArg1)]
+        else:
+            if os.path.exists(wArg1):
+                arg1_str = wArg1
+            else :
+                print "Does not exist " + wArg1
+                return
+
+        if self.isNumber(wArg2):
+            arg2_str = suker_commands[index][2][int(wArg2)]
+        else:
+            arg2_str = wArg2
+        
+        if wArg1 in commandDict.keys() or wArg2 in commandDict.keys() :
+            if commandDict[wSpace]=='QUIT' :
+                print "GoodBye!! \n"
+                sys.exit()
+            elif commandDict[wSpace]=='BACK' :
+                self.conversationLevel1()
+        else :
+            _cmd_ = suker_commands[index][0] + ' ' + arg1_str + ' ' + arg2_str
+            print 
+            try :                
+                self.runningScript(_cmd_)
+	        print "\n\n"
+                self.conversationLevel1()
+            except ValueError :
+                 print "Fuck You3! \n"
+
+
+    def runningScript(self, excuteCmd) :
+        print pColors["LIGHT_RED"]+"RUN ==> " + excuteCmd + pColors["ENDC"]
         os.chdir(self.workingPath)
         try :
             out_bytes = subprocess.call(excuteCmd, shell=True)
@@ -162,7 +245,13 @@ class sukerScript :
             out_bytes = e.output
             code = e.returncode
             print out_bytes, code
-       
+
+    def isNumber(self,s):
+        try:
+            float(s)
+            return True
+        except ValueError:
+            return False
 
 def main():
     suker = sukerScript(os.path.dirname(os.path.abspath(__file__)), os.getcwd())
