@@ -43,7 +43,7 @@ suker_commands = [['ssh',['ssh suker@192.168.1.16',
                             ],
                   ],
                   
-                  ['mount', ['sudo mount -t cifs //SW-01/suker ~/sukerSMB -o user=suker,password=123,workgroup=WORKGROUP,ip=192.168.1.16,iocharset=utf8',
+                  ['mount', ['sudo mount -t cifs //SW-01/suker ~/sukerSMB -o user=suker,password=cndgus123,workgroup=WORKGROUP,ip=192.168.1.16,iocharset=utf8',
                              '',]
                   ],
                  ] 
