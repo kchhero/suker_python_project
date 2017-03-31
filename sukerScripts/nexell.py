@@ -33,7 +33,7 @@ suker_commands = [['ssh',['ssh suker@192.168.1.16',
                           ]
                   ],
                   
-                  ['scp -r',['scp -r <src> <dest>',
+                  ['sudo scp -r',['scp -r <src> <dest>',
                              ''
                             ],
                             ['nexellstorage@192.168.1.25:/home/nexellstorage/snapshot/yocto/',
