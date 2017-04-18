@@ -19,7 +19,7 @@ selectedWorkingSpace = None
 suker_commands = [['ssh',['ssh suker@192.168.1.16',
                           'ssh jenkins@192.168.1.26',
                           'ssh nexellstorage@192.168.1.25',
-                          'ssh bok@192.168.1.15'
+                          'ssh nexell@192.168.1.18',
                          ]
                   ],
                   

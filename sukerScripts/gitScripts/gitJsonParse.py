@@ -1,38 +1,40 @@
 # -*- coding: utf-8 -*-
 """
 Created on Fri Mar 31 10:10:47 2017
-
-@author: choonghyun.jeon
-
 In Jenkins Usage:
-  build script : 
+  build script :
     python gitJsonParse.py u-boot-2016.01 ${GERRIT_PATCHSET_REVISION}
 """
 
 import subprocess
 import sys
 import json
+import os
 
-gerritQueryProjectList = {"u-boot-2016.01":"nexell/linux/u-boot/u-boot-2016.01",
-                          "kernel-4.4.19": "nexell/linux/kernel/kernel-4.4.19",
-                          "bl1-s5p4418":   "nexell/bl1/bl1-s5p4418",
-                          "bl1-s5p6818":   "nexell/bl1/bl1-s5p6818",
-                          }
+"""
+--- projectName example ---
+ nexell/linux/u-boot/u-boot-2016.01
+ nexell/linux/kernel/kernel-4.4.19
+ nexell/bl1/bl1-s5p4418
+ nexell/bl1/bl1-s5p6818
+ jenkins_test/helloworld
+"""
 
 _S_ = ' '
 _userID = 'suker@git.nexell.co.kr'
 
-# i.e : "ssh -p 29418 suker@git.nexell.co.kr gerrit query --format JSON status:open project:nexell/linux/u-boot/u-boot-2016.01 --patch-sets"
+# i.e : "ssh -p 29418 jenkins@git.nexell.co.kr gerrit query --format JSON status:open NOT status:DRAFT \
+#                  project:nexell/linux/u-boot/u-boot-2016.01 --patch-sets"
 gerritQuerySSHCmd = 'ssh -p 29418'
 gerritQueryID = _userID
 gerritQueryCmd = 'gerrit query'
 gerritQueryFormat = 'JSON'
-gerritQueryStatus = 'open'
+gerritQueryDraftStatus = 'NOT status:DRAFT'
 gerritQueryProject = ''
 gerritQueryAppendixParam = '--patch-sets'
 _gerritQuery = ''
 
-# i.e : git fetch ssh://suker@git.nexell.co.kr:29418/nexell/linux/u-boot/u-boot-2016.01 refs/changes/16/2816/1 && git cherry-pick FETCH_HEAD
+# i.e : git fetch ssh://jenkins@git.nexell.co.kr:29418/nexell/linux/u-boot/u-boot-2016.01 refs/changes/16/2816/1 && git cherry-pick FETCH_HEAD
 cherrypickGitFetchCmd = 'git fetch ssh://'
 cherrypickGitFetchID = _userID
 cherrypickGitFetchPort = '29418'
@@ -40,45 +42,66 @@ cherrypickGitFetchProject = ''
 cherrypickGitFetchRefs = ''
 cherrypickGitFetchCherryParam = '&& git cherry-pick FETCH_HEAD'
 
-_Colors={"BOLD":"\033[1m", "GREEN":"\033[32m", "RED":"\033[31m", "ENDC":"\033[0m"}
-
 _projectInfo = []
 _cherrypickInfo = []
 _latestPatchsets = []
 _indexGroup = []
 
-def makeGerritQueryCmd(projectName):
+def makeGerritQueryCmd(projectName,branchName,status):
     global _gerritQuery
-    
-    gerritQueryProjectFullName = gerritQueryProjectList[projectName]
-    _gerritQuery = gerritQuerySSHCmd + _S_ + gerritQueryID +_S_ + gerritQueryCmd + _S_ + "--format" + _S_  + gerritQueryFormat + \
-                   _S_ + "status:"+gerritQueryStatus + _S_ + "project:"+gerritQueryProjectFullName + _S_ + gerritQueryAppendixParam
-        
+
+    if '_none_'==branchName:
+        _gerritQuery = gerritQuerySSHCmd +_S_+\
+                       gerritQueryID +_S_+\
+                       gerritQueryCmd +_S_+\
+                       "--format" +_S_+\
+                       gerritQueryFormat +_S_+\
+                       "status:"+status +_S_+\
+                       gerritQueryDraftStatus +_S_+\
+                       "project:"+projectName +_S_+\
+                       gerritQueryAppendixParam
+    else:
+        _gerritQuery = gerritQuerySSHCmd +_S_+\
+                       gerritQueryID +_S_+\
+                       gerritQueryCmd +_S_+\
+                       "--format" +_S_+\
+                       gerritQueryFormat +_S_+\
+                       "status:"+status +_S_+\
+                       gerritQueryDraftStatus +_S_+\
+                       "branch:"+branchName +_S_+\
+                       "project:"+projectName + _S_+\
+                       gerritQueryAppendixParam
+
     print _gerritQuery
 
 def makeCherryPickCmd(refs, project):
     global cherrypickGitFetchProject
     global cherrypickGitFetchRefs
-    
+
     cherrypickGitFetchRefs = refs
     cherrypickGitFetchProject = project
-    _cherrypickCmd = cherrypickGitFetchCmd + _S_ + cherrypickGitFetchID + ':' + cherrypickGitFetchPort + '/' + cherrypickGitFetchProject + _S_ + \
+    _cherrypickCmd = cherrypickGitFetchCmd + cherrypickGitFetchID + ':' + cherrypickGitFetchPort + '/' + cherrypickGitFetchProject + _S_ + \
                      cherrypickGitFetchRefs + _S_ + cherrypickGitFetchCherryParam
-    print "make done cherrypick : " + _cherrypickCmd
+    print "make done cherrypick"
     return _cherrypickCmd
 
 def getLatestPatchset(patchsets):
+    number = 0
+    latest_index = 0
     index = 0
     for patchset in patchsets :
         temp = int(patchset['number'])
-        if index < temp:
-            index = temp
-
-    return patchsets[index-1]
+        if number < temp:
+            number = temp
+            latest_index = index
+        index += 1
+        
+    print "patchset select index = %d, patchsets count = %d, patchset number = %d"%(latest_index,len(patchsets),number)
+    return patchsets[latest_index]
 
 def getInfo():
     global _projectInfo
-    
+
     print "gerritQuery cmd : " +  _gerritQuery
     output=subprocess.check_output(_gerritQuery,shell=True)
     values = []
@@ -116,6 +139,12 @@ def constructCherryPickIndexGroup(revision):
 
     constructCherryPickIndexGroup(parentRevision)
 
+def constructCherryPickIndexGroupByRefs(projectName=""):
+    setIndexNum()
+
+    for i in _indexGroup :
+        print projectName + " commit --> %s "%_latestPatchsets[i]['revision']
+
 def constructCherryPickInfo():
     for index in _indexGroup :
         _cherrypickInfo.append(makeCherryPickCmd(_latestPatchsets[index]['ref'], _projectInfo[index]['project']))
@@ -134,41 +163,59 @@ def searchRevision(revision):
             index = index + 1
     return -1
 
+def setIndexNum():
+    for i in range(len(_latestPatchsets)) :
+        _indexGroup.append(i)
+
 def printInfo(status) :
     if status=='ready' :
         print "==========================================================="
-        print _Colors["GREEN"]+" Make CherryPick Info Running..." + _Colors["ENDC"]
+        print " Make CherryPick Info Running..."
         print "===========================================================\n"
-    elif status=='run' :
+    elif status=='cherrypick' :
         print "==========================================================="
-        print _Colors["GREEN"]+" Apply CherryPick ..." + _Colors["ENDC"]
+        print " Apply CherryPick ..."
+        print "===========================================================\n"
+    elif status=='not_cherrypick' :
+        print "==========================================================="
+        print " Have not CherryPick Info..."
         print "===========================================================\n"
     elif status=='end' :
         print "==========================================================="
-        print _Colors["GREEN"]+" Success CherryPick..." + _Colors["ENDC"]
+        print " Success CherryPick..."
         print "===========================================================\n"
     else:
         pass
 
 def doCherryPick() :
     for cmd in _cherrypickInfo :
-        output=subprocess.check_output(cmd,shell=True)
-        print output
+        os.system(cmd)
 
 def main(args):
-    #arg0 : project name postfix, i.e : u-boot-2016.01
+    projectName=args[0]
+    commitID=args[1]
+    branchName=args[2]
+    status=args[3]
+
     printInfo('ready')
-    makeGerritQueryCmd(args[0])
+    makeGerritQueryCmd(projectName,branchName,status)
     getInfo()
-    constructCherryPickIndexGroup(args[1])
+    if commitID=='_none_' :
+        constructCherryPickIndexGroupByRefs(projectName)
+    else :
+        constructCherryPickIndexGroup(commitID)
+
     constructCherryPickInfo()
-    printInfo('run')
-    doCherryPick()
+    if len(_cherrypickInfo) > 0:
+        printInfo('cherrypick')
+    else:
+        printInfo('not_cherrypick')
+    #doCherryPick()
     printInfo('end')
-    
+
 if __name__ == "__main__":
     args = sys.argv[1:]
-    try :         
+    try :
         main(args)
-    finally : 
+    finally :
         pass
