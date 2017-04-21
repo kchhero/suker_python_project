@@ -36,7 +36,7 @@ class stockBodyCls :
             self.profit.append((int(self.current_prices[i])-int(self.buyprices[i]))*int(self.numberOfShares[i]))
             returnR = float((int(self.current_prices[i])-int(self.buyprices[i]))*100) / float(self.buyprices[i])
             self.returnRate.append("%0.2f"%returnR)
-            self.totalProfit += int(self.current_prices[i])*int(self.numberOfShares[i])
+            self.totalProfit += (int(self.current_prices[i])-int(self.buyprices[i]))*int(self.numberOfShares[i])
             self.totalPurchase += int(self.buyprices[i])*int(self.numberOfShares[i])
             
             

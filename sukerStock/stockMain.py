@@ -123,16 +123,17 @@ class sukerStockInfoFrame(wx.Frame):
         self.text_ctrl_totalProfit.SetValue(format(self.sbCls.totalProfit, ','))
         self.text_ctrl_totalpurchase.SetValue(format(self.sbCls.totalPurchase, ','))
         
-        tt = self.sbCls.totalProfit - self.sbCls.totalPurchase
-        ttRate = float((tt*100)/self.sbCls.totalPurchase)
-        sumTT = format(tt,',') + "  |  " + "%0.2f"%ttRate + " %"
+        tpf = int(self.sbCls.totalProfit)
+        tpc = int(self.sbCls.totalPurchase)
+        ttRate = float(tpf*100)/tpc
+        sumTT = "asset : " + format(tpf+tpc,',') + "  |  " + "%0.2f"%ttRate + " %"
         self.text_ctrl_totaltotal.SetValue(sumTT)
         
         self.changeForegroundColor()
         
     def changeForegroundColor(self) :        
         for i in range(0,self.sbCls.index) :
-            if self.sbCls.buyprices[i] < self.sbCls.current_prices[i] :
+            if int(self.sbCls.buyprices[i]) < int(self.sbCls.current_prices[i]) :
                 self.textCtrlCurrentPrices[i].SetForegroundColour(wx.Colour(255, 0, 0))
                 self.textCtrlReturnRates[i].SetForegroundColour(wx.Colour(255, 0, 0))
                 self.textCtrlProfit[i].SetForegroundColour(wx.Colour(255,0,0))
@@ -141,14 +142,14 @@ class sukerStockInfoFrame(wx.Frame):
                 self.textCtrlReturnRates[i].SetForegroundColour(wx.Colour(0, 0, 255))
                 self.textCtrlProfit[i].SetForegroundColour(wx.Colour(0, 0, 255))
                 
-        if self.sbCls.totalProfit > 0 :
+        if int(self.sbCls.totalProfit) > 0 :
             self.text_ctrl_totalProfit.SetForegroundColour(wx.Colour(255,0,0))
             self.text_ctrl_totaltotal.SetForegroundColour(wx.Colour(255,0,0))
             
     def __set_properties(self):
         # begin wxGlade: sukerStockInfoFrame.__set_properties
         self.SetTitle("suker Stock Info.")
-        self.SetSize((720, 165))
+        self.SetSize((1120, 180))
         self.SetBackgroundColour(wx.Colour(35, 142, 35))
         self.label_Name.SetForegroundColour(wx.Colour(255, 255, 255))
         self.label_code.SetForegroundColour(wx.Colour(255, 255, 255))
