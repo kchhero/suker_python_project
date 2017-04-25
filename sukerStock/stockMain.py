@@ -10,6 +10,7 @@ import wx
 import gettext
 from stockBody import stockBodyCls
 import subprocess
+import os
 
 class sukerStockInfoFrame(wx.Frame):
     sbCls = 0
@@ -280,7 +281,7 @@ def main():
     wx.InitAllImageHandlers()
     frame_Main = sukerStockInfoFrame(None, wx.ID_ANY, "")
     #icon
-    frame_Main.SetIcon(wx.Icon('sukerStock.ico', wx.BITMAP_TYPE_ICO))
+    frame_Main.SetIcon(wx.Icon(os.path.dirname(os.path.realpath(__file__)) + '/sukerStock.ico', wx.BITMAP_TYPE_ICO))
     SukerStockInfo.SetTopWindow(frame_Main)
     frame_Main.Show()
     SukerStockInfo.MainLoop()

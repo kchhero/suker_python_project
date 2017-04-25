@@ -64,7 +64,7 @@ class stockBodyCls :
             return stockValue
         
     def loadIni(self) :
-        iniFilePath = os.getcwd() + self.getDirMark() + "setup.ini"
+        iniFilePath = os.path.dirname(os.path.realpath(__file__)) + self.getDirMark() + "setup.ini"
         if os.path.isfile(iniFilePath) :
             try :
                 with open(iniFilePath) as data :
