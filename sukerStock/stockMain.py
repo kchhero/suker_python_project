@@ -11,6 +11,7 @@ import gettext
 from stockBody import stockBodyCls
 import subprocess
 import os
+import sys
 
 class sukerStockInfoFrame(wx.Frame):
     sbCls = 0
@@ -251,18 +252,23 @@ class sukerStockInfoFrame(wx.Frame):
     def openSetupFile(self, event):  # wxGlade: sukerStockInfoFrame.<event_handler>
         #print "Event handler 'openSetupFile' not implemented!"
         path = ""
-        dlg = wx.FileDialog(self, "select file path", style=wx.wx.FD_OPEN)
+        dlg = wx.FileDialog(self, "select file path", defaultDir=os.path.dirname(os.path.realpath(__file__)), style=wx.wx.FD_OPEN)
         if dlg.ShowModal() == wx.ID_OK:
             path = dlg.GetPath()
 
         dlg.Destroy()
 
-        cmds = "notepad.exe " + path
-        proc = subprocess.Popen(cmds, shell=False)
-        stdout, stderr = proc.communicate("")
+        if sys.platform=='linux2' :
+            cmds = "gedit " + path
+            os.system(cmds)
+        else :
+            cmds = "notepad.exe " + path
+
+            proc = subprocess.Popen(cmds, shell=False)
+            stdout, stderr = proc.communicate("")
         
-        out = str(stdout).decode('utf-8')
-        err = str(stderr).decode('utf-8')
+            out = str(stdout).decode('utf-8')
+            err = str(stderr).decode('utf-8')
         #print "out = ",out
         #print "err = ",err
         
