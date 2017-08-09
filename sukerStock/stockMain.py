@@ -34,42 +34,56 @@ class sukerStockInfoFrame(wx.Frame):
         self.text_ctrl_name2 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_name3 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_name4 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
+        self.text_ctrl_name5 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
+        self.text_ctrl_name6 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.label_code = wx.StaticText(self, wx.ID_ANY, "Code", style=wx.ALIGN_CENTER)
         self.text_ctrl_code0 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_CENTRE | wx.TE_READONLY)
         self.text_ctrl_code1 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_CENTRE | wx.TE_READONLY)
         self.text_ctrl_code2 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_CENTRE | wx.TE_READONLY)
         self.text_ctrl_code3 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_CENTRE | wx.TE_READONLY)
         self.text_ctrl_code4 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_CENTRE | wx.TE_READONLY)
+        self.text_ctrl_code5 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_CENTRE | wx.TE_READONLY)
+        self.text_ctrl_code6 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_CENTRE | wx.TE_READONLY)
         self.label_return = wx.StaticText(self, wx.ID_ANY, "Return", style=wx.ALIGN_CENTER)
         self.text_ctrl_return0 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_return1 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_return2 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_return3 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_return4 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
+        self.text_ctrl_return5 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
+        self.text_ctrl_return6 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.label_current_price = wx.StaticText(self, wx.ID_ANY, "Current Price", style=wx.ALIGN_CENTER)
         self.text_ctrl_current_price0 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_current_price1 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_current_price2 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_current_price3 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_current_price4 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
+        self.text_ctrl_current_price5 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
+        self.text_ctrl_current_price6 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.label_Numberofshares = wx.StaticText(self, wx.ID_ANY, "N.O.shares", style=wx.ALIGN_CENTER)
         self.text_ctrl_nos0 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_nos1 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_nos2 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_nos3 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_nos4 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
+        self.text_ctrl_nos5 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
+        self.text_ctrl_nos6 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.label_buy_price = wx.StaticText(self, wx.ID_ANY, "Buy Price", style=wx.ALIGN_CENTER)
         self.text_ctrl_buy_price0 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_buy_price1 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_buy_price2 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_buy_price3 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_buy_price4 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
+        self.text_ctrl_buy_price5 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
+        self.text_ctrl_buy_price6 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.label_profit = wx.StaticText(self, wx.ID_ANY, "profit", style=wx.ALIGN_CENTER)
         self.text_ctrl_profit0 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_profit1 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_profit2 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_profit3 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.text_ctrl_profit4 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
+        self.text_ctrl_profit5 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
+        self.text_ctrl_profit6 = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
         self.button_opensetupfile = wx.Button(self, wx.ID_ANY, "open setup file")
         self.label_totalPurchase = wx.StaticText(self, wx.ID_ANY, "Purchase P.", style=wx.ALIGN_CENTER)
         self.text_ctrl_totalpurchase = wx.TextCtrl(self, wx.ID_ANY, "", style=wx.TE_READONLY | wx.TE_RIGHT)
@@ -97,19 +111,21 @@ class sukerStockInfoFrame(wx.Frame):
         
     def fillVariables(self) :
         self.textCtrlNames = [self.text_ctrl_name0, self.text_ctrl_name1, self.text_ctrl_name2, self.text_ctrl_name3,
-                              self.text_ctrl_name4]
+                              self.text_ctrl_name4, self.text_ctrl_name5, self.text_ctrl_name6]
         self.textCtrlCodes = [self.text_ctrl_code0, self.text_ctrl_code1, self.text_ctrl_code2, self.text_ctrl_code3,
-                              self.text_ctrl_code4]
+                              self.text_ctrl_code4, self.text_ctrl_code5, self.text_ctrl_code6]
         self.textCtrlCurrentPrices = [self.text_ctrl_current_price0, self.text_ctrl_current_price1, self.text_ctrl_current_price2,
-                                      self.text_ctrl_current_price3, self.text_ctrl_current_price4]
+                                      self.text_ctrl_current_price3, self.text_ctrl_current_price4, self.text_ctrl_current_price5,
+                                      self.text_ctrl_current_price6]
         self.textCtrlBuyPrices = [self.text_ctrl_buy_price0, self.text_ctrl_buy_price1, self.text_ctrl_buy_price2, 
-                                  self.text_ctrl_buy_price3, self.text_ctrl_buy_price4]
+                                  self.text_ctrl_buy_price3, self.text_ctrl_buy_price4, self.text_ctrl_buy_price5,
+                                  self.text_ctrl_buy_price6]
         self.textCtrlReturnRates = [self.text_ctrl_return0, self.text_ctrl_return1, self.text_ctrl_return2, self.text_ctrl_return3,
-                                    self.text_ctrl_return4]
+                                    self.text_ctrl_return4, self.text_ctrl_return5, self.text_ctrl_return6]
         self.textCtrlNumberOfShares = [self.text_ctrl_nos0, self.text_ctrl_nos1, self.text_ctrl_nos2, self.text_ctrl_nos3,
-                                       self.text_ctrl_nos4]
+                                       self.text_ctrl_nos4, self.text_ctrl_nos5, self.text_ctrl_nos6]
         self.textCtrlProfit = [self.text_ctrl_profit0, self.text_ctrl_profit1, self.text_ctrl_profit2, self.text_ctrl_profit3,
-                               self.text_ctrl_profit4]
+                               self.text_ctrl_profit4, self.text_ctrl_profit5, self.text_ctrl_profit6]
                                        
     def fillInfo(self) :   
         for i in range(0,self.sbCls.index) :
@@ -151,7 +167,7 @@ class sukerStockInfoFrame(wx.Frame):
     def __set_properties(self):
         # begin wxGlade: sukerStockInfoFrame.__set_properties
         self.SetTitle("suker Stock Info.")
-        self.SetSize((1120, 180))
+        self.SetSize((1120, 204))
         self.SetBackgroundColour(wx.Colour(35, 142, 35))
         self.label_Name.SetForegroundColour(wx.Colour(255, 255, 255))
         self.label_code.SetForegroundColour(wx.Colour(255, 255, 255))
@@ -190,6 +206,8 @@ class sukerStockInfoFrame(wx.Frame):
         sizer_10.Add(self.text_ctrl_name2, 0, wx.EXPAND, 0)
         sizer_10.Add(self.text_ctrl_name3, 0, wx.EXPAND, 0)
         sizer_10.Add(self.text_ctrl_name4, 0, wx.EXPAND, 0)
+        sizer_10.Add(self.text_ctrl_name5, 0, wx.EXPAND, 0)
+        sizer_10.Add(self.text_ctrl_name6, 0, wx.EXPAND, 0)
         self.sizer_9.Add(sizer_10, 16, wx.EXPAND, 0)
         sizer_11.Add(self.label_code, 0, wx.EXPAND, 1)
         sizer_11.Add(self.text_ctrl_code0, 0, wx.EXPAND, 0)
@@ -197,6 +215,8 @@ class sukerStockInfoFrame(wx.Frame):
         sizer_11.Add(self.text_ctrl_code2, 0, wx.EXPAND, 0)
         sizer_11.Add(self.text_ctrl_code3, 0, wx.EXPAND, 0)
         sizer_11.Add(self.text_ctrl_code4, 0, wx.EXPAND, 0)
+        sizer_11.Add(self.text_ctrl_code5, 0, wx.EXPAND, 0)
+        sizer_11.Add(self.text_ctrl_code6, 0, wx.EXPAND, 0)
         self.sizer_9.Add(sizer_11, 10, wx.EXPAND, 0)
         sizer_14.Add(self.label_return, 0, wx.EXPAND, 1)
         sizer_14.Add(self.text_ctrl_return0, 0, wx.EXPAND, 0)
@@ -204,6 +224,8 @@ class sukerStockInfoFrame(wx.Frame):
         sizer_14.Add(self.text_ctrl_return2, 0, wx.EXPAND, 0)
         sizer_14.Add(self.text_ctrl_return3, 0, wx.EXPAND, 0)
         sizer_14.Add(self.text_ctrl_return4, 0, wx.EXPAND, 0)
+        sizer_14.Add(self.text_ctrl_return5, 0, wx.EXPAND, 0)
+        sizer_14.Add(self.text_ctrl_return6, 0, wx.EXPAND, 0)
         self.sizer_9.Add(sizer_14, 13, wx.EXPAND, 0)
         sizer_12.Add(self.label_current_price, 0, wx.EXPAND, 1)
         sizer_12.Add(self.text_ctrl_current_price0, 0, wx.EXPAND, 0)
@@ -211,6 +233,8 @@ class sukerStockInfoFrame(wx.Frame):
         sizer_12.Add(self.text_ctrl_current_price2, 0, wx.EXPAND, 0)
         sizer_12.Add(self.text_ctrl_current_price3, 0, wx.EXPAND, 0)
         sizer_12.Add(self.text_ctrl_current_price4, 0, wx.EXPAND, 0)
+        sizer_12.Add(self.text_ctrl_current_price5, 0, wx.EXPAND, 0)
+        sizer_12.Add(self.text_ctrl_current_price6, 0, wx.EXPAND, 0)
         self.sizer_9.Add(sizer_12, 13, wx.EXPAND, 0)
         sizer_2.Add(self.label_Numberofshares, 0, wx.EXPAND, 1)
         sizer_2.Add(self.text_ctrl_nos0, 0, wx.EXPAND, 0)
@@ -218,6 +242,8 @@ class sukerStockInfoFrame(wx.Frame):
         sizer_2.Add(self.text_ctrl_nos2, 0, wx.EXPAND, 0)
         sizer_2.Add(self.text_ctrl_nos3, 0, wx.EXPAND, 0)
         sizer_2.Add(self.text_ctrl_nos4, 0, wx.EXPAND, 0)
+        sizer_2.Add(self.text_ctrl_nos5, 0, wx.EXPAND, 0)
+        sizer_2.Add(self.text_ctrl_nos6, 0, wx.EXPAND, 0)
         self.sizer_9.Add(sizer_2, 10, wx.EXPAND, 0)
         sizer_13.Add(self.label_buy_price, 0, wx.EXPAND, 1)
         sizer_13.Add(self.text_ctrl_buy_price0, 0, wx.EXPAND, 0)
@@ -225,6 +251,8 @@ class sukerStockInfoFrame(wx.Frame):
         sizer_13.Add(self.text_ctrl_buy_price2, 0, wx.EXPAND, 0)
         sizer_13.Add(self.text_ctrl_buy_price3, 0, wx.EXPAND, 0)
         sizer_13.Add(self.text_ctrl_buy_price4, 0, wx.EXPAND, 0)
+        sizer_13.Add(self.text_ctrl_buy_price5, 0, wx.EXPAND, 0)
+        sizer_13.Add(self.text_ctrl_buy_price6, 0, wx.EXPAND, 0)
         self.sizer_9.Add(sizer_13, 10, wx.EXPAND, 0)
         sizer_6.Add(self.label_profit, 0, wx.EXPAND, 1)
         sizer_6.Add(self.text_ctrl_profit0, 0, wx.EXPAND, 0)
@@ -232,6 +260,8 @@ class sukerStockInfoFrame(wx.Frame):
         sizer_6.Add(self.text_ctrl_profit2, 0, wx.EXPAND, 0)
         sizer_6.Add(self.text_ctrl_profit3, 0, wx.EXPAND, 0)
         sizer_6.Add(self.text_ctrl_profit4, 0, wx.EXPAND, 0)
+        sizer_6.Add(self.text_ctrl_profit5, 0, wx.EXPAND, 0)
+        sizer_6.Add(self.text_ctrl_profit6, 0, wx.EXPAND, 0)
         self.sizer_9.Add(sizer_6, 13, 0, 0)
         sizer_15.Add(self.button_opensetupfile, 20, wx.ALL | wx.EXPAND, 2)
         sizer_5.Add(self.label_totalPurchase, 0, wx.ALL | wx.EXPAND, 1)
