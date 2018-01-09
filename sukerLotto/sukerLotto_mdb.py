@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+#reload(sys)
+#sys.setdefaultencoding('utf-8')
 
 import requests
 from bs4 import BeautifulSoup
@@ -39,10 +39,10 @@ class lottoWithMongoDB:
             self.clearMDB("999992")
             self.clearMDB("999991")
             post_id = self.dbCollection.insert(lottoPostsTest)
-            print post_id
-            print self.dbHandle.collection_names()
-            print self.dbCollection.find_one({"timeid":"999992"})   # if author==Mike ==> print post
-            print self.dbCollection.find_one({"timeid":"999991"})   # if author==Mike ==> print post
+            print (post_id)
+            print (self.dbHandle.collection_names())
+            print (self.dbCollection.find_one({"timeid":"999992"}))   # if author==Mike ==> print post
+            print (self.dbCollection.find_one({"timeid":"999991"}))   # if author==Mike ==> print post
 
             
     def clearMDB(self, id):
@@ -50,11 +50,11 @@ class lottoWithMongoDB:
         self.dbCollection.remove({"author":"Mike"})
         
     def checkLatestNumber(self):
-        resp = requests.get(mainLottoUrl)
+        resp = requests.get(mainLottoUrl,proxies={'http': 'http://localhost:4001',})
         soup = BeautifulSoup(resp.text, "lxml")
         line = str(soup.find("meta", {"id" : "desc", "name" : "description"})['content'])
 
-        print line
+        print (line)
 
         begin = line.find(" ")
         end = line.find("회")
@@ -68,7 +68,7 @@ class lottoWithMongoDB:
 
     def checkLatestNumberInMDB(self, id):
         if self.dbCollection.find_one({"timeid":id}) != None :
-            print "Already latest lotto numbers saved"
+            print("Already latest lotto numbers saved")
         else:
             #find last saved number
             #ASCENDING
@@ -129,7 +129,7 @@ class lottoWithMongoDB:
     def showdb(self,cnt):
         cursor = self.dbCollection.find().sort("timeid",pymongo.DESCENDING).limit(cnt)
         for document in cursor :
-            print document
+            print (document)
 
     def removedbAll(self):
         self.dbCollection.remove()
@@ -137,19 +137,19 @@ class lottoWithMongoDB:
     def findnumbers(self,ff):
         cursor = self.dbCollection.find_one({"numbers":ff})
         if cursor == None:
-            print "당첨 번호 없음"
+            print ("당첨 번호 없음")
         else :
-            print "회    차 : " + str(cursor[("timeid")]) + "회"
-            print "당첨번호 : " + cursor[("numbers")]
-            print "1등 금액 : " + cursor[("amount")] + "원"        
+            print ("회    차 : " + str(cursor[("timeid")]) + "회")
+            print ("당첨번호 : " + cursor[("numbers")])
+            print ("1등 금액 : " + cursor[("amount")] + "원")
     def findtime(self, tt):    
         cursor = self.dbCollection.find_one({"timeid":int(tt)})
         if cursor == None:
-            print "해당 최차 정보 없음"
+            print ("해당 최차 정보 없음")
         else :
-            print "회    차 : " + str(cursor[("timeid")]) + "회"
-            print "당첨번호 : " + cursor[("numbers")]
-            print "1등 금액 : " + cursor[("amount")] + "원"
+            print ("회    차 : " + str(cursor[("timeid")]) + "회")
+            print ("당첨번호 : " + cursor[("numbers")])
+            print ("1등 금액 : " + cursor[("amount")] + "원")
             
 def main(args):
     mdbLottoinst = lottoWithMongoDB()
@@ -167,7 +167,7 @@ def main(args):
         dbNum = mdbLottoinst.checkLatestNumberInMDB(str(latestNum))
 
         if dbNum == None:
-            print "db is empty"
+            print("db is empty")
             mdbLottoinst.crawler(1, latestNum)
             mdbLottoinst.insert()
         elif dbNum < latestNum:
@@ -176,13 +176,13 @@ def main(args):
             mdbLottoinst.crawler(dbNum+1, latestNum)
             mdbLottoinst.insert()
         else:
-            print "Already DB is latest updated"
+            print("Already DB is latest updated")
             mdbLottoinst.showdb()
     elif args[0]=="findnum":
         while True:
             numbers = raw_input()
             if numbers=='quit':
-                print 'Good Bye!'
+                print('Good Bye!')
                 break
             else :
                 mdbLottoinst.findnumbers(numbers)
@@ -190,7 +190,7 @@ def main(args):
         while True:
             numbers = raw_input()
             if numbers=='quit':
-                print 'Good Bye!'
+                print('Good Bye!')
                 break
             else :
                 mdbLottoinst.findtime(numbers)
@@ -200,20 +200,20 @@ def main(args):
         help()
 
 def help():
-    print "------ Usage check below -------"
-    print "python sukerLotto_mdb.py showdb"
-    print "python sukerLotto_mdb.py showdb [limit]"
-    print "         ==> If non-input arg2, show will be show latest one"
-    print "         ==> If you are input 4, show will be show latest 4 times results"
-    print "python sukerLotto_mdb.py cleardb"
-    print "python sukerLotto_mdb.py updatedb"
-    print "python sukerLotto_mdb.py findnum"
-    print "         ==> input 'quit' will be exit"
-    print "python sukerLotto_mdb.py findtime"
-    print "         ==> input 'quit' will be exit"    
-    print "python sukerLotto_mdb.py help"
-    print "--------------------------------"
+    print("------ Usage check below -------")
+    print("python sukerLotto_mdb.py showdb")
+    print("python sukerLotto_mdb.py showdb [limit]")
+    print("         ==> If non-input arg2, show will be show latest one")
+    print("         ==> If you are input 4, show will be show latest 4 times results")
+    print("python sukerLotto_mdb.py cleardb")
+    print("python sukerLotto_mdb.py updatedb")
+    print("python sukerLotto_mdb.py findnum")
+    print("         ==> input 'quit' will be exit")
+    print("python sukerLotto_mdb.py findtime")
+    print("         ==> input 'quit' will be exit")
+    print("python sukerLotto_mdb.py help")
+    print("--------------------------------")
         
-if __name__ == "__main__":
+if __name__ == "__main__" :
     args = sys.argv[1:]
     main(args)

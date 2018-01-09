@@ -8,6 +8,7 @@ suker stock ver 0.1
 
 from bs4 import BeautifulSoup
 import urllib
+import requests
 import os
 import sys
 
@@ -47,7 +48,7 @@ class stockBodyCls :
         soup = BeautifulSoup(html,"html.parser")
         data = soup.find("div", { "class" : "item_info_lt" })
         stockValue = ""
-        
+      
         for rr in data.findAll("div"):
             stockValue = rr.findAll("strong")[0].text
             

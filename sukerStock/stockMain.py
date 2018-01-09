@@ -314,7 +314,7 @@ def main():
     gettext.install("SukerStockInfo") # replace with the appropriate catalog name
 
     SukerStockInfo = wx.App(False)  #app = wx.PySimpleApp(0)
-    wx.InitAllImageHandlers()
+    #wx.InitAllImageHandlers()
     frame_Main = sukerStockInfoFrame(None, wx.ID_ANY, "")
     #icon
     frame_Main.SetIcon(wx.Icon(os.path.dirname(os.path.realpath(__file__)) + '/sukerStock.ico', wx.BITMAP_TYPE_ICO))
