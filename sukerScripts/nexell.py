@@ -44,7 +44,7 @@ suker_commands = [['ssh',['ssh suker@192.168.1.16',
                             ],
                   ],
                   
-                  ['mount', ['sudo mount -t cifs -o user="suker",password="cndgus123" //192.168.1.16/suker ~/sukerSMB',
+                  ['mount', ['sudo mount -t cifs -o user="suker",password="cndgus123",rw,user,exec,auto,file_mode=0755,dir_mode=0755,uid=suker,gid=suker //192.168.1.16/suker ~/sukerSMB',
                              'sudo mount -t cifs //NAS/1st ~/Nexell-NAS1 -o user=nexell,password=nexell,workgroup=WORKGROUP,ip=192.168.1.17,iocharset=utf8',
                              'sudo mount -t cifs //NAS/2nd ~/Nexell-NAS2 -o user=nexell,password=nexell,workgroup=WORKGROUP,ip=192.168.1.17,iocharset=utf8',
                              'sudo mount -t cifs //NAS/3rd ~/Nexell-NAS3 -o user=nexell,password=nexell,workgroup=WORKGROUP,ip=192.168.1.17,iocharset=utf8',
