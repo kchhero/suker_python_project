@@ -1,0 +1,15 @@
+import sys
+from os import listdir
+
+def scrapping(startPath) :
+    for dir in listdir(startPath) :
+        print dir
+        
+def main(path) :
+    scrapping(path)
+
+if __name__ == "__main__":
+    try :
+        main(sys.argv[1])
+    finally :
+        pass
