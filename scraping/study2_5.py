@@ -3,12 +3,17 @@
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import re
+import datetime
+import random
+random.seed(datetime.datetime.now())
 
-html = urlopen("http://en.wikipedia.org/wiki/kevin_Bacon")
-bsObj = BeautifulSoup(html, "html.parser")
-#for link in bsObj.findAll("a")
-for link in bsObj.find("div", {"id":"bodyContent"}).findAll("a", href=re.compile("^(/wiki/)((?!:).)*$")):
-    if 'href' in link.attrs:
-        print(link.attrs['href'])
+def getlink(articleUrl) :
+    html = urlopen("http://en.wikipedia.org" + articleUrl)
+    bsObj = BeautifulSoup(html, "html.parser")
+    return bsObj.find("div", {"id":"bodyContent"}).findAll("a", href=re.compile("^(/wiki/)((?!:).)*$"))
 
-
+links = getlink("/wiki/kevin_Bacon")
+while len(links) > 0:
+    newArticle = links[random.randint(0, len(links)-1)].attrs["href"]
+    print(newArticle)
+    links = getlink(newArticle)
