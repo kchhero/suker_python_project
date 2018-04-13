@@ -32,7 +32,6 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     
     ui.sendInfoClsInst(infoCls)
-
     ui.do_refresh()
     
     MainWindow.show()

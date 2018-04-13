@@ -16,7 +16,7 @@ URL_STOCK_PRE = "http://hyper.moneta.co.kr/fcgi-bin/DelayedCurrPrice10.fcgi?code
 URL_STOCK_POST = "&isReal=true"
 
 class stockInfoCls :
-    refreshTime = ""
+    refreshTime = 0
     names = []
     codes = []
     buyprices = []
@@ -29,7 +29,8 @@ class stockInfoCls :
     profit = []
 
     useWindow = {"name" : names, "code" : codes, "buyp" : buyprices, "curp" : current_prices, "pf" : profit}
-    
+    maxlength = 0
+            
     def stockInfoMaking(self) :
         #elf.debugging_()        
         self.current_prices = []
@@ -66,14 +67,50 @@ class stockInfoCls :
                 
             return stockValue
 
-
     def refresh(self, cls) :
-        cls.updateName(1, "test1")
-        cls.updateName(2, "test2")
+        maxLen = cls.getMaxLength()
+        tempColor = ''
+        if self.index < maxLen :
+            maxLen = self.index
+
+        for i in range(0, maxLen) :
+            cls.updateName(i, self.names[i] + " / " + self.codes[i])
+            cls.updateCurrentPrice(i, '{:,}'.format(int(self.current_prices[i])))
+            cls.updateBuyPrice(i, '{:,}'.format(int(self.buyprices[i])))
+            cls.updateAmount(i, '{:,}'.format(int(self.numberOfShares[i])))
+            cls.updateToday(i, "date")
+
+            if self.profit[i] > 0 :
+                tempColor = "red"
+            else :
+                tempColor = "blue"
+
+            cls.updateProfit(i, '{:,}'.format(self.profit[i]), tempColor)
+
+     
+        if self.totalProfit < 0 :
+            tempColor = "blue"
+        else : #plus
+            tempColor = "red"
+
+        cls.updateTotalBuyPrice('{:,}'.format(self.totalPurchase))
+        cls.updateTotalProfit('{:,}'.format(self.totalProfit), tempColor)
         
     # updateCurrentPrice(self, index, price) :
     # updateBuyPrice(self, index, price) :
-        
+
+    def saveIni(self, name, code, buyP, amount) :
+        iniFilePath = os.path.dirname(os.path.realpath(__file__)) + self.getDirMark() + "setup.ini"
+        if os.path.isfile(iniFilePath) :
+            try :
+                with open(iniFilePath,'a') as data :
+                    temp = "<" + str(self.index+1) + ">" + name + "," + code + "," + buyP + "," + amount
+                    print(temp)
+                    data.write(temp)
+                
+            except IOError :
+                print ("File open error")
+    
     def loadIni(self) :
         iniFilePath = os.path.dirname(os.path.realpath(__file__)) + self.getDirMark() + "setup.ini"
         if os.path.isfile(iniFilePath) :
@@ -85,7 +122,7 @@ class stockInfoCls :
 
                         tempLine1 = (line.split('>'))[1].strip()
                         if "<*" in line :
-                            self.refreshTime = int(tempLine1)
+                            self.refreshTime = int(tempLine1) #second
                         else :
                             tempL = tempLine1.split(',')
                             self.names.append(tempL[0])
@@ -93,7 +130,7 @@ class stockInfoCls :
                             self.buyprices.append(tempL[2])
                             self.numberOfShares.append(tempL[3])
                             self.index += 1
-                self.debugging_()
+                #self.debugging_()
                 
             except IOError :
                 print ("File open error")
@@ -101,7 +138,7 @@ class stockInfoCls :
     def getDirMark(self) :
         linuxMark = '/'
         winMark = '\\'
-        print(sys.platform)
+        #print(sys.platform)
         if sys.platform=='linux2' or sys.platform=='linux' :
             return linuxMark
         else :
