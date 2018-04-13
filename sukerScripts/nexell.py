@@ -20,7 +20,7 @@ suker_commands = [['ssh',['ssh suker@192.168.1.16',
                           'ssh jenkins@192.168.1.26',
                           'ssh nexellstorage@119.65.249.125',
                           'ssh lava-nexell@192.168.1.18',
-                          'ssh suker@220.78.49.182',
+                          'ssh -X suker@220.78.49.182',
                           'ssh -X fpga@192.168.1.182',
                          ]
                   ],
