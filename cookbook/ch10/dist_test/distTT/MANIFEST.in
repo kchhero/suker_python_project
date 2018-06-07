@@ -1,0 +1,3 @@
+include *.txt
+recursive_include examples *
+recursive_include Doc *
