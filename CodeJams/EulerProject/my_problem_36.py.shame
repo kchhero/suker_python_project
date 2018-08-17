@@ -1,0 +1,73 @@
+#     11~99
+#    111~999 
+#   1111~9999
+#  11111~99999
+# 111111~999999
+
+symmetryList = []
+
+
+def symmetry():
+    for i in range(11, 100):
+        if i % 10 == 0:
+            pass
+        elif i % 11 == 0:
+            symmetryList.append(i)
+    for i in range(111, 1000):
+        if i % 10 == 0:
+            pass
+        elif i / 100 == i % 10:
+            symmetryList.append(i)
+
+    for i in range(1111, 10000):
+        if i % 10 == 0:
+            pass
+        elif i / 1000 == i % 10 and (i/100) % 10 == (i/10) % 10:
+            symmetryList.append(i)
+
+    for i in range(11111, 100000):
+        if i % 10 == 0:
+            pass
+        elif i / 10000 == i % 10 and (i/1000) % 10 == (i/10) % 10:
+            symmetryList.append(i)
+
+    for i in range(111111, 1000000):
+        if i % 10 == 0:
+            pass
+        elif i / 100000 == i % 10 and (i/10000) % 10 == (i/10) % 10 and (i/1000) % 10 == (i/100) % 10:
+            symmetryList.append(i)
+
+
+symmetry()
+print(len(symmetryList))
+
+# binary number length: 4~20, 2^20
+
+def anal():
+    cnt = 0
+    tsum = 0
+    binnumLen = 0
+    for i in symmetryList:
+        palindrome = True
+        __bin = bin(i)[2:]
+        if i & 0b1 == 1:
+            binnumLen = len(__bin)
+            # print(__bin)
+            for j in range(0, binnumLen/2):
+                # print("{}  {}".format(binnumLen-j-1, j))
+                # print("{}  {}".format(__bin[binnumLen-j-1], __bin[j]))
+                if __bin[j] != __bin[binnumLen-j-1]:
+                    palindrome = False
+
+        else:
+            palindrome = False
+
+        if palindrome:
+            cnt += 1
+            tsum += i
+            print("2b : {} ,  10d : {}, bin len = {}".format(__bin, i,
+                                                             binnumLen))
+    print("sum = %d" % tsum)
+
+
+anal()
