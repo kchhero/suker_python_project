@@ -1,74 +1,36 @@
-import itertools
+# https://mingrammer.com/project-euler-maximum-path-sum/
+triangle = """
+75
+95 64
+17 47 82
+18 35 87 10
+20 04 82 47 65
+19 01 23 75 03 34
+88 02 77 73 07 63 67
+99 65 04 28 06 16 70 92
+41 41 26 56 83 40 80 70 33
+41 48 72 33 47 32 37 16 94 29
+53 71 44 65 25 43 91 52 97 51 14
+70 11 33 28 77 73 17 78 39 68 17 57
+91 71 52 38 17 14 91 43 58 50 27 29 48
+63 66 04 68 89 53 67 30 73 16 69 87 40 31
+04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
+"""
 
-#line20str = [0]*20
-#line20int = [0]*20
-maxNum = 5
-lineL = [0]*maxNum
-lineLint= [0]*maxNum
-lineLintCB = [0]*maxNum
-index=0
-sum = 0
+triangle_leaves = []
+for line in triangle.strip().splitlines():
+    triangle_leaves.append([int(i) for i in line.split()])
+print(triangle_leaves)
 
-#array save
-try :
-    with open("my_problem_18_test.txt") as data :
-        for line in data :
-            lineL[index] = line.strip().split(' ')
-            index = index+1
-except IOError :
-    print "File open error"
+n = len(triangle_leaves)
+for i, leaves in enumerate(triangle_leaves[-2::-1]):
+    print(i)
+    print(leaves)
+    print("asdf==>"),
+    print(triangle_leaves[n-i-1])
+    for j, leaf in enumerate(leaves):
+        left = triangle_leaves[n-i-1][j]
+        right = triangle_leaves[n-i-1][j+1]
+        triangle_leaves[n-i-2][j] += max(left, right)
 
-k = 0
-for i in lineL :
-    tempL = []
-    for j in i :
-        tempL.append(int(j))
-        
-    lineLint[k] = tempL
-    k += 1
-
-lineLintCB = lineLint[:]
-#print lineLint
-#print lineL[-1]
-#print lineL[-1][0:3]
-
-def makeSmallTriangle(count):
-    startBellow = count
-    reverseIndex = -1
-    triang = []
-    for i in range(startBellow):        
-        triang.append(lineLint[reverseIndex][0:startBellow])
-        reverseIndex -= 1
-        startBellow -= 1
-    
-    triang.reverse()
-    return triang
-
-def settedEle(dL,depth) :
-    startIdx = 1
-    minSum = dl[0][0]
-    sumMinlocation = []
-    
-    for i in range(pow(2,depth-1)) :
-        minSum += dl[startIdx][i] + dl[startIdx+1][i]) > (dl[reverse][i+1] + dl[reverse-1][i]) :
-            removeReady = [reverse,i+1]
-        if (dl[reverse][i+1] + dl[reverse-1][i+1]) > (dl[reverse][i+1] + dl[reverse-1][i]) :
-        
-    
-def abcd() :
-    #for i in range(3,5+1) :
-    for i in range(3,6) :
-        triab = makeSmallTriangle(i)
-        print triab        
-        print "\n"
-
-        settedEle(triab,i)
-#        tempSumEle = ssum(triab) 
-#        print tempSumEle
-abcd()
-    
-
-
-
-
-#aa = list(itertools.product(*triab))
+print(triangle_leaves[0][0])

@@ -1,32 +1,34 @@
 import math
+import time
 
-def suker_isPrimeNum(n) :
-    if n==2 or n==3 or n==5 or n==7 :
-        return 1
-    elif n%2==0 :
-        return 0
-    else :
-        sqrtNum = int(math.sqrt(n))
-        for i in range(3,sqrtNum+1) :
-            if n%i==0 :
-                return 0
 
-        return 1
+def check_prime(n):
+    if n % 2 == 0:
+        return False
 
-#41 = 2 + 3 + 5 + 7 + 11 + 13
-primeL = [i for i in xrange(3,1000001,2) if suker_isPrimeNum(i)==1]
-print "prime make done!"
+    startNum = 3
+    endNum = (int)(math.sqrt(n) + 1)
+    for i in range(startNum, endNum, 2):
+        if n % i == 0:
+            return False
 
-maxLength = 0
-for i in range(len(primeL)) :
-    cnt = 0
-    sum = 0
-    for j in range(i,len(primeL)) :
-        sum += primeL[j]
-        cnt += 1
-        if sum in primeL and cnt > maxLength :
-            maxLength = cnt
-            print "start Num :",primeL[i], "end Num :",primeL[j], "max Length :",maxLength, "sum :",sum
+    return True
 
-#start Num : 7 end Num : 3931 max Length : 543 sum : 997651
-            
+
+# 41 = 2 + 3 + 5 + 7 + 11 + 13
+primeL = [ i for i in xrange(3, 1001, 2) if check_prime(i)==True ]
+print("prime make done!")
+print(len(primeL))
+print(primeL)
+
+# maxLength = 0
+maxNum = 0
+for i in primeL:
+    sum = 2
+    sum += i
+    if sum in primeL:
+        if sum > maxNum:
+            maxNum = sum
+            print("update Largest Num: {}".format(sum))
+
+# #start Num : 7 end Num : 3931 max Length : 543 sum : 997651

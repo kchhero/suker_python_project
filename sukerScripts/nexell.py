@@ -20,7 +20,7 @@ suker_commands = [['ssh',['ssh suker@192.168.1.16',
                           'ssh jenkins@192.168.1.26',
                           'ssh nexellstorage@119.65.249.125',
                           'ssh lava-nexell@192.168.1.18',
-                          'ssh -X suker@220.78.49.182',
+                          'ssh -X suker@220.78.49.186',
                           'ssh -X fpga@192.168.1.182',
                          ]
                   ],
@@ -45,14 +45,16 @@ suker_commands = [['ssh',['ssh suker@192.168.1.16',
                             ],
                   ],
                   
-                  ['mount', ['sudo mount -t cifs -o user="suker",password="cndgus123",rw,user,exec,auto,file_mode=0755,dir_mode=0755,uid=suker,gid=suker //192.168.1.16/suker ~/sukerSMB',
+                  ['mount', ['sudo mount -t nfs 192.168.1.16:/home/sw2/suker /home/suker/sukerSMB/',
                              'sudo mount -t cifs //NAS/1st ~/Nexell-NAS1 -o user=nexell,password=nexell,workgroup=WORKGROUP,ip=192.168.1.17,iocharset=utf8',
                              'sudo mount -t cifs //NAS/2nd ~/Nexell-NAS2 -o user=nexell,password=nexell,workgroup=WORKGROUP,ip=192.168.1.17,iocharset=utf8',
                              'sudo mount -t cifs //NAS/3rd ~/Nexell-NAS3 -o user=nexell,password=nexell,workgroup=WORKGROUP,ip=192.168.1.17,iocharset=utf8',
-                             'sudo sshfs -p 22 -o allow_other suker@220.78.49.182:/home/suker /home/suker/RISC-V/nexell/soc-reference',
+                             'sudo sshfs -p 22 -o allow_other suker@220.78.49.186:/home/suker /home/suker/RISC-V/nexell/soc-reference',
                              'sudo mount /dev/sdb1 /home/suker/sukerSDB',]
                   ],
                  ] 
+
+# 'sudo mount -t cifs -o user="suker",password="cndgus123",rw,user,exec,auto,file_mode=0755,dir_mode=0755,uid=suker,gid=suker //192.168.1.16/suker ~/sukerSMB',
 
 linuxMark = '/'
 winMark = '\\'
