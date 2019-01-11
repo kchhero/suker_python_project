@@ -18,8 +18,8 @@ selectedWorkingSpace = None
 
 suker_commands = [['ssh',['ssh suker@192.168.1.16',
                           'ssh jenkins@192.168.1.26',
-                          'ssh nexellstorage@119.65.249.125',
-                          'ssh lava-nexell@192.168.1.18',
+                          'ssh snapshot@192.168.1.25',
+                          'ssh lava-server@192.168.1.20',
                           'ssh -X suker@220.78.49.186',
                           'ssh -X fpga@192.168.1.182',
                          ]
@@ -50,6 +50,7 @@ suker_commands = [['ssh',['ssh suker@192.168.1.16',
                              'sudo mount -t cifs //NAS/2nd ~/Nexell-NAS2 -o user=nexell,password=nexell,workgroup=WORKGROUP,ip=192.168.1.17,iocharset=utf8',
                              'sudo mount -t cifs //NAS/3rd ~/Nexell-NAS3 -o user=nexell,password=nexell,workgroup=WORKGROUP,ip=192.168.1.17,iocharset=utf8',
                              'sudo sshfs -p 22 -o allow_other suker@220.78.49.186:/home/suker /home/suker/RISC-V/nexell/soc-reference',
+                             'sudo sshfs -p 22 -o allow_other jenkins@192.168.1.26:/home/jenkins/Jenkins_Storage_BlueOcean /home/suker/nexell_CI/jenkins_shared',
                              'sudo mount /dev/sdb1 /home/suker/sukerSDB',]
                   ],
                  ] 
