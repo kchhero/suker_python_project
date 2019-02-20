@@ -9,35 +9,35 @@ import subprocess
 import shutil
 import os
 
-commands={'NAME_ONLY':['git','status','-s'],
-          'TOPLEVEL_PATH':['git','rev-parse','--show-toplevel']}
+commands = {'NAME_ONLY' : ['git', 'status', '-s'], 'TOPLEVEL_PATH' : ['git', 'rev-parse', '--show-toplevel']}
 NEW_DIR_NAME = '___diff_new_dir___'
+
 
 class gitDiffToFiles :
     def __init__(self, workingSpace, promptColors) :
         self.fileList = []
         self.dirList = []
         self.workingSpace = workingSpace
-        self.newDirName = NEW_DIR_NAME+'/'+workingSpace+'/'
+        self.newDirName = NEW_DIR_NAME + '/' + workingSpace + '/'
         self.isExistNewDir = False
         self.prompt = promptColors
-    
+
     def printLine(self, _type_) :
-        if _type_==1 :
+        if _type_ == 1 :
             return "------------------------------------------------------------------"
-        elif _type_==2 :
+        elif _type_ == 2 :
             return "----------"
-            
+
     def commandGit(self) :
-        if os.path.exists(".git")==False :
-            print self.prompt["RED"]+"Here is not exist '.git'"+self.prompt["ENDC"]
+        if os.path.exists(".git") == False :
+            print (self.prompt["RED"] + "Here is not exist '.git'" + self.prompt["ENDC"])
             return False
-            
+
         try :
             out_bytes = subprocess.check_output(commands['NAME_ONLY'])
             tempL = list(out_bytes.split('\n'))
-            
-            if len(tempL)<=1 :
+
+            if len(tempL) <= 1 :
                 print self.printLine(2) + self.prompt["YELLOW"]+"There is no diff file "+self.prompt["ENDC"] + self.printLine(2)
                 print self.printLine(2) + " Please check the 'git diff' command " + self.printLine(2)
                 print self.printLine(1) + "\n"

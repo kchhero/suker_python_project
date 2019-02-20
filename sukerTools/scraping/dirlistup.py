@@ -1,4 +1,5 @@
 import os,string
+
 path = '/home/suker/tmp'
 path = os.path.normpath(path)
 res = []

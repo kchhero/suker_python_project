@@ -150,8 +150,8 @@ class abstractorBody():
         lkListTemp = []
         kernelListTemp = []
         etcListTemp = []
-        
-        #--------------------------------------lk-----------------------------------------
+
+        # --------------------------------------lk-----------------------------------------
         try :
             with open(self.lkLogFileName) as data :
                 for line in data :
@@ -165,11 +165,11 @@ class abstractorBody():
                                     lkListTemp.append("\n")
         except IOError :
             print "File open error"
-            
+
         for s in lkListTemp :
             logoutCls.lkWriteOuts(s)
-        
-        #--------------------------------------kernel-----------------------------------------
+
+        # --------------------------------------kernel-----------------------------------------
         try :
             with open(self.kernelLogFileName) as data :
                 for line in data :
@@ -197,26 +197,26 @@ class abstractorBody():
                             etcListTemp.append("\n")                
         except IOError :
             print "File open error" 
-        
+
         for s in etcListTemp :
             logoutCls.etcWriteOuts(s)
-            
-       
+
+
     def logParsing(self, dirPath, binFileName, acceptEtc=True, step=1, loggingSize=256) :
         self.lkLogFileName = dirPath + getDirMark() + "lk_log.txt"
         self.kernelLogFileName = dirPath + getDirMark() + "kernel_log.txt"
         self.crashLogFileName = dirPath + getDirMark() + "crash_log.txt"
         self.etcFileName = dirPath + getDirMark() + "etc_log.txt"
         self.androidLogFileName = dirPath + getDirMark() + "android_log.txt"
-        
+
         if loggingSize == 0 or loggingSize < 256 :
             getLogSize = self.DEFAULT_CATCH_SIZE
         else :
             getLogSize = loggingSize*1024
-            
+
         start_KERNEL_LOG_PosL = []
         end_KERNEL_LOG_PosL = []
-        
+
         start_CRASH_PosL = []
         end_CRASH_PosL = []        
 
@@ -237,13 +237,13 @@ class abstractorBody():
         lk_logging_done = False
         kernel_logging_done = False
         android_logging_done = False
-                
+
         with open(dirPath + getDirMark() + binFileName, 'rb') as ddrcs_bin:
             m = mmap.mmap(ddrcs_bin.fileno(), 0,access=mmap.ACCESS_READ)
             currPos = 0
             if step==2 :
                 ddrcs_bin.seek(268435456)  #256MB
-                
+
             #-----------------------------------------------------------
             #       CRASH LOG PARSING
             #-----------------------------------------------------------
@@ -256,7 +256,7 @@ class abstractorBody():
                             print "Crash log step : not select all --->\n"
                             print "    ele = " + ele + "\n"
                             print "    ret = ", ret
-                else :            
+                else :
                     ret = self.doParsingCrash(m, self.crashTypeHash[self.crashTypeList[self.crashTypeIdx]], \
                                               start_CRASH_PosL, end_CRASH_PosL, False, getLogSize)
                     if self.DEBUG_ON :
@@ -273,7 +273,7 @@ class abstractorBody():
                         print "    ret = ", ret
                     if ret==1 :
                         break
-            
+
             m.seek(0)
             
             #-----------------------------------------------------------
