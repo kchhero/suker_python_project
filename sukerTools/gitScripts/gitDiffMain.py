@@ -76,7 +76,7 @@ def conversation() :
                 gitcntl.paseGitDiff()
 
             print " 'h' or 'help' show again usage commands, 'q' or 'quit' exit program."
-    
+
 def main():
     conversation()
     
