@@ -1,0 +1,3 @@
+abcdefg
+bootargs=console=ttyAMA3,115200n8 loglevel=7 printk.time=1 androidboot.hardware=con_svma androidboot.console=ttyAMA3  anotherthinganotherthing anotherthing
+asdfasdfasdfasdfadf

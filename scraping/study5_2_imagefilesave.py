@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 downloadDirectory =  "/home/suker/Downloads/"
 baseUrl = "http://pythonscraping.com"
 
+
 def getAbsoluteURL(baseUrl, source) :
     if source.startswith("http://www.") :
         url = "http://"+source[11:]

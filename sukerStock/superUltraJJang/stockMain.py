@@ -15,25 +15,26 @@ import sys
 
 useWindowOfMain = {}
 
+
 def main():
     print()
-    #refresh
-    #show window
+    # refresh
+    # show window
+
 
 if __name__ == "__main__":
     infoCls = stockInfoCls()
     infoCls.loadIni()
     infoCls.stockInfoMaking()
     print(useWindowOfMain)
-    
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-    
+
     ui.sendInfoClsInst(infoCls)
     ui.do_refresh()
-    
+
     MainWindow.show()
     sys.exit(app.exec_())
-
