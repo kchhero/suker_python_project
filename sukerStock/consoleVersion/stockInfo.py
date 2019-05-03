@@ -50,32 +50,39 @@ class stockInfoCls :
             return stockValue
 
     def refresh(self) :
-        temp = ""
-        maxSpacing = 40
-        for i in range(0, self.index) :
-            temp = self.names[i] + "|" + self.codes[i] + " | "
-            _spacing = maxSpacing - len(temp)
-            if _spacing < 1 :
-                _spacing = 1                
+        _name = ""
+        maxSpacing = 30
+        maxSpacing2 = 25
 
-            print(Style.RESET_ALL + "--------------------------------------------------------------------------------------")
+        for i in range(0, self.index) :
+            _name = self.names[i] + "|" + self.codes[i] + " | "
+
+            print(Style.RESET_ALL + "----------------------------------------------------------------------------------------------------------")
+            _spacing = maxSpacing - len(_name)
+            if _spacing < 1 :
+                _spacing = 1
+
+            # profit
+            if self.profit[i] > 0 :
+                print(_name + ' ' * _spacing + Fore.RED + 'profit : {:,}'.format(self.profit[i]), end='', flush=True)
+            else :
+                print(_name + ' ' * _spacing + Fore.BLUE + 'profit : {:,}'.format(self.profit[i]), end='', flush=True)
+
+            _spacing = maxSpacing2 - len('profit : {:,}'.format(self.profit[i]))
+
+            # more infomation
             if self.current_prices[i] > self.buyprices[i] :
-                print(temp + ' ' * _spacing
+                print(' ' * _spacing
                       + Fore.RED + 'current : {:,}'.format(int(self.current_prices[i]))
                       + Fore.YELLOW + '  buy : {:,}'.format(int(self.buyprices[i]))
                       + Style.RESET_ALL + '  numOfShares : {:,}'.format(int(self.numberOfShares[i])))
             else :
-                print(temp + ' ' * _spacing
+                print(' ' * _spacing
                       + Fore.BLUE + 'current : {:,}'.format(int(self.current_prices[i]))
                       + Fore.YELLOW + '  buy : {:,}'.format(int(self.buyprices[i]))
                       + Style.RESET_ALL + '  numOfShares : {:,}'.format(int(self.numberOfShares[i])))
 
-            if self.profit[i] > 0 :
-                print(Fore.RED + 'profit : {:,}'.format(self.profit[i]))
-            else :
-                print(Fore.BLUE + 'profit : {:,}'.format(self.profit[i]))
-
-        print(Style.RESET_ALL + "--------------------------------------------------------------------------------------")
+        print(Style.RESET_ALL + "----------------------------------------------------------------------------------------------------------")
 
     def loadIni(self) :
         iniFilePath = os.path.dirname(os.path.realpath(__file__)) + self.getDirMark() + "setup.ini"
