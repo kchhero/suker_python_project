@@ -24,14 +24,18 @@ class stockInfoCls :
     current_prices = []
     numberOfShares = []
     profit = []
+    up_down = []
 
     maxlength = 0
 
     def stockInfoMaking(self) :
         self.current_prices = []
         self.profit = []
+        tempLocalTuple = ()
         for i in range(0, self.index) :
-            self.current_prices.append(self.stockGetCurPrice(self.codes[i]).replace(',', ''))
+            tempLocalTuple = self.stockGetCurPrice(self.codes[i])
+            self.current_prices.append(tempLocalTuple[0].replace(',', ''))
+            self.up_down.append(tempLocalTuple[1])
             self.profit.append((int(self.current_prices[i]) - int(self.buyprices[i])) * int(self.numberOfShares[i]))
 
     def stockGetCurPrice(self, code) :
@@ -42,12 +46,15 @@ class stockInfoCls :
 
         for rr in data.findAll("div"):
             stockValue = rr.findAll("strong")[0].text
-            diffValues = []
+            # diffValues = []
+            up_down = ""
 
             for ss in rr.findAll("em") :
-                diffValues.append(ss.text)
+                if "%" in ss.text :
+                    # diffValues.append(ss.text)
+                    up_down = ss.text
 
-            return stockValue
+            return (stockValue, up_down)
 
     def refresh(self) :
         _name = ""
@@ -57,7 +64,7 @@ class stockInfoCls :
         for i in range(0, self.index) :
             _name = self.names[i] + "|" + self.codes[i] + " | "
 
-            print(Style.RESET_ALL + "----------------------------------------------------------------------------------------------------------")
+            print(Style.RESET_ALL + "---------------------------------------------------------------------------------------------------------------")
             _spacing = maxSpacing - len(_name)
             if _spacing < 1 :
                 _spacing = 1
@@ -70,19 +77,28 @@ class stockInfoCls :
 
             _spacing = maxSpacing2 - len('profit : {:,}'.format(self.profit[i]))
 
+            if _spacing > 2 :
+                _spacing -= 2
+
+            # up_down
+            if '-' in self.up_down[i] :
+                print(' ' * _spacing + Fore.BLUE + self.up_down[i], end='', flush=True)
+            else :
+                print(' ' * _spacing + Fore.RED + self.up_down[i], end='', flush=True)
+
             # more infomation
             if self.current_prices[i] > self.buyprices[i] :
-                print(' ' * _spacing
+                print('   '
                       + Fore.RED + 'current : {:,}'.format(int(self.current_prices[i]))
                       + Fore.YELLOW + '  buy : {:,}'.format(int(self.buyprices[i]))
                       + Style.RESET_ALL + '  numOfShares : {:,}'.format(int(self.numberOfShares[i])))
             else :
-                print(' ' * _spacing
+                print('   '
                       + Fore.BLUE + 'current : {:,}'.format(int(self.current_prices[i]))
                       + Fore.YELLOW + '  buy : {:,}'.format(int(self.buyprices[i]))
                       + Style.RESET_ALL + '  numOfShares : {:,}'.format(int(self.numberOfShares[i])))
 
-        print(Style.RESET_ALL + "----------------------------------------------------------------------------------------------------------")
+        print(Style.RESET_ALL + "---------------------------------------------------------------------------------------------------------------")
 
     def loadIni(self) :
         iniFilePath = os.path.dirname(os.path.realpath(__file__)) + self.getDirMark() + "setup.ini"
