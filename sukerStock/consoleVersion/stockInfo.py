@@ -58,8 +58,10 @@ class stockInfoCls :
 
     def refresh(self) :
         _name = ""
-        maxSpacing = 30
-        maxSpacing2 = 25
+        maxSpacing = 27
+        maxSpacing2 = 23
+        maxSpacing3 = 19
+        maxSpacing4 = 15
 
         for i in range(0, self.index) :
             _name = self.names[i] + "|" + self.codes[i] + " | "
@@ -83,19 +85,34 @@ class stockInfoCls :
             # up_down
             if '-' in self.up_down[i] :
                 print(' ' * _spacing + Fore.BLUE + self.up_down[i], end='', flush=True)
+            elif self.up_down[i] == "0.00%" :
+                print(' ' * _spacing + Fore.WHITE + ' ' + self.up_down[i], end='', flush=True)
             else :
                 print(' ' * _spacing + Fore.RED + self.up_down[i], end='', flush=True)
 
             # more infomation
+            __local_cur_price = 'current : {:,}'.format(int(self.current_prices[i]))
+            __local_cur_price_after_space = 0
+            __local_buy_price = '  buy : {:,}'.format(int(self.buyprices[i]))
+            __local_buy_price_after_space = 0
+
+            if len(__local_cur_price) < maxSpacing3 :
+                __local_cur_price_after_space = maxSpacing3 - len(__local_cur_price)
+            if len(__local_buy_price) < maxSpacing4 :
+                __local_buy_price_after_space = maxSpacing4 - len(__local_buy_price)
+
+            # print("__local_cur_price_after_space = %d" % __local_cur_price_after_space)
+            # print("__local_buy_price_after_space = %d" % __local_buy_price_after_space)
+
             if self.current_prices[i] > self.buyprices[i] :
                 print('   '
-                      + Fore.RED + 'current : {:,}'.format(int(self.current_prices[i]))
-                      + Fore.YELLOW + '  buy : {:,}'.format(int(self.buyprices[i]))
+                      + Fore.RED + __local_cur_price + ' ' * __local_cur_price_after_space
+                      + Fore.YELLOW + __local_buy_price + ' ' * __local_buy_price_after_space
                       + Style.RESET_ALL + '  numOfShares : {:,}'.format(int(self.numberOfShares[i])))
             else :
                 print('   '
-                      + Fore.BLUE + 'current : {:,}'.format(int(self.current_prices[i]))
-                      + Fore.YELLOW + '  buy : {:,}'.format(int(self.buyprices[i]))
+                      + Fore.BLUE + __local_cur_price + ' ' * __local_cur_price_after_space
+                      + Fore.YELLOW + __local_buy_price + ' ' * __local_buy_price_after_space
                       + Style.RESET_ALL + '  numOfShares : {:,}'.format(int(self.numberOfShares[i])))
 
         print(Style.RESET_ALL + "---------------------------------------------------------------------------------------------------------------")
