@@ -72,7 +72,7 @@ class stockInfoCls :
                 _spacing = 1
 
             # profit
-            if self.profit[i] > 0 :
+            if int(self.profit[i]) > 0 :
                 print(_name + ' ' * _spacing + Fore.RED + 'profit : {:,}'.format(self.profit[i]), end='', flush=True)
             else :
                 print(_name + ' ' * _spacing + Fore.BLUE + 'profit : {:,}'.format(self.profit[i]), end='', flush=True)
@@ -104,7 +104,7 @@ class stockInfoCls :
             # print("__local_cur_price_after_space = %d" % __local_cur_price_after_space)
             # print("__local_buy_price_after_space = %d" % __local_buy_price_after_space)
 
-            if self.current_prices[i] > self.buyprices[i] :
+            if int(self.current_prices[i]) > int(self.buyprices[i]) :
                 print('   '
                       + Fore.RED + __local_cur_price + ' ' * __local_cur_price_after_space
                       + Fore.YELLOW + __local_buy_price + ' ' * __local_buy_price_after_space
