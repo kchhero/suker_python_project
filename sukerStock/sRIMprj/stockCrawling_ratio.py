@@ -4,7 +4,7 @@ from pandas import DataFrame, Series
 import numpy as np
 import pandas as pd
 
-class stockCrawling :
+class stockCrawlingRatio :
     # 재무비율 : ROE
     financeRatio_head="https://comp.fnguide.com/svo2/asp/SVD_FinanceRatio.asp?pGB=1&gicode="
     financeRatio_tail="&cID=&MenuYn=Y&ReportGB=&NewMenuID=104&stkGb=701"
@@ -21,13 +21,23 @@ class stockCrawling :
     yearList = yearList_2019
     yearCLE = yearCLE_2019
     
-    year_list=[]
-    roe_list=[]
-    bps_list=[]
-    companyName=""
+    companyCode = ""    #종목 코드
+    year_list=[]        #결산 연/월 list
+    roe_list=[]         #ROE list
+    bps_list=[]         #BPS list
+
+    def __init__(self, param):
+        self.companyCode = param
     
-    def crawlingFNGUIDE_financeRatio(self, companyCode):
-        fnGuideUrl = self.financeRatio_head + companyCode + self.financeRatio_tail
+    def getYearList(self) :
+        return self.year_list
+    def getROEList(self) :
+        return self.roe_list
+    def getBPSList(self) :
+        return self.bps_list
+    
+    def crawlingFNGUIDE_financeRatioRun(self):
+        fnGuideUrl = self.financeRatio_head + self.companyCode + self.financeRatio_tail
         url = re.get(fnGuideUrl)
         url = url.content
     
@@ -35,23 +45,21 @@ class stockCrawling :
         body = html.find('body')
     
         fn_body = body.find('div',{'class':'fng_body'})
-        #종목명 따오기
-        compNameSplit1 = fn_body.find('div',{'class':'section ul_corpinfo'})
-        compNameSplit2 = compNameSplit1.find('h1',{'id':'giName'})
-        self.companyName = compNameSplit2.contents[0].replace('\xa0',' ')
     
-        #구체적인 DATA를 얻어오는 부분, ROE
+        #구체적인 DATA를 얻어오는 부분
         dataSplit1 = fn_body.find('div',{'class':'section ul_de'})
         dataSplit2 = dataSplit1.find('div',{'class':'um_table'})
     
-        #2019/12 실적 유무 및 table의 기준연도 파악을 위해서...
+        #---------------------------------------------------------------------
+        # 결산 연/월 list
+        # 2019/12 실적 유무 및 table의 기준연도 파악을 위해서...
+        #---------------------------------------------------------------------
         yearThead = dataSplit2.find('thead')
         allTh = yearThead.find_all('th')
     
         dataTbody = dataSplit2.find('tbody')
         allTr = dataTbody.find_all('tr')
-    
-        # get year table
+        
         for i in allTh:
             for dateStr in self.yearList :
                 if dateStr in i :
@@ -62,9 +70,9 @@ class stockCrawling :
             if self.yearCLE in i :
                 self.year_list.append(self.yearCLE)
         
-        #print(year_list)
-        
-        # get ROE table
+        #---------------------------------------------------------------------
+        # ROE list
+        #---------------------------------------------------------------------
         for i in allTr:
             category = i.find('span',{'class':'txt_acd'})
             if category == None:
@@ -84,10 +92,9 @@ class stockCrawling :
                         self.roe_list.append(0)
                 break
 
-        # print(roe_list)
-    
-    def crawlingFNGUIDE_investIndex(self, companyCode):
-        fnGuideUrl = self.investIndex_head + companyCode + self.investIndex_tail
+   
+    def crawlingFNGUIDE_investIndexRun(self):
+        fnGuideUrl = self.investIndex_head + self.companyCode + self.investIndex_tail
         url = re.get(fnGuideUrl)
         url = url.content
     
@@ -100,13 +107,13 @@ class stockCrawling :
         dataSplit1 = fn_body.find('div',{'class':'section ul_de'})
         dataSplit2 = dataSplit1.find('div',{'class':'ul_col2wrap pd_t25'})
         dataSplit3 = dataSplit2.find('div',{'class':'um_table'})
-    #compBody > div.section.ul_de > div.ul_col2wrap.pd_t25 > div.um_table > table
-        print(dataSplit3)
+
         dataTbody = dataSplit3.find('tbody')
-        print(dataTbody)
         allTr = dataTbody.find_all('tr')
 
-        # get BPS table
+        #---------------------------------------------------------------------
+        # BPS table
+        #---------------------------------------------------------------------
         for i in allTr:
             category = i.find('span',{'class':'txt_acd'})
             if category == None:
@@ -125,24 +132,3 @@ class stockCrawling :
                     except:
                         self.bps_list.append(0)
                 break
-
-        # print(roe_list)
-    
-    
-    def arrangeTable(self, companyCode):
-        Table = DataFrame()
-        Table['ROE'] = self.roe_list
-        Table['BPS'] = self.bps_list
-        Table.index = self.year_list
-        Table = Table.T
-        Table.to_csv(self.companyName + '_' + companyCode + '.csv')
-        
-        print(Table)
-        Table = Table.T
-        Table.to_csv('test.csv')
-
-
-bbb = stockCrawling()
-bbb.crawlingFNGUIDE_financeRatio("A151860")
-bbb.crawlingFNGUIDE_investIndex("A151860")
-bbb.arrangeTable("A151860")
