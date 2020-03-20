@@ -40,7 +40,7 @@ class stockCrawlingSnapshot :
         #종목명 따오기
         compNameSplit1 = fn_body.find('div',{'class':'section ul_corpinfo'})
         compNameSplit2 = compNameSplit1.find('h1',{'id':'giName'})
-        self.companyName = compNameSplit2.contents[0].replace('\xa0',' ')
+        self.companyName = compNameSplit2.contents[0].replace('\xa0',' ').strip()
     
         #구체적인 DATA를 얻어오는 부분, ROE
         dataSplit1 = fn_body.find('div',{'class':'section ul_de'})
@@ -59,7 +59,7 @@ class stockCrawlingSnapshot :
             category = category.text.strip()
             if category == '(보통주/ 우선주)':
                 value = i.find('td',{'class':'r'})
-                self.totalShareCount = value.contents[0].split('/')[0].replace(',','')
+                self.totalShareCount = value.contents[0].split('/')[0].replace(',','').strip()
                 break
     
         #---------------------------------------------------------------------
@@ -78,7 +78,7 @@ class stockCrawlingSnapshot :
                 tempMyShare2 = i.find_all('td',{'class':'r'})
                 tempMyShare3 = str(tempMyShare2[1]).split(">")
                 tempMyShare4 = tempMyShare3[1].split("<")
-                self.companySelfShareCount = tempMyShare4[0].replace(',','')
+                self.companySelfShareCount = tempMyShare4[0].replace(',','').strip()
                 break
             else :
                 continue
@@ -104,7 +104,7 @@ class stockCrawlingSnapshot :
                     tempK2 = tempK1[1].split("<")
                     tempK3 = tempK2[0].replace(',','')
                     tempK3 = tempK3.replace('\xa0','NOEXIST')
-                    self.shareHolders_list.append(tempK3)
+                    self.shareHolders_list.append(tempK3.strip())
                 
                 print(str(self.shareHolders_list))                
                 break

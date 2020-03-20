@@ -8,24 +8,17 @@ suker stock S-RIM ver 0.1
 import sys
 from stockCrawling_snapshot import stockCrawlingSnapshot as sCS
 from stockCrawling_ratio import stockCrawlingRatio as sCR
-from pandas import DataFrame
+from stockCrawling_database import stockCrawlingDB as sCD
+from pathlib import Path
 
-def tableSetup(totalShareCnt, companySelfShareCnt, yearList, roeList, bpsList, shareHoldersList, compName, compCode):
-    Table = DataFrame()
-    Table['ROE'] = roeList
-    Table['BPS'] = bpsList
-    Table['shareHolders'] = shareHoldersList
-    Table.index = yearList
-    Table = Table.T
-    Table.to_csv(compName.replace(' ','_') + "_" + compCode + ".csv")
 
-    
 def updateInfo(compCode) :
     #---------------------------------------------------------------------
     # class 초기화
     #---------------------------------------------------------------------
     stockCrawlSnapshotCls = sCS(compCode)
     stockCrawlRatioCls = sCR(compCode)
+    stockCrawlDBCls = sCD()
     
     #---------------------------------------------------------------------
     # 종목명, 총 주식수, 자기주식수, 지배주주지분
@@ -51,47 +44,77 @@ def updateInfo(compCode) :
     if len(bpsList) == 5 :
         bpsList.pop(0)
     
-    tableSetup(totalShareCnt, compSelfShareCnt, yearList, roeList, bpsList, shareHoldersList, compName, compCode)
-    
+    stockCrawlDBCls.tableSetup(totalShareCnt, compSelfShareCnt, yearList, roeList, bpsList, shareHoldersList, compName, compCode)
+
+    return 0
 
 def main(args):
     #---------------------------------------------------------------------
     # args[0] # 종목 code
     #---------------------------------------------------------------------
-    if len(args) < 1 :
+    if len(args) < 2 :
         print("args fail!")
         return # display usage
 
-    print("S-SIM Main Run - 종목 코드 : " + args[0])
+    print("S-SIM Main Run - 종목 코드 : " + args[0] + " need Update? : " + args[1])
+    
+    #---------------------------------------------------------------------
+    # class 초기화
+    #---------------------------------------------------------------------
+    stockCrawlDBCls = sCD()
     
     #---------------------------------------------------------------------
     # DB searching
     # ret = SQL open and search code value
     #---------------------------------------------------------------------
-    # if ret == 1 --> SQL search success (exist)
-    #    if isDoUpdate? yes
-    updateInfo(args[0])
-    #         ret = Crowling with code at fnguide
-    #    else
-    #         display SRIM values in param (true)
-    # else --> SQL search fail (not exist)
-    #    ret = crowling with code at fnguide
-    #
-    # if ret == 1 : # crowling success
-    #    ret = calculate SRIM
-    #    ret = save in SQL, SRIM and stock informations
-    #    if ret != 1 : 
-    #        display(ret)
-    # else : # crowling fail
-    #    display fail reason and exit
+    compCode = ""
+    openFilePathName = ""
+    isNeedUpdate = ""
+    
+    compCode = args[0]    
+    if args[1].lower() == "yes":
+        isNeedUpdate = True
+    else:
+        isNeedUpdate = False
 
+    for path in Path('.').rglob('*.csv'):
+        if compCode in path.name :
+            print("found : " + path.name)
+            openFilePathName = path.name
 
-
+    if len(openFilePathName) > 1 :         # CSV search success (exist)
+        if isNeedUpdate :
+            ret = updateInfo(compCode)      # Crowling with code at fnguide
+            if ret != 0:
+                return ret                 # update Fail
+            ret = stockCrawlDBCls.calculateAndSaveSRIMInfo(stockCrawlDBCls, openFilePathName)
+        else:
+            ret = stockCrawlDBCls.readAndShowInfo(stockCrawlDBCls, openFilePathName)  # display SRIM values in param (true)
+    else :                                 # CSV search fail (not exist)
+        ret = updateInfo(compCode)          # Crowling with code at fnguide
+            
+    if ret == 0 : # crowling success or already success
+        ret = stockCrawlDBCls.calculateAndSaveSRIMInfo(stockCrawlDBCls, openFilePathName)
+        if ret != 0 : 
+            return ret                     # calculate Fail Display
+    else:
+        return ret
+        
+    print("All Success!")
 
 if __name__ == "__main__":
     args = sys.argv[1:]
-    main(["A151860",""])
-    # infoCls = stockInfoCls()
-    # infoCls.loadIni()
-    # infoCls.stockInfoMaking()
-    # infoCls.refresh()
+    #main(args)
+    ret = main(["A151860","yes"])
+    if ret == 0 :
+        pass
+    elif ret == FAIL_UPDATE :
+        pass 
+    elif ret == FAIL_CALCULATE :
+        pass
+    elif ret == FAIL_CSV_SAVE :
+        pass
+    elif ret == FAIL_CSV_READ :
+        pass
+    else :
+        pass  # unknown error

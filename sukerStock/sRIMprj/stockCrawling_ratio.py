@@ -128,7 +128,7 @@ class stockCrawlingRatio :
                     try:
                         temp = value.contents[0].replace(',','')
                         print(temp)
-                        self.bps_list.append(temp)
+                        self.bps_list.append(temp.strip())
                     except:
                         self.bps_list.append(0)
                 break

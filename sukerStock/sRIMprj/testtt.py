@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
-from pandas import DataFrame, Series
-Table = DataFrame()
+asdf = "TeS"
+print(asdf.lower())
 
-aList = ['a','b','c','d']
-bList = ['1','2','3','4']
-yList = ['2016','2017','2018','2019']
+from pandas import Series, DataFrame
 
-print(yList)
-yList.pop(1)
-print(yList)
+roe = ['roe1', 'roe2']
+bps = ['bps1', 'bps2']
 
-Table['abc1'] = aList 
-Table['abc2'] = bList 
-Table.index = yList
-Table = Table.T
-Table.to_csv("test.csv")
-    
-test = "<babo>345</babo>"
-sss1 = test.split(">")
-sss2 = sss1[1].split("<")
-print(sss2[0])
+raw_data = {'roe':roe, 'bps':bps}
+
+data = DataFrame(raw_data)
+data.index = ['2016','2017']
+
+data2 = DataFrame(raw_data)
+data2.index = ['2016','2017']
+
+data = data.T
+data2 = data2.T
+data.to_csv('test.csv')
+data2.to_csv('test.csv',mode='a', header=False)
+
+print(data)
