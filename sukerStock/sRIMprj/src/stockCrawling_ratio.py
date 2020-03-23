@@ -1,8 +1,7 @@
+# -*- coding: utf-8 -*-
+
 import requests as re
 from bs4 import BeautifulSoup
-from pandas import DataFrame, Series
-import numpy as np
-import pandas as pd
 
 class stockCrawlingRatio :
     # 재무비율 : ROE
@@ -63,7 +62,6 @@ class stockCrawlingRatio :
         for i in allTh:
             for dateStr in self.yearList :
                 if dateStr in i :
-                    print(dateStr)
                     self.year_list.append(dateStr)
                     break
             
@@ -81,12 +79,10 @@ class stockCrawlingRatio :
             category = category.text.strip()
             if category == 'ROE':
                 j = i.find_all('td',{'class':'r'})
-                print(j)
     
                 for value in j:
                     try:
                         temp = float(value.contents[0])
-                        #print(temp)
                         self.roe_list.append(temp)
                     except:
                         self.roe_list.append(0)
@@ -122,12 +118,10 @@ class stockCrawlingRatio :
             category = category.text.strip()
             if category == 'BPS':
                 j = i.find_all('td',{'class':'r'})
-                print(j)
     
                 for value in j:
                     try:
                         temp = value.contents[0].replace(',','')
-                        print(temp)
                         self.bps_list.append(temp.strip())
                     except:
                         self.bps_list.append(0)

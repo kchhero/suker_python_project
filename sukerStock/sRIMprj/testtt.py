@@ -1,23 +1,24 @@
 # -*- coding: utf-8 -*-
-asdf = "TeS"
-print(asdf.lower())
+#asdf = "TeS"
+#print(asdf.lower())
 
-from pandas import Series, DataFrame
+import pandas as pd
 
-roe = ['roe1', 'roe2']
-bps = ['bps1', 'bps2']
+col = ['c1', 'c2']
+raw_data = {'roe':['val1', 'val2'] }
+data = pd.DataFrame(raw_data)
+data.index = col
 
-raw_data = {'roe':roe, 'bps':bps}
+data.T.to_csv('test.csv')
 
-data = DataFrame(raw_data)
-data.index = ['2016','2017']
+data2 = pd.read_csv("test.csv", index_col=0)
+print(data2)
 
-data2 = DataFrame(raw_data)
-data2.index = ['2016','2017']
+data2['c3'] = 'val3'
+print(data2)
 
-data = data.T
-data2 = data2.T
-data.to_csv('test.csv')
-data2.to_csv('test.csv',mode='a', header=False)
+data2.T.to_csv('test.csv')
 
-print(data)
+
+data3 = pd.read_csv("test.csv", index_col=0)
+print(data3)
