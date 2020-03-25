@@ -28,6 +28,8 @@ class stockCrawlingRatio :
     def __init__(self, param):
         self.companyCode = param
     
+    def setCompCode(self, code):
+        self.companyCode = code
     def getYearList(self) :
         return self.year_list
     def getROEList(self) :

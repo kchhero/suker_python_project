@@ -47,7 +47,7 @@ def updateInfo(compCode) :
     if len(bpsList) == 5 :
         bpsList.pop(0)
     
-    stockCrawlDBCls.tableSetup(currentValue, totalShareCnt, compSelfShareCnt,
+    stockCrawlDBCls.csvUpdate(currentValue, totalShareCnt, compSelfShareCnt,
                                yearList, roeList, bpsList, shareHoldersList,
                                compName, compCode)
 
@@ -66,7 +66,6 @@ def main(args):
     #---------------------------------------------------------------------
     # class 초기화
     #---------------------------------------------------------------------
-    stockCrawlDBCls = sCDB()
     stockCrawlDisplayCls = sCDP()
 
     #---------------------------------------------------------------------
@@ -97,9 +96,7 @@ def main(args):
     if len(csvFileList) == 2 :              # CSV search success (exist)
         if isNeedUpdate :
             ret = updateInfo(compCode)      # Crowling with code at fnguide
-            if ret != 0:
-                return ret                  # update Fail
-            ret = stockCrawlDBCls.calculateAndSaveSRIMInfo(csvFileList)
+            
         else:
             ret = stockCrawlDisplayCls.readAndShowInfo(csvFileList)  # display SRIM values in param (true)
     else :
@@ -114,7 +111,7 @@ def main(args):
 if __name__ == "__main__":
     args = sys.argv[1:]
     #main(args)
-    ret = main(["A178320","yes"])
+    ret = main(["A151860","no"])
     if ret == 0 :
         pass
     elif ret == stockConfig.FAIL_UPDATE :

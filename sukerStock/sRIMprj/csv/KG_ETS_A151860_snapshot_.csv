@@ -1,10 +1,2 @@
-,0
-Unnamed: 0,
-CompanyName,KG ETS
-CompanyCode,A151860
-1Day-ago_Value,2440
-TotalShare,36000000
-SelfShare,934582
-sRIM,4291
-sRIM_w90,4290
-sRIM_w80,4288
+,CompanyName,CompanyCode,1Day-ago_Value,TotalShare,SelfShare,sRIM,sRIM_w90,sRIM_w80
+,KG ETS,A151860,2470,36000000,934582,5358,4705,4522

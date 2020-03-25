@@ -31,6 +31,3 @@ class stockCrawlingDisplay :
         print("--------------------------------------------")
         print(_data_)
         print("--------------------------------------------")            
-        
-#test = stockCrawlingDisplay()
-#test.readAndShowInfo(["../csv/KG_ETS_A151860_data_.csv","../csv/KG_ETS_A151860_snapshot_.csv"])

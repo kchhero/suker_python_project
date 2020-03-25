@@ -16,7 +16,10 @@ class stockCrawlingSnapshot :
     
     def __init__(self, param):
         self.companyCode = param
-        
+    
+    def setCompCode(self, code):
+        self.companyCode = code
+
     def getCompName(self) :
         return self.companyName
     def getTotalShareCount(self) :
