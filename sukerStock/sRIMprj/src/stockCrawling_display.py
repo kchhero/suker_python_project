@@ -18,6 +18,7 @@ class stockCrawlingDisplay :
                 #print(_data_)
             if sC.FILE_DELIMETER_SNAPSHOT in i :
                 _snapshot_ = pd.read_csv(i)
+                _snapshot_.style.set_properties(**{'text-align': 'right'})
                 #print(_snapshot_)
         
         print("--------------------------------------------")

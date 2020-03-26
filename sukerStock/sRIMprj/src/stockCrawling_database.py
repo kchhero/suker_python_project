@@ -79,6 +79,7 @@ class stockCrawlingDB :
                      sC.T_SHARE_HOLDERS:shareHoldersList}
         _data_ = pd.DataFrame(raw_data_)
         _data_.index = yearList
+
         _data_.T.to_csv('../csv/' + csvFileName + sC.FILE_DELIMETER_DATA + csvFileNameExt)
         
         # sRIM, sRIM_w90, sRIM_w80

@@ -1,10 +1,2 @@
-,0
-Unnamed: 0,
-CompanyName,서진시스템
-CompanyCode,A178320
-1Day-ago_Value,25400
-TotalShare,18100666
-SelfShare,0
-sRIM,34151
-sRIM_w90,20731
-sRIM_w80,16963
+,CompanyName,CompanyCode,1Day-ago_Value,TotalShare,SelfShare,sRIM,sRIM_w90,sRIM_w80
+,서진시스템,A178320,25800,18100666,0,34151,20731,16963
