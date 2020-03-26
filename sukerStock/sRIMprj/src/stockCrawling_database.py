@@ -81,7 +81,17 @@ class stockCrawlingDB :
         _data_.index = yearList
 
         _data_.T.to_csv('../csv/' + csvFileName + sC.FILE_DELIMETER_DATA + csvFileNameExt)
-        
+
+        #tempIndexStr = f'{"":>9}  {_data_.index[0]:>9}  {_data_.index[1]:>9}  {_data_.index[2]:>9}  {_data_.index[3]:>9}'
+        #tempROEStr   = f'{sC.T_ROE:>9}  {_data_[sC.T_ROE][0]:>9}  {_data_[sC.T_ROE][1]:>9}  {_data_[sC.T_ROE][2]:>9}  {_data_[sC.T_ROE][3]:>9}'
+        #tempBPSStr   = f'{sC.T_BPS:>9}  {_data_[sC.T_BPS][0]:>9}  {_data_[sC.T_BPS][1]:>9}  {_data_[sC.T_BPS][2]:>9}  {_data_[sC.T_BPS][3]:>9}'
+        #tempSHSStr   = f'{sC.T_BPS:>9}  {_data_[sC.T_SHARE_HOLDERS][0]:>9}  {_data_[sC.T_SHARE_HOLDERS][1]:>9}  {_data_[sC.T_SHARE_HOLDERS][2]:>9}  {_data_[sC.T_SHARE_HOLDERS][3]:>9}'
+        #print(tempIndexStr)
+        #print(tempROEStr)
+        #print(tempBPSStr)
+        #print(tempSHSStr)
+
+
         # sRIM, sRIM_w90, sRIM_w80
         #_snapshot_['sRIM'] = str(sRIM)
         #_snapshot_['sRIM_w90'] = str(sRIM_w90)

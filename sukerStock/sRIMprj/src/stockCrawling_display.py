@@ -15,6 +15,7 @@ class stockCrawlingDisplay :
         for i in csvFileList :
             if sC.FILE_DELIMETER_DATA in i :
                 _data_ = pd.read_csv(i, index_col=0)
+                
                 #print(_data_)
             if sC.FILE_DELIMETER_SNAPSHOT in i :
                 _snapshot_ = pd.read_csv(i)

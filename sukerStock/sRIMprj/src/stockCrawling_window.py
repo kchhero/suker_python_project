@@ -29,8 +29,9 @@ class Ui_Dialog(object):
     stockCrawlDBCls = sCDB()
     #stockCrawlDisplayCls = sCDP()
     _model_ = QtGui.QStandardItemModel()
-    _redColor_ = QtGui.QColor(255, 50, 50)
-    _blueColor_ = QtGui.QColor(50, 50, 255)
+    _redColor_ = QtGui.QColor(200, 20, 220)
+    _blueColor_ = QtGui.QColor(20, 20, 200)
+    _greenColor_ = QtGui.QColor(20, 200, 20)
     _blackColor_ = QtGui.QColor(0, 0, 0)
 
 
@@ -129,6 +130,10 @@ class Ui_Dialog(object):
         self.pushButton_compInfoShow.clicked.connect(self.btnShowCompInfo)
         self.pushButton_updateList.clicked.connect(self.btnUpdateList)
 
+        #progress bar timer
+        self.timerVar = QtCore.QTimer()
+        self.timerVar.setInterval(100)
+        self.timerVar.timeout.connect(self.progressBarTimer)        
         
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -139,15 +144,17 @@ class Ui_Dialog(object):
         self.pushButton_updateCompCode.setText(_translate("Dialog", "UPDATE"))
         self.pushButton_compInfoShow.setText(_translate("Dialog", "SHOW"))
         self.textEdit_compCode.setToolTip(_translate("Dialog", "종목코드입력"))
-        #self.pushButton_compInfoShow.setEnabled(False)
-        #self.pushButton_updateCompCode.setEnabled(False)
-        #self.pushButton_updateList.setEnabled(False)
+        self.progressBar_update.reset()
         
-    '''
-    def keyPressEvent(self, e):
-        if e.key() == Qt.Key_Escape:
-            self.close()
-    '''
+
+    def progressBarTimer(self) :
+        self.time = self.progressBar_update.value()
+        self.time += 1
+        self.progressBar_update.setValue(self.time)
+
+        #ProgressBar의 값이 최댓값 이상이 되면 Timer를 중단시켜 ProgressBar의 값이 더이상 증가하지 않게 합니다.
+        if self.time >= self.progressBar_update.maximum() :
+            self.timerVar.stop()
 
     def listViewClicked(self, index) :
         item = self._model_.itemFromIndex(index)
@@ -155,19 +162,24 @@ class Ui_Dialog(object):
     
     # Update info
     def btnUpdateCompCode(self) :
+        self.progressBar_update.reset()
+        self.timerVar.start()
         ret = 0
         compCode = self.textEdit_compCode.toPlainText()
         if len(compCode) < 6 :
             self.textEdit_infoShow.setPlainText("Invalid company Code!!")
-            return
-        
-        self.textEdit_infoShow.clear()
-        ret = self.updateInfo(compCode)
-        csvFileList = self.fileListUpdate(compCode, False)
-        ret = self.readAndShowInfo(csvFileList)  # display SRIM values in param (true)
-        if ret != 0 :
-            pass
+        else :        
+            self.textEdit_infoShow.clear()
+            ret = self.updateInfo(compCode)
+            csvFileList = self.fileListUpdate(compCode, False)
+            print("updateInfo Complete")
+            ret = self.readAndShowInfo(csvFileList)  # display SRIM values in param (true)
+            if ret != 0 :
+                pass
 
+        self.progressBar_update.setValue(self.progressBar_update.maximum())
+        self.timerVar.stop()
+            
     # Show Info
     def btnShowCompInfo(self) :
         ret = 0
@@ -256,8 +268,8 @@ class Ui_Dialog(object):
 
     
     def readAndShowInfo(self, csvFileList) :
-        _data_ = ""
-        _snapshot_ = ""
+        _data_ = pd.DataFrame()
+        _snapshot_ = pd.DataFrame()
         
         for i in csvFileList :
             if _config_.FILE_DELIMETER_DATA in i :
@@ -273,7 +285,7 @@ class Ui_Dialog(object):
             tempColor = self._redColor_
             
         self.textEdit_infoShow.setTextColor(self._blackColor_)
-        self.textEdit_infoShow.setPlainText("--------------------------------------------")
+        self.textEdit_infoShow.setPlainText("------------------------------------------------------------")
         self.textEdit_infoShow.append("종 목 명 : " + str(_snapshot_[_config_.T_COMPANY_NAME][0]))
         self.textEdit_infoShow.append("종목코드 : " + str(_snapshot_[_config_.T_COMPANY_CODE][0]))
         self.textEdit_infoShow.setTextColor(self._blueColor_)
@@ -281,17 +293,43 @@ class Ui_Dialog(object):
         self.textEdit_infoShow.setTextColor(self._blackColor_)
         self.textEdit_infoShow.append("총주식수 : " + str(_snapshot_[_config_.T_TOTAL_SHARE][0]))
         self.textEdit_infoShow.append("자기주식수 : " + str(_snapshot_[_config_.T_SELF_SHARE][0]))
-        self.textEdit_infoShow.append("--------------------------------------------")
+        self.textEdit_infoShow.append("------------------------------------------------------------")
         self.textEdit_infoShow.setTextColor(tempColor)
         self.textEdit_infoShow.append("sRIM     : " + str(_snapshot_[_config_.T_SRIM][0]))
+        self.textEdit_infoShow.setTextColor(self._greenColor_)
         self.textEdit_infoShow.append("sRIM_w90 : " + str(_snapshot_[_config_.T_SRIM90][0]))
         self.textEdit_infoShow.append("sRIM_w80 : " + str(_snapshot_[_config_.T_SRIM80][0]))
         self.textEdit_infoShow.setTextColor(self._blackColor_)
-        self.textEdit_infoShow.append("--------------------------------------------")
+        self.textEdit_infoShow.append("------------------------------------------------------------")
         self.textEdit_infoShow.append("연결/연도별 지표")
-        self.textEdit_infoShow.append("--------------------------------------------")
-        self.textEdit_infoShow.append(str(_data_))
-        self.textEdit_infoShow.append("--------------------------------------------")
+        self.textEdit_infoShow.append("------------------------------------------------------------")
+
+        temp = str(_data_).split("\n")
+        tempIdxList = temp[0].split() #4개        
+        #tempIdxStr   = f'{" ":<15}  {tempIdxList[0]:>12}  {tempIdxList[1]:>12}  {tempIdxList[2]:>12}  {tempIdxList[3]:>12}'
+        tempIdxStr   = '{:17s} {:12s} {:12s} {:12s} {:12s}'.format(" ", tempIdxList[0], tempIdxList[1], tempIdxList[2], tempIdxList[3])
+        
+        tempROEList = temp[1].split()
+        #tempROEStr   = f'{tempROEList[0]:<15}  {tempROEList[1]:>12}  {tempROEList[2]:>12}  {tempROEList[3]:>12}  {tempROEList[4]:>12}'
+        tempROEStr   = '{:17s} {:12s} {:12s} {:12s} {:12s}'.format(tempROEList[0], tempROEList[1], tempROEList[2], tempROEList[3], tempROEList[4])
+        
+        tempBPSList = temp[2].split()
+        #tempBPSStr   = f'{tempBPSList[0]:<15}  {tempBPSList[1]:>12}  {tempBPSList[2]:>12}  {tempBPSList[3]:>12}  {tempBPSList[4]:>12}'
+        tempBPSStr   = '{:17s} {:12s} {:12s} {:12s} {:12s}'.format(tempBPSList[0], tempBPSList[1], tempBPSList[2], tempBPSList[3], tempBPSList[4])
+        
+        tempSHSList = temp[3].split()
+        #tempSHSStr   = f'{tempSHSList[0]:<15}  {tempSHSList[1]:>12}  {tempSHSList[2]:>12}  {tempSHSList[3]:>12}  {tempSHSList[4]:>12}'
+        tempSHSStr   = '{:17s} {:12s} {:12s} {:12s} {:12s}'.format(tempSHSList[0], tempSHSList[1], tempSHSList[2], tempSHSList[3], tempSHSList[4])
+        #print(tempIdxStr)
+        #print(tempROEStr)
+        #print(tempBPSStr)
+        #print(tempSHSStr)
+        #self.textEdit_infoShow.setAlignment(QtCore.Qt.AlignRight)
+        self.textEdit_infoShow.append(tempIdxStr)
+        self.textEdit_infoShow.append(tempROEStr)
+        self.textEdit_infoShow.append(tempBPSStr)
+        self.textEdit_infoShow.append(tempSHSStr)
+        self.textEdit_infoShow.append("------------------------------------------------------------")
 
         
 def main():

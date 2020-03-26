@@ -111,7 +111,7 @@ def main(args):
 if __name__ == "__main__":
     args = sys.argv[1:]
     #main(args)
-    ret = main(["A178320","yes"])
+    ret = main(["A068930","yes"])
     if ret == 0 :
         pass
     elif ret == stockConfig.FAIL_UPDATE :
