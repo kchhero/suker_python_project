@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import pyqtSlot, Qt
 import sys
 from stockCrawling_snapshot import stockCrawlingSnapshot as sCS
 from stockCrawling_ratio import stockCrawlingRatio as sCR
@@ -117,6 +118,34 @@ class Ui_Dialog(object):
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>")
         self.textEdit_infoShow.setTextInteractionFlags(QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
         self.textEdit_infoShow.setObjectName("textEdit_infoShow")
+        self.tableWidget_compInfo = QtWidgets.QTableWidget(Dialog)
+        self.tableWidget_compInfo.setGeometry(QtCore.QRect(20, 290, 411, 111))
+        self.tableWidget_compInfo.setAutoFillBackground(False)
+        self.tableWidget_compInfo.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.tableWidget_compInfo.setLineWidth(0)
+        self.tableWidget_compInfo.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.tableWidget_compInfo.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.tableWidget_compInfo.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.tableWidget_compInfo.setAutoScroll(False)
+        self.tableWidget_compInfo.setAutoScrollMargin(10)
+        self.tableWidget_compInfo.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.tableWidget_compInfo.setTabKeyNavigation(False)
+        self.tableWidget_compInfo.setProperty("showDropIndicator", False)
+        self.tableWidget_compInfo.setDragDropOverwriteMode(False)
+        self.tableWidget_compInfo.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.tableWidget_compInfo.setShowGrid(False)
+        self.tableWidget_compInfo.setGridStyle(QtCore.Qt.NoPen)
+        self.tableWidget_compInfo.setWordWrap(True)
+        self.tableWidget_compInfo.setCornerButtonEnabled(False)
+        self.tableWidget_compInfo.setRowCount(3)
+        self.tableWidget_compInfo.setColumnCount(5)
+        self.tableWidget_compInfo.setObjectName("tableWidget_compInfo")
+        self.tableWidget_compInfo.horizontalHeader().setVisible(False)
+        self.tableWidget_compInfo.horizontalHeader().setDefaultSectionSize(81)
+        self.tableWidget_compInfo.horizontalHeader().setHighlightSections(False)
+        self.tableWidget_compInfo.verticalHeader().setVisible(False)
+        self.tableWidget_compInfo.verticalHeader().setDefaultSectionSize(28)
+        self.tableWidget_compInfo.verticalHeader().setHighlightSections(False)
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -134,7 +163,8 @@ class Ui_Dialog(object):
         self.timerVar = QtCore.QTimer()
         self.timerVar.setInterval(100)
         self.timerVar.timeout.connect(self.progressBarTimer)        
-        
+
+
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "suker sRIM ver 0.1"))
@@ -286,6 +316,7 @@ class Ui_Dialog(object):
             
         self.textEdit_infoShow.setTextColor(self._blackColor_)
         self.textEdit_infoShow.setPlainText("------------------------------------------------------------")
+        self.textEdit_infoShow.append("업데이트 : " + str(_snapshot_[_config_.T_UPDATE_DATE][0]))
         self.textEdit_infoShow.append("종 목 명 : " + str(_snapshot_[_config_.T_COMPANY_NAME][0]))
         self.textEdit_infoShow.append("종목코드 : " + str(_snapshot_[_config_.T_COMPANY_CODE][0]))
         self.textEdit_infoShow.setTextColor(self._blueColor_)
@@ -302,36 +333,90 @@ class Ui_Dialog(object):
         self.textEdit_infoShow.setTextColor(self._blackColor_)
         self.textEdit_infoShow.append("------------------------------------------------------------")
         self.textEdit_infoShow.append("연결/연도별 지표")
-        self.textEdit_infoShow.append("------------------------------------------------------------")
-
+        #self.textEdit_infoShow.append("------------------------------------------------------------")
+        
+        
+        #QtTableWidget setting
         temp = str(_data_).split("\n")
-        tempIdxList = temp[0].split() #4개        
-        #tempIdxStr   = f'{" ":<15}  {tempIdxList[0]:>12}  {tempIdxList[1]:>12}  {tempIdxList[2]:>12}  {tempIdxList[3]:>12}'
-        tempIdxStr   = '{:17s} {:12s} {:12s} {:12s} {:12s}'.format(" ", tempIdxList[0], tempIdxList[1], tempIdxList[2], tempIdxList[3])
+        tempIdxList = temp[0].split()
+        tempIdxList = [""] + tempIdxList
+        self.tableWidget_compInfo.horizontalHeader().setVisible(True)
+        self.tableWidget_compInfo.setShowGrid(True)
+        self.tableWidget_compInfo.setGridStyle(QtCore.Qt.DotLine)
+        self.tableWidget_compInfo.setHorizontalHeaderLabels(tempIdxList)
+        self.tableWidget_compInfo.setFrameShape(QtWidgets.QFrame.WinPanel)
+        self.tableWidget_compInfo.setFrameShadow(QtWidgets.QFrame.Plain)
+        style = "::section {""background-color: lightgray; }"
+        self.tableWidget_compInfo.horizontalHeader().setStyleSheet(style)
         
         tempROEList = temp[1].split()
-        #tempROEStr   = f'{tempROEList[0]:<15}  {tempROEList[1]:>12}  {tempROEList[2]:>12}  {tempROEList[3]:>12}  {tempROEList[4]:>12}'
-        tempROEStr   = '{:17s} {:12s} {:12s} {:12s} {:12s}'.format(tempROEList[0], tempROEList[1], tempROEList[2], tempROEList[3], tempROEList[4])
-        
         tempBPSList = temp[2].split()
-        #tempBPSStr   = f'{tempBPSList[0]:<15}  {tempBPSList[1]:>12}  {tempBPSList[2]:>12}  {tempBPSList[3]:>12}  {tempBPSList[4]:>12}'
-        tempBPSStr   = '{:17s} {:12s} {:12s} {:12s} {:12s}'.format(tempBPSList[0], tempBPSList[1], tempBPSList[2], tempBPSList[3], tempBPSList[4])
-        
         tempSHSList = temp[3].split()
-        #tempSHSStr   = f'{tempSHSList[0]:<15}  {tempSHSList[1]:>12}  {tempSHSList[2]:>12}  {tempSHSList[3]:>12}  {tempSHSList[4]:>12}'
-        tempSHSStr   = '{:17s} {:12s} {:12s} {:12s} {:12s}'.format(tempSHSList[0], tempSHSList[1], tempSHSList[2], tempSHSList[3], tempSHSList[4])
-        #print(tempIdxStr)
-        #print(tempROEStr)
-        #print(tempBPSStr)
-        #print(tempSHSStr)
-        #self.textEdit_infoShow.setAlignment(QtCore.Qt.AlignRight)
-        self.textEdit_infoShow.append(tempIdxStr)
-        self.textEdit_infoShow.append(tempROEStr)
-        self.textEdit_infoShow.append(tempBPSStr)
-        self.textEdit_infoShow.append(tempSHSStr)
-        self.textEdit_infoShow.append("------------------------------------------------------------")
 
+        # ROE
+        item = QtWidgets.QTableWidgetItem(_config_.T_ROE) # create the item
+        item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight) # change the alignment
+        self.tableWidget_compInfo.setItem(0, 0, item)        
+        # ROE index 0
+        item = QtWidgets.QTableWidgetItem(QtWidgets.QTableWidgetItem(str(tempROEList[1])))
+        item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight)
+        self.tableWidget_compInfo.setItem(0, 1, item)
+        # ROE index 1
+        item = QtWidgets.QTableWidgetItem(QtWidgets.QTableWidgetItem(str(tempROEList[2])))
+        item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight)
+        self.tableWidget_compInfo.setItem(0, 2, item)
+        # ROE index 2
+        item = QtWidgets.QTableWidgetItem(QtWidgets.QTableWidgetItem(str(tempROEList[3])))
+        item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight)
+        self.tableWidget_compInfo.setItem(0, 3, item)
+        # ROE index 3
+        item = QtWidgets.QTableWidgetItem(QtWidgets.QTableWidgetItem(str(tempROEList[4])))
+        item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight)
+        self.tableWidget_compInfo.setItem(0, 4, item)
         
+        # BPS
+        item = QtWidgets.QTableWidgetItem(_config_.T_BPS) # create the item
+        item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight) # change the alignment
+        self.tableWidget_compInfo.setItem(1, 0, item)        
+        # BPS index 0
+        item = QtWidgets.QTableWidgetItem(QtWidgets.QTableWidgetItem(str(tempBPSList[1])))
+        item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight)
+        self.tableWidget_compInfo.setItem(1, 1, item)
+        # BPS index 1
+        item = QtWidgets.QTableWidgetItem(QtWidgets.QTableWidgetItem(str(tempBPSList[2])))
+        item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight)
+        self.tableWidget_compInfo.setItem(1, 2, item)
+        # BPS index 2
+        item = QtWidgets.QTableWidgetItem(QtWidgets.QTableWidgetItem(str(tempBPSList[3])))
+        item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight)
+        self.tableWidget_compInfo.setItem(1, 3, item)
+        # BPS index 3
+        item = QtWidgets.QTableWidgetItem(QtWidgets.QTableWidgetItem(str(tempBPSList[4])))
+        item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight)
+        self.tableWidget_compInfo.setItem(1, 4, item)
+        
+        # ShareHolders
+        item = QtWidgets.QTableWidgetItem(_config_.T_SHARE_HOLDERS) # create the item
+        item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight) # change the alignment
+        self.tableWidget_compInfo.setItem(2, 0, item)        
+        # ShareHolders index 0
+        item = QtWidgets.QTableWidgetItem(QtWidgets.QTableWidgetItem(str(tempSHSList[1])))
+        item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight)
+        self.tableWidget_compInfo.setItem(2, 1, item)
+        # ShareHolders index 1
+        item = QtWidgets.QTableWidgetItem(QtWidgets.QTableWidgetItem(str(tempSHSList[2])))
+        item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight)
+        self.tableWidget_compInfo.setItem(2, 2, item)
+        # ShareHolders index 2
+        item = QtWidgets.QTableWidgetItem(QtWidgets.QTableWidgetItem(str(tempSHSList[3])))
+        item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight)
+        self.tableWidget_compInfo.setItem(2, 3, item)
+        # ShareHolders index 3
+        item = QtWidgets.QTableWidgetItem(QtWidgets.QTableWidgetItem(str(tempSHSList[4])))
+        item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight)
+        self.tableWidget_compInfo.setItem(2, 4, item)
+        
+
 def main():
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()

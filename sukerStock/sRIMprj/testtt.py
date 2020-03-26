@@ -5,6 +5,8 @@
 import pandas as pd
 
 col = ['c1', 'c2']
+aa = ['c0']
+print(aa + col)
 raw_data = {'roe':['val1', 'val2'] }
 data = pd.DataFrame(raw_data)
 data.index = col

@@ -6,6 +6,7 @@ FAIL_CSV_READ = 4
 FAIL_CSV_READ_NO_ONE_FILE = 5
 FAIL_CSV_READ_NO_ANY_FILE = 6
 
+T_UPDATE_DATE = "UpdateDate"
 T_COMPANY_NAME = "CompanyName"
 T_COMPANY_CODE = "CompanyCode"
 T_SHARE_PRICE = "1Day-ago_Value"

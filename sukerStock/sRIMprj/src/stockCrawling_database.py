@@ -2,6 +2,7 @@
 
 import pandas as pd
 import stockConfig as sC
+from datetime import datetime
 
 class stockCrawlingDB :
     compCode = ""
@@ -66,9 +67,14 @@ class stockCrawlingDB :
         print("sRIM w80: %d"%sRIM_w80)
         print("-------------------------------------")
 
+        # update 날짜
+        
+        updateDate = str(datetime.today())
+        print(updateDate)
+        
         # 종목명, 종목코드, 총 주싟, 자기 주식수 table 정리 및 저장
-        tempList = [sC.T_COMPANY_NAME, sC.T_COMPANY_CODE, sC.T_SHARE_PRICE, sC.T_TOTAL_SHARE, sC.T_SELF_SHARE, sC.T_SRIM, sC.T_SRIM90, sC.T_SRIM80]
-        raw_snapshot_ = {'':[compName, compCode, currentValue, totalShareCnt, companySelfShareCnt, str(sRIM), str(sRIM_w90), str(sRIM_w80)]}
+        tempList = [sC.T_UPDATE_DATE, sC.T_COMPANY_NAME, sC.T_COMPANY_CODE, sC.T_SHARE_PRICE, sC.T_TOTAL_SHARE, sC.T_SELF_SHARE, sC.T_SRIM, sC.T_SRIM90, sC.T_SRIM80]
+        raw_snapshot_ = {'':[updateDate, compName, compCode, currentValue, totalShareCnt, companySelfShareCnt, str(sRIM), str(sRIM_w90), str(sRIM_w80)]}
         _snapshot_ = pd.DataFrame(raw_snapshot_)
         _snapshot_.index = tempList
         _snapshot_.T.to_csv('../csv/' + csvFileName + sC.FILE_DELIMETER_SNAPSHOT + csvFileNameExt)
