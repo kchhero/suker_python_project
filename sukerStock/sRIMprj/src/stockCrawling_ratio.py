@@ -14,7 +14,7 @@ class stockCrawlingRatio :
     
     yearList_2019=["2015/12", "2016/12", "2017/12", "2018/12", "2019/12"]
     yearList_2020=["2016/12", "2017/12", "2018/12", "2019/12", "2020/12"]
-    yearCLE_2019="2019/09"
+    yearCLE_2019="2019/12"
     yearCLE_2020="2020/09"
     
     yearList = yearList_2019
@@ -38,6 +38,10 @@ class stockCrawlingRatio :
         return self.bps_list
     
     def crawlingFNGUIDE_financeRatioRun(self):
+        self.year_list.clear()
+        self.roe_list.clear()
+        self.bps_list.clear()
+        
         fnGuideUrl = self.financeRatio_head + self.companyCode + self.financeRatio_tail
         url = re.get(fnGuideUrl)
         url = url.content
@@ -57,19 +61,24 @@ class stockCrawlingRatio :
         #---------------------------------------------------------------------
         yearThead = dataSplit2.find('thead')
         allTh = yearThead.find_all('th')
-    
+        print("allTh : " + str(allTh))
+              
         dataTbody = dataSplit2.find('tbody')
         allTr = dataTbody.find_all('tr')
+        print("allTr : " + str(allTr))
         
         for i in allTh:
             for dateStr in self.yearList :
                 if dateStr in i :
                     self.year_list.append(dateStr)
+                    print("dateStr = " + str(dateStr))
                     break
             
-            if self.yearCLE in i :
-                self.year_list.append(self.yearCLE)
+            # if self.yearCLE in i :
+            #     print("i = " + str(i))
+            #     self.year_list.append(self.yearCLE)
         
+        print("year list = " + str(self.year_list))
         #---------------------------------------------------------------------
         # ROE list
         #---------------------------------------------------------------------
@@ -81,7 +90,7 @@ class stockCrawlingRatio :
             category = category.text.strip()
             if category == 'ROE':
                 j = i.find_all('td',{'class':'r'})
-    
+                    
                 for value in j:
                     try:
                         temp = float(value.contents[0])

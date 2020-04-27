@@ -298,9 +298,11 @@ class Ui_Dialog(object):
 
     
     def readAndShowInfo(self, csvFileList) :
+        #del [[_data_,_snapshot_]]
+        #gc.collect()
         _data_ = pd.DataFrame()
         _snapshot_ = pd.DataFrame()
-        
+
         for i in csvFileList :
             if _config_.FILE_DELIMETER_DATA in i :
                 _data_ = pd.read_csv(i, index_col=0)

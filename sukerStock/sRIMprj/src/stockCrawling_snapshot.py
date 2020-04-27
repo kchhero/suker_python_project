@@ -32,6 +32,8 @@ class stockCrawlingSnapshot :
         return self.shareHolders_list
 
     def crawlingFNGUIDE_snapshotRun(self):
+        self.shareHolders_list.clear()
+
         fnGuideUrl = self.snapshot_head + self.companyCode + self.snapshot_tail
         url = re.get(fnGuideUrl)
         url = url.content
@@ -67,7 +69,27 @@ class stockCrawlingSnapshot :
                 self.currentValue = str(self.currentValue).split('<td class="r">')[1]
                 self.currentValue = self.currentValue.split('/')[0].replace(',','')
                 break
-
+            
+        #---------------------------------------------------------------------
+        # 전일종가2
+        #---------------------------------------------------------------------
+        if len(self.currentValue) < 2:
+            dataSplit2 = dataSplit1.find('div',{'id':'svdMainGrid1'})
+            dataTbody = dataSplit2.find('tbody')
+            allTr = dataTbody.find_all('tr')
+            for i in allTr:
+                category = i.find('th',{'scope':'row'})
+                if category == None:
+                    continue
+    
+                subCategory = i.find('div')
+                if "종가/ 전일대비" in subCategory :
+                    self.currentValue = i.find('td',{'class':'r'})
+                    #<td class="r">2440/ <span class="tcr">+255</span></td>
+                    self.currentValue = str(self.currentValue).split('<td class="r">')[1]
+                    self.currentValue = self.currentValue.split('/')[0].replace(',','')
+                    break
+            
         #---------------------------------------------------------------------
         # 총 주식수
         #---------------------------------------------------------------------

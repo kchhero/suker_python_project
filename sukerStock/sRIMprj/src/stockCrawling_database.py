@@ -31,14 +31,16 @@ class stockCrawlingDB :
         if lastShareHolder == "NOEXIST" :
             lastShareHolder = int(shareHoldersList[-2]) #2018/12
         lastShareHolder *= 100000000                         #단위 조절, 억
+        print("lastShareHolder = " + str(lastShareHolder))
         
         tempROE = float(roeList[0]) * float(sC.CALC_ROE_WEIGHT0) + \
                   float(roeList[1]) * float(sC.CALC_ROE_WEIGHT1) + \
                   float(roeList[2]) * float(sC.CALC_ROE_WEIGHT2) + \
                   float(roeList[3]) * float(sC.CALC_ROE_WEIGHT3)
+
         expectedROE = float(float(tempROE) / float(sC.CALC_ROE_WEIGHT_SUM) / 100.0)
-        expectedProfitRatio = float(sC.EXPECTED_PROFIT_RATIO / 100.0)
-        overProfit = lastShareHolder * (expectedROE - expectedProfitRatio)
+        expectedProfitRatio = float(sC.EXPECTED_PROFIT_RATIO / 100.0)        
+        overProfit = float(lastShareHolder * expectedROE - expectedProfitRatio)
 
         #---------------------------------------------------------------------
         #기업가치(지속) = 지배주주지분 + 초과이익 / 기대수익률
@@ -61,7 +63,8 @@ class stockCrawlingDB :
         #---------------------------------------------------------------------
         
         print("-----------Calculating End-----------")
-        print("current Price : %d"%int(currentValue))
+        if len(currentValue) > 1 :
+            print("current Price : %d"%int(currentValue))
         print("sRIM    : %d"%sRIM)
         print("sRIM w90: %d"%sRIM_w90)
         print("sRIM w80: %d"%sRIM_w80)
