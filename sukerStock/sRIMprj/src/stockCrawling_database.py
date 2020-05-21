@@ -27,7 +27,7 @@ class stockCrawlingDB :
         #---------------------------------------------------------------------
         #초과이익 = 지배주주지분 * (예상 ROE - 기대 수익률)
         #---------------------------------------------------------------------
-        lastShareHolder = shareHoldersList[-1]
+        lastShareHolder = int(shareHoldersList[-1])
         if lastShareHolder == "NOEXIST" :
             lastShareHolder = int(shareHoldersList[-2]) #2018/12
         lastShareHolder *= 100000000                         #단위 조절, 억
