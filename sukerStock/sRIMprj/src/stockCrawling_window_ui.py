@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'D:\REPOs\kchhero\suker_python_project\sukerStock\sRIMprj\src\stockCrawling_window.ui'
+# Form implementation generated from reading ui file '.\stockCrawling_window.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.14.2
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(796, 483)
+        Dialog.resize(803, 609)
         self.listView_updatedCompList = QtWidgets.QListView(Dialog)
-        self.listView_updatedCompList.setGeometry(QtCore.QRect(510, 60, 281, 381))
+        self.listView_updatedCompList.setGeometry(QtCore.QRect(510, 60, 281, 511))
         self.listView_updatedCompList.setAutoScroll(False)
         self.listView_updatedCompList.setEditTriggers(QtWidgets.QAbstractItemView.SelectedClicked)
         self.listView_updatedCompList.setTabKeyNavigation(True)
@@ -25,7 +27,7 @@ class Ui_Dialog(object):
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
         self.label = QtWidgets.QLabel(Dialog)
-        self.label.setGeometry(QtCore.QRect(10, 450, 781, 31))
+        self.label.setGeometry(QtCore.QRect(50, 570, 741, 31))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setItalic(True)
@@ -40,11 +42,6 @@ class Ui_Dialog(object):
         self.label_2.setFont(font)
         self.label_2.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_2.setObjectName("label_2")
-        self.progressBar_update = QtWidgets.QProgressBar(Dialog)
-        self.progressBar_update.setEnabled(False)
-        self.progressBar_update.setGeometry(QtCore.QRect(10, 420, 491, 23))
-        self.progressBar_update.setProperty("value", 24)
-        self.progressBar_update.setObjectName("progressBar_update")
         self.pushButton_updateList = QtWidgets.QPushButton(Dialog)
         self.pushButton_updateList.setGeometry(QtCore.QRect(510, 20, 281, 23))
         self.pushButton_updateList.setObjectName("pushButton_updateList")
@@ -78,7 +75,7 @@ class Ui_Dialog(object):
         self.textEdit_compCode.setAcceptRichText(False)
         self.textEdit_compCode.setObjectName("textEdit_compCode")
         self.textEdit_infoShow = QtWidgets.QTextEdit(Dialog)
-        self.textEdit_infoShow.setGeometry(QtCore.QRect(10, 100, 491, 311))
+        self.textEdit_infoShow.setGeometry(QtCore.QRect(10, 100, 491, 471))
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
@@ -92,7 +89,7 @@ class Ui_Dialog(object):
         self.textEdit_infoShow.setTextInteractionFlags(QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
         self.textEdit_infoShow.setObjectName("textEdit_infoShow")
         self.tableWidget_compInfo = QtWidgets.QTableWidget(Dialog)
-        self.tableWidget_compInfo.setGeometry(QtCore.QRect(20, 290, 411, 111))
+        self.tableWidget_compInfo.setGeometry(QtCore.QRect(40, 420, 411, 131))
         self.tableWidget_compInfo.setAutoFillBackground(False)
         self.tableWidget_compInfo.setFrameShape(QtWidgets.QFrame.WinPanel)
         self.tableWidget_compInfo.setFrameShadow(QtWidgets.QFrame.Plain)
@@ -144,4 +141,3 @@ if __name__ == "__main__":
     ui.setupUi(Dialog)
     Dialog.show()
     sys.exit(app.exec_())
-

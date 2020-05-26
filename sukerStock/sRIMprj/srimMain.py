@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'D:\REPOs\kchhero\suker_python_project\sukerStock\sRIMprj\src\stockCrawling_window.ui'
+# Form implementation generated from reading ui file '.\stockCrawling_window.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.14.2
 #
 # WARNING! All changes made in this file will be lost!
+
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import pyqtSlot, Qt
 import sys, os
-from stockCrawling_snapshot import stockCrawlingSnapshot as sCS
-from stockCrawling_ratio import stockCrawlingRatio as sCR
-from stockCrawling_database import stockCrawlingDB as sCDB
-from stockCrawling_display import stockCrawlingDisplay as sCDP
+from src.stockCrawling_snapshot import stockCrawlingSnapshot as sCS
+from src.stockCrawling_ratio import stockCrawlingRatio as sCR
+from src.stockCrawling_database import stockCrawlingDB as sCDB
+#from src.stockCrawling_display import stockCrawlingDisplay as sCDP
+from src.stockConfig import stockCrawlingCONFIG as sConfig
 from pathlib import Path
-import stockConfig as _config_
 import pandas as pd
 import pathlib
 
@@ -23,25 +24,26 @@ UPDATE_BTN_LIST = 2
 SHOW_BTN_COMP = 3
 
 class Ui_Dialog(object):
-     #---------------------------------------------------------------------
+    #---------------------------------------------------------------------
     # class 초기화
     #---------------------------------------------------------------------
+    _csvPath_ = pathlib.Path(os.path.dirname(__file__)+"/csv/")
     stockCrawlSnapshotCls = sCS("")
     stockCrawlRatioCls = sCR("")
-    stockCrawlDBCls = sCDB()
+    stockCrawlDBCls = sCDB(_csvPath_)
+    _config_ = sConfig()
     #stockCrawlDisplayCls = sCDP()
     _model_ = QtGui.QStandardItemModel()
     _redColor_ = QtGui.QColor(200, 20, 220)
     _blueColor_ = QtGui.QColor(20, 20, 200)
     _greenColor_ = QtGui.QColor(20, 200, 20)
-    _blackColor_ = QtGui.QColor(0, 0, 0)
-    _csvPath_ = pathlib.Path(os.path.dirname(__file__)+"/../csv/")
+    _blackColor_ = QtGui.QColor(0, 0, 0)    
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(796, 483)
+        Dialog.resize(803, 609)
         self.listView_updatedCompList = QtWidgets.QListView(Dialog)
-        self.listView_updatedCompList.setGeometry(QtCore.QRect(510, 60, 281, 381))
+        self.listView_updatedCompList.setGeometry(QtCore.QRect(510, 60, 281, 511))
         self.listView_updatedCompList.setAutoScroll(False)
         self.listView_updatedCompList.setEditTriggers(QtWidgets.QAbstractItemView.SelectedClicked)
         self.listView_updatedCompList.setTabKeyNavigation(True)
@@ -53,7 +55,7 @@ class Ui_Dialog(object):
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
         self.label = QtWidgets.QLabel(Dialog)
-        self.label.setGeometry(QtCore.QRect(10, 450, 781, 31))
+        self.label.setGeometry(QtCore.QRect(50, 570, 741, 31))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setItalic(True)
@@ -62,17 +64,12 @@ class Ui_Dialog(object):
         self.label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(Dialog)
-        self.label_2.setGeometry(QtCore.QRect(100, 30, 81, 21))
+        self.label_2.setGeometry(QtCore.QRect(80, 30, 91, 21))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.label_2.setFont(font)
         self.label_2.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_2.setObjectName("label_2")
-        self.progressBar_update = QtWidgets.QProgressBar(Dialog)
-        self.progressBar_update.setEnabled(False)
-        self.progressBar_update.setGeometry(QtCore.QRect(10, 420, 491, 23))
-        self.progressBar_update.setProperty("value", 24)
-        self.progressBar_update.setObjectName("progressBar_update")
         self.pushButton_updateList = QtWidgets.QPushButton(Dialog)
         self.pushButton_updateList.setGeometry(QtCore.QRect(510, 20, 281, 23))
         self.pushButton_updateList.setObjectName("pushButton_updateList")
@@ -106,7 +103,7 @@ class Ui_Dialog(object):
         self.textEdit_compCode.setAcceptRichText(False)
         self.textEdit_compCode.setObjectName("textEdit_compCode")
         self.textEdit_infoShow = QtWidgets.QTextEdit(Dialog)
-        self.textEdit_infoShow.setGeometry(QtCore.QRect(10, 100, 491, 311))
+        self.textEdit_infoShow.setGeometry(QtCore.QRect(10, 100, 491, 471))
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
@@ -120,7 +117,7 @@ class Ui_Dialog(object):
         self.textEdit_infoShow.setTextInteractionFlags(QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
         self.textEdit_infoShow.setObjectName("textEdit_infoShow")
         self.tableWidget_compInfo = QtWidgets.QTableWidget(Dialog)
-        self.tableWidget_compInfo.setGeometry(QtCore.QRect(20, 290, 411, 111))
+        self.tableWidget_compInfo.setGeometry(QtCore.QRect(40, 420, 411, 131))
         self.tableWidget_compInfo.setAutoFillBackground(False)
         self.tableWidget_compInfo.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.tableWidget_compInfo.setLineWidth(0)
@@ -161,9 +158,9 @@ class Ui_Dialog(object):
         self.pushButton_updateList.clicked.connect(self.btnUpdateList)
 
         #progress bar timer
-        self.timerVar = QtCore.QTimer()
-        self.timerVar.setInterval(100)
-        self.timerVar.timeout.connect(self.progressBarTimer)        
+        # self.timerVar = QtCore.QTimer()
+        # self.timerVar.setInterval(100)
+        # self.timerVar.timeout.connect(self.progressBarTimer)
 
 
     def retranslateUi(self, Dialog):
@@ -175,17 +172,17 @@ class Ui_Dialog(object):
         self.pushButton_updateCompCode.setText(_translate("Dialog", "UPDATE"))
         self.pushButton_compInfoShow.setText(_translate("Dialog", "SHOW"))
         self.textEdit_compCode.setToolTip(_translate("Dialog", "종목코드입력"))
-        self.progressBar_update.reset()
+        #self.progressBar_update.reset()
         
 
-    def progressBarTimer(self) :
-        self.time = self.progressBar_update.value()
-        self.time += 1
-        self.progressBar_update.setValue(self.time)
+    # def progressBarTimer(self) :
+    #     self.time = self.progressBar_update.value()
+    #     self.time += 1
+    #     self.progressBar_update.setValue(self.time)
 
-        #ProgressBar의 값이 최댓값 이상이 되면 Timer를 중단시켜 ProgressBar의 값이 더이상 증가하지 않게 합니다.
-        if self.time >= self.progressBar_update.maximum() :
-            self.timerVar.stop()
+    #     #ProgressBar의 값이 최댓값 이상이 되면 Timer를 중단시켜 ProgressBar의 값이 더이상 증가하지 않게 합니다.
+    #     if self.time >= self.progressBar_update.maximum() :
+    #         self.timerVar.stop()
 
     def listViewClicked(self, index) :
         item = self._model_.itemFromIndex(index)
@@ -193,8 +190,8 @@ class Ui_Dialog(object):
     
     # Update info
     def btnUpdateCompCode(self) :
-        self.progressBar_update.reset()
-        self.timerVar.start()
+        #self.progressBar_update.reset()
+        #self.timerVar.start()
         ret = 0
         compCode = self.textEdit_compCode.toPlainText()
         if len(compCode) < 6 :
@@ -208,8 +205,8 @@ class Ui_Dialog(object):
             if ret != 0 :
                 pass
 
-        self.progressBar_update.setValue(self.progressBar_update.maximum())
-        self.timerVar.stop()
+        #self.progressBar_update.setValue(self.progressBar_update.maximum())
+        #self.timerVar.stop()
             
     # Show Info
     def btnShowCompInfo(self) :
@@ -244,10 +241,10 @@ class Ui_Dialog(object):
             for path in allFilesList :
                 temp = path.name
                 temp = temp.split('.csv')[0]
-                if _config_.FILE_DELIMETER_SNAPSHOT in temp :
-                    temp = temp.split(_config_.FILE_DELIMETER_SNAPSHOT)[0]
-                elif _config_.FILE_DELIMETER_DATA in temp :
-                    temp = temp.split(_config_.FILE_DELIMETER_DATA)[0]
+                if self._config_.FILE_DELIMETER_SNAPSHOT in temp :
+                    temp = temp.split(self._config_.FILE_DELIMETER_SNAPSHOT)[0]
+                elif self._config_.FILE_DELIMETER_DATA in temp :
+                    temp = temp.split(self._config_.FILE_DELIMETER_DATA)[0]
                     
                 csvFileList.append(temp.rstrip('_'))
                 
@@ -309,38 +306,38 @@ class Ui_Dialog(object):
         _snapshot_ = pd.DataFrame()
 
         for i in csvFileList :
-            if _config_.FILE_DELIMETER_DATA in i :
+            if self._config_.FILE_DELIMETER_DATA in i :
                 _data_ = pd.read_csv(i, index_col=0)
-            if _config_.FILE_DELIMETER_SNAPSHOT in i :
+            if self._config_.FILE_DELIMETER_SNAPSHOT in i :
                 _snapshot_ = pd.read_csv(i)
 
         tempColor = self._blackColor_
         
-        if int(_snapshot_[_config_.T_SHARE_PRICE][0]) >= int(_snapshot_[_config_.T_SRIM][0]) :
+        if int(_snapshot_[self._config_.T_SHARE_PRICE][0]) >= int(_snapshot_[self._config_.T_SRIM][0]) :
             tempColor = self._blueColor_
         else :
             tempColor = self._redColor_
             
         self.textEdit_infoShow.setTextColor(self._blackColor_)
-        self.textEdit_infoShow.setPlainText("------------------------------------------------------------")
-        self.textEdit_infoShow.append("업데이트 : " + str(_snapshot_[_config_.T_UPDATE_DATE][0]))
-        self.textEdit_infoShow.append("종 목 명 : " + str(_snapshot_[_config_.T_COMPANY_NAME][0]))
-        self.textEdit_infoShow.append("종목코드 : " + str(_snapshot_[_config_.T_COMPANY_CODE][0]))
+        self.textEdit_infoShow.setPlainText("----------------------------------------------------")
+        self.textEdit_infoShow.append("업데이트 : " + str(_snapshot_[self._config_.T_UPDATE_DATE][0]))
+        self.textEdit_infoShow.append("종 목 명 : " + str(_snapshot_[self._config_.T_COMPANY_NAME][0]))
+        self.textEdit_infoShow.append("종목코드 : " + str(_snapshot_[self._config_.T_COMPANY_CODE][0]))
         self.textEdit_infoShow.setTextColor(self._blueColor_)
-        self.textEdit_infoShow.append("어제종가 : " + str(_snapshot_[_config_.T_SHARE_PRICE][0]))
+        self.textEdit_infoShow.append("어제종가 : " + str(_snapshot_[self._config_.T_SHARE_PRICE][0]))
         self.textEdit_infoShow.setTextColor(self._blackColor_)
-        self.textEdit_infoShow.append("총주식수 : " + str(_snapshot_[_config_.T_TOTAL_SHARE][0]))
-        self.textEdit_infoShow.append("자기주식수 : " + str(_snapshot_[_config_.T_SELF_SHARE][0]))
-        self.textEdit_infoShow.append("------------------------------------------------------------")
+        self.textEdit_infoShow.append("총주식수 : " + str(_snapshot_[self._config_.T_TOTAL_SHARE][0]))
+        self.textEdit_infoShow.append("자기주식수 : " + str(_snapshot_[self._config_.T_SELF_SHARE][0]))
+        self.textEdit_infoShow.append("----------------------------------------------------")
         self.textEdit_infoShow.setTextColor(tempColor)
-        self.textEdit_infoShow.append("sRIM     : " + str(_snapshot_[_config_.T_SRIM][0]))
+        self.textEdit_infoShow.append("sRIM     : " + str(_snapshot_[self._config_.T_SRIM][0]))
         self.textEdit_infoShow.setTextColor(self._greenColor_)
-        self.textEdit_infoShow.append("sRIM_w90 : " + str(_snapshot_[_config_.T_SRIM90][0]))
-        self.textEdit_infoShow.append("sRIM_w80 : " + str(_snapshot_[_config_.T_SRIM80][0]))
+        self.textEdit_infoShow.append("sRIM_w90 : " + str(_snapshot_[self._config_.T_SRIM90][0]))
+        self.textEdit_infoShow.append("sRIM_w80 : " + str(_snapshot_[self._config_.T_SRIM80][0]))
         self.textEdit_infoShow.setTextColor(self._blackColor_)
-        self.textEdit_infoShow.append("------------------------------------------------------------")
+        self.textEdit_infoShow.append("----------------------------------------------------")
         self.textEdit_infoShow.append("연결/연도별 지표")
-        #self.textEdit_infoShow.append("------------------------------------------------------------")
+        #self.textEdit_infoShow.append("----------------------------------------------------")
         
         
         #QtTableWidget setting
@@ -361,7 +358,7 @@ class Ui_Dialog(object):
         tempSHSList = temp[3].split()
 
         # ROE
-        item = QtWidgets.QTableWidgetItem(_config_.T_ROE) # create the item
+        item = QtWidgets.QTableWidgetItem(self._config_.T_ROE) # create the item
         item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight) # change the alignment
         self.tableWidget_compInfo.setItem(0, 0, item)        
         # ROE index 0
@@ -382,7 +379,7 @@ class Ui_Dialog(object):
         self.tableWidget_compInfo.setItem(0, 4, item)
         
         # BPS
-        item = QtWidgets.QTableWidgetItem(_config_.T_BPS) # create the item
+        item = QtWidgets.QTableWidgetItem(self._config_.T_BPS) # create the item
         item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight) # change the alignment
         self.tableWidget_compInfo.setItem(1, 0, item)        
         # BPS index 0
@@ -403,7 +400,7 @@ class Ui_Dialog(object):
         self.tableWidget_compInfo.setItem(1, 4, item)
         
         # ShareHolders
-        item = QtWidgets.QTableWidgetItem(_config_.T_SHARE_HOLDERS) # create the item
+        item = QtWidgets.QTableWidgetItem(self._config_.T_SHARE_HOLDERS) # create the item
         item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight) # change the alignment
         self.tableWidget_compInfo.setItem(2, 0, item)        
         # ShareHolders index 0
