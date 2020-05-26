@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import sys
+
 FAIL_UPDATE = 1
 FAIL_CALCULATE = 2
 FAIL_CSV_SAVE = 3

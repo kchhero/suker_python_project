@@ -8,7 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import pyqtSlot, Qt
-import sys
+import sys, os
 from stockCrawling_snapshot import stockCrawlingSnapshot as sCS
 from stockCrawling_ratio import stockCrawlingRatio as sCR
 from stockCrawling_database import stockCrawlingDB as sCDB
@@ -16,6 +16,7 @@ from stockCrawling_display import stockCrawlingDisplay as sCDP
 from pathlib import Path
 import stockConfig as _config_
 import pandas as pd
+import pathlib
 
 UPDATE_BTN_COMP = 1
 UPDATE_BTN_LIST = 2
@@ -34,7 +35,7 @@ class Ui_Dialog(object):
     _blueColor_ = QtGui.QColor(20, 20, 200)
     _greenColor_ = QtGui.QColor(20, 200, 20)
     _blackColor_ = QtGui.QColor(0, 0, 0)
-
+    _csvPath_ = pathlib.Path(os.path.dirname(__file__)+"/../csv/")
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -236,8 +237,11 @@ class Ui_Dialog(object):
     
     def fileListUpdate(self, compCode, isAllUpdate) :
         csvFileList = []
-        if isAllUpdate == True :
-            for path in Path('.').rglob('../csv/*.csv'):
+        allFilesList = list(self._csvPath_.glob('*'))
+
+        if isAllUpdate == True :            
+            #for path in Path('.').rglob(csvPath.glob('*.csv')):
+            for path in allFilesList :
                 temp = path.name
                 temp = temp.split('.csv')[0]
                 if _config_.FILE_DELIMETER_SNAPSHOT in temp :
@@ -251,9 +255,10 @@ class Ui_Dialog(object):
 
         else :
             searchFileCnt = 0
-            for path in Path('.').rglob('../csv/*.csv'):
+            #for path in Path('.').rglob(csvPath.glob('*.csv')):
+            for path in allFilesList :
                 if compCode in path.name :
-                    csvFileList.append("../csv/" + path.name)
+                    csvFileList.append(str(self._csvPath_/path.name))
                     searchFileCnt += 1
                     if searchFileCnt == 2 :
                         break;
@@ -417,7 +422,15 @@ class Ui_Dialog(object):
         item = QtWidgets.QTableWidgetItem(QtWidgets.QTableWidgetItem(str(tempSHSList[4])))
         item.setTextAlignment(Qt.AlignVCenter|Qt.AlignRight)
         self.tableWidget_compInfo.setItem(2, 4, item)
-        
+
+    def getDirMark(self) :
+        linuxMark = '/'
+        winMark = '\\'
+        # print(sys.platform)
+        if sys.platform == 'linux2' or sys.platform == 'linux' :
+            return linuxMark
+        else :
+            return winMark   
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
