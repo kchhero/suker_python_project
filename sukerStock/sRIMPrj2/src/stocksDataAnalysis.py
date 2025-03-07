@@ -11,6 +11,9 @@ class stockDataAnalysis :
     def __init__(self) :
         pass
     
+    def format_won_to_eok(self, amount: int) -> int:        
+        return (amount / (10**8))
+
     def sRIM(self, marketType, stockCode):
         folderPath = ""
         
@@ -34,6 +37,8 @@ class stockDataAnalysis :
         b_total_stockNum = 1
         #지배주주지분, 단위 억원
         c_controlling_interest = 1
+        c_list_controlling_interest = []
+        old_c_list_controlling_interest = []        
         #ROE
         d_list_ROE = []
         old_d_list_ROE = []
@@ -74,13 +79,10 @@ class stockDataAnalysis :
                     
                 elif "지배주주지분" in line:
                     converted_list = ast.literal_eval(temp[1])
-                    temp = converted_list[-1]
-                    c_controlling_interest = int(temp) * self.One_hundred_million
-                    print("지배주주지분 : ", format(c_controlling_interest, ',d'))
-                    
+                    old_c_list_controlling_interest = [int(x) if x not in ("", "N/A(IFRS)") else 0 for x in converted_list[:]]
                 elif "ROE" in line:                    
                     converted_list = ast.literal_eval(temp[1])
-                    old_d_list_ROE = [float(x) if x not in ("", "N/A(IFRS)") else 0.0 for x in converted_list[:]]                    
+                    old_d_list_ROE = [float(x) if x not in ("", "N/A(IFRS)") else 0.0 for x in converted_list[:]]
                     
                 elif "PER" in line:
                     converted_list = ast.literal_eval(temp[1])
@@ -105,6 +107,7 @@ class stockDataAnalysis :
             print("IFRS(연결) 최신연도 Set : ", old_z_list_years[latest_year_index])
             
             z_list_years = old_z_list_years[:latest_year_index+1]
+            c_list_controlling_interest = old_c_list_controlling_interest[:latest_year_index+1]
             d_list_ROE = old_d_list_ROE[:latest_year_index+1]
             e_list_PER = old_e_list_PER[:latest_year_index+1]
             f_list_PBR = old_f_list_PBR[:latest_year_index+1]
@@ -117,17 +120,23 @@ class stockDataAnalysis :
             else:
                 break
         
-        print("Years : ", z_list_years)        
+        print("Years : ", z_list_years)
+        print("지배주주지분 : ", c_list_controlling_interest)
         print("ROE : ", d_list_ROE)
         print("PER : ", e_list_PER)
         print("PBR : ", f_list_PBR)
         print("EPS : ", g_list_EPS)
-        
-        #validate check
-        if c_controlling_interest == 1:
-            print("지배주주지분 값이 이상하거나 없습니다.")  
-            return
 
+        #---------------------------------------------------------------------
+        #지배주주지분
+        #---------------------------------------------------------------------
+        c_controlling_interest = c_list_controlling_interest[-1] * self.One_hundred_million
+        print("지배주주지분 적용값 : %d억원"%self.format_won_to_eok(c_controlling_interest))
+        #validate check        
+        if c_controlling_interest < 10:
+            print("지배주주지분 값이 이상하거나 없습니다.")
+            return
+        
         #---------------------------------------------------------------------
         #주식수 = 발행주식수[-1] - 자사주
         #---------------------------------------------------------------------
@@ -137,15 +146,15 @@ class stockDataAnalysis :
         #---------------------------------------------------------------------
         #초과이익 = 지배주주지분 * (예상 ROE - 기대 수익률)
         #---------------------------------------------------------------------        
-        tempROE = float(d_list_ROE[0]) * float(sConfig.CALC_ROE_WEIGHT0) + \
-                  float(d_list_ROE[1]) * float(sConfig.CALC_ROE_WEIGHT1) + \
-                  float(d_list_ROE[2]) * float(sConfig.CALC_ROE_WEIGHT2)
+        tempROE = float(d_list_ROE[-3]) * float(sConfig.CALC_ROE_WEIGHT0) + \
+                  float(d_list_ROE[-2]) * float(sConfig.CALC_ROE_WEIGHT1) + \
+                  float(d_list_ROE[-1]) * float(sConfig.CALC_ROE_WEIGHT2)
 
         expectedROE = float(float(tempROE) / float(sConfig.CALC_ROE_WEIGHT_SUM) / 100.0)
         print("예상 ROE : %.2f%%" % (expectedROE*100))
         expectedProfitRatio = float(sConfig.EXPECTED_PROFIT_RATIO / 100.0)
         print("기대수익률 : %f%%" % (expectedProfitRatio*100))
-        overProfit = int(c_controlling_interest * expectedROE - expectedProfitRatio)
+        overProfit = int(c_controlling_interest * (expectedROE - expectedProfitRatio))
         print("초과 이익 : ", format(overProfit, ',d'))
 
         #---------------------------------------------------------------------
@@ -170,8 +179,8 @@ class stockDataAnalysis :
         #기업가치(w80) = 지배주주 지분 + 초과이익 * (0.8 / (1 + 기대수익율 - 0.8))
         #sRIM_w80     = 기업가치(w80) / 주식수
         #매수 가격
-        compValueW90 = int(c_controlling_interest + overProfit * (0.8 / (1 + expectedProfitRatio - 0.8)))
-        sRIM_w80 = int(compValueW90 / shareCnt)
+        compValueW80 = int(c_controlling_interest + overProfit * (0.8 / (1 + expectedProfitRatio - 0.8)))
+        sRIM_w80 = int(compValueW80 / shareCnt)
         print("sRIM_w80 : ", format(sRIM_w80, ',d'))
         print(" ")
         print(">>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<")

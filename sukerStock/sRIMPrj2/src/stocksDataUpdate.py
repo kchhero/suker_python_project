@@ -56,8 +56,8 @@ class stockDataUpdate:
                                 corp_name = line[1]
                                 break
 
-                self.set_table11_to_txt(tables[11], stock_code, corp_name)
-                self.set_table3_to_txt(tables[3], stock_code, corp_name)
+                self.set_table11_to_txt(tables[11], marketType, stock_code, corp_name)
+                self.set_table3_to_txt(tables[3], marketType, stock_code, corp_name)
                                 
         def searchTable_all(self, marketType):
                 rfile = ""
